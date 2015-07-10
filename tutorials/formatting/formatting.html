@@ -1,0 +1,436 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Formatting</title>
+      
+        <link rel="apple-touch-icon" sizes="57x57" href="../../icons/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="../../icons/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="../../icons/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="../../icons/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="../../icons/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="../../icons/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="../../icons/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="../../icons/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="../../icons/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="../../icons/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+        <link rel="manifest" href="../../icons/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="../../icons/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+        
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="assets/css/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/style.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie/v9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie/v8.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="../../index.html">MCMASTER <img src="../../images/shield.png" alt="" height="15" width="15"/> OUTREACH</a></h1>
+						<nav id="nav">
+							<ul>
+								<li class="special">
+									<a href="#" class="menuToggle"><span>Menu</span></a>
+									<div id="menu">
+										<ul>
+											<li><a href="../../index.html">Home</a></li>
+											<li><a href="../../menu/tutorials.html">Tutorials</a></li>
+											<li><a href="../../menu/solutions.html">Solutions</a></li>
+                                            <li><a href="../../menu/past.html">Past Workshops</a></li>
+                                            <li><a href="../../menu/resources.html">Resources</a></li>
+                                            <li><a href="../../menu/glossary.html">ElM Glossary</a></li>
+                                            <li><a href="../../menu/fame.html">Hall Of Fame</a></li>
+                                            <li><a href="../../menu/contact.html">Ask Us Questions?</a></li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>Formatting</h2>
+							<p>Format text and create styles!</p>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+<!-- Formatting -->
+                        <a name="8"></a>
+						<section class="wrapper style5">
+							<div class="inner">
+								
+								<h3>Formatting</h3>
+								<pre>
+
+<strong>Objectives of this tutorial:</strong>
+•	Learn about elements and their properties.
+•	Learn how to create basic elements and place them on the screen.
+•	Learn to change the formatting of single elements and groups of elements.
+•	Learn to modify the properties of images.
+•	Learn how to create text and modify properties such as font, size, etc…
+•	Learn about links and tags
+
+Go <a href="http://elm-lang.org/try" target="blank">here</a>, and copy the following code into the window:
+
+<code>
+import Graphics.Element exposing (..)
+import Graphics.Collage exposing (..)
+import Color exposing (..)
+import Text exposing (fromString)
+
+aBook = fittedImage 300 200 "/book.jpg"
+
+sqr = spacer 30 30
+
+main = flow down <| -- to understand the code on lines 12-19. Read the tutorial.
+  
+  [ aBook
+  , opacity 0.5 aBook
+  , let chartreuse = rgba 127 255 10 0.5 in color chartreuse (spacer 100 100)
+  , width 100 aBook
+  , height 100 aBook
+  , tag "red-box" (color red sqr) 
+  , link "#red-box" (leftAligned (fromString "Go to red box")) `below` spacer 10 2000 
+  ] ++ challenges
+
+challenges = [twoBoxes, overlappingShapes]
+
+-- 1. Create two boxes of different colours, which when clicked will navigate to each other.
+twoBoxes : Element 
+twoBoxes = let 
+  box0 = empty -- Change this
+  box1 = empty -- Change this 
+ in box1 `below` spacer 10 2000 `below` box0 -- Change this also
+
+-- 2. Create a several circles (3 or 4) which have different colours and
+-- overlap to form new colours.
+overlappingShapes : Element
+overlappingShapes = 
+  let 
+    red = rgba 255 0 0 0.5
+    green = rgba 0 255 0 0.5
+    blue = rgba 0 0 255 0.5
+  in collage 200 200 
+    [ -- place circle here
+      -- place circle here
+    ]
+</code>
+
+
+<strong>Opacity and Size</strong>
+
+A) This is an image of a book. It is 300 pixels wide and 200 pixels tall.
+<code> aBook = fittedImage 300 200 "/book.jpg" </code>
+
+Note: the word <code>aBook</code> is called a variable. It stores the information - fittedImage 300 200 "/book.jpg"
+
+B) An empty box with side length 30 pixels. It's stored in a variable named sqr .
+<code> sqr = spacer 30 30 </code>
+
+C) The following list has multiple images of book.jpg, some squares, and a link. All these things are called Elements.
+  <code>
+  [ aBook
+  , opacity 0.5 aBook
+  , let chartreuse = rgba 127 255 10 0.5 in color chartreuse (spacer 100 100)
+  , width 100 aBook
+  , height 100 aBook
+  , tag "red-box" (color red sqr) 
+  , link "#red-box" (leftAligned (fromString "Go to red box")) `below` spacer 10 2000 
+  ] 
+</code>
+
+D) The opacity of the book can be modified. Opacity is a measure (from 0 to 1) of how "see-through" an element is. 0 is completely transparent, 1 is opaque.
+  <code> opacity 0.5 aBook </code>
+
+Exercise: Change the opacity of this image by changing 0.5 to any number between 0 and 1.
+
+E) You can create colours using the <code>rgba</code> function. The last number 0.5 in the rgba function below controls the opacity of the color. Chartreuse is the name of the variable that stores this colour.
+<code>let chartreuse = rgba 127 255 10 0.5 in color chartreuse (spacer 100 100)</code>
+
+Note: The numbers <code>127 255 10</code> control which colour is created. By changing these values you can change the colour that shows up on the screen.
+
+Exercise: Change these three values to create a new colour. You can use this link to help you find values for new colours.
+<a href="http://www.w3schools.com/tags/ref_colorpicker.asp" target="_blank">Colour Picker</a>
+
+F) Changing the width or height can be done using these functions.
+ <code>width 100 aBook</code>
+ <code>height 100 aBook</code>
+
+G) Creating a red box and assigning a tag named "red-box" to it. In example H, you will see how to create a link that leads back to this box.
+<code> tag "red-box" (color red sqr) </code>
+
+H) Creates a link to the tag above. Clicking this link, it will lead you to the red box.
+<code>link "/#red-box" (leftAligned (fromString "Go to red box")) `below` spacer 10 2000 </code>
+
+Try: Compile your code and scroll down on the images side. Find the link that says "Go to red box" and click on it. What happened? Were you redirected back to the red square? This is an example of how links and tags work.
+
+<strong>Challenges</strong>
+ 
+1. Create two boxes of different colours, which when clicked will navigate to each other. Find the code shown below and make your changes to that.
+<code>
+twoBoxes : Element 
+twoBoxes = let 
+  box0 = empty -- Change this
+  box1 = empty -- Change this 
+ in box1 `below` spacer 10 2000 `below` box0 -- Change this also
+</code>
+
+Here are some helpful hints if you get stuck along the way…
+
+Hints: 
+  1) Delete the word <code>empty</code> after both box0 and box1. Replace both words with code that creates boxes, and place tags on these boxes. This is similar to what you read in example G) . 
+  This is sample code of what your box0 could look like…
+  <code> box0 = tag "blue-box" (color blue (spacer 30 30))</code> 
+  2) Add links on the line <code>in box1 `below` spacer 10 2000 `below` box0 </code> the same way you learned to add links in example H) .
+  This is sample code of what your links could look like
+  <code> in (link "#blue-box" (box1)) `below` spacer 10 2000 `below` (link "#green-box" (box0))</code>
+
+2. Create several circles (3 or 4) which have different colours and
+ overlap to form new colours. 
+ 
+ <img src="../../examplepics/formatone.png" alt="" height="180" width="180"/>
+
+
+Find the following code and make your changes to that.
+<code>
+overlappingShapes = let 
+  red = rgba 255 0 0 0.5
+  green = rgba 0 255 0 0.5
+  blue = rgba 0 0 255 0.5
+  in collage 200 200 
+    [ -- place circle here
+      -- place circle here
+    ] </code>
+
+
+Hint: 1) Add your new circles inside the collage where its says “place circle here”. Use the three colours that are given. For example, this is how you make one circle…<code>(filled green (circle 30)) </code> 
+2) Use the <code>move</code> function (like the one you used to make your heart) to make the circles overlap and form new colours.
+
+
+<strong>Typeface</strong>
+
+For this part of the tutorial, open a new Elm window by clicking <a href="http://elm-lang.org/try" target="blank">here.</a> Then, copy and paste the code below into the window you just opened:
+<code>
+import Graphics.Element exposing (..)
+import Graphics.Collage exposing (..)
+import Color exposing (..)
+import Text exposing (..)
+
+main = flow down
+  [
+  leftAligned (Text.color red (typeface ["inconsolata", "courier new", "monospace"] (fromString "\nThe quick brown fox jumps over the lazy dog.\n")))
+  ,leftAligned (Text.color blue (typeface ["trebuchet ms"] (fromString "\nThe quick brown fox jumps over the lazy dog.\n")))
+  ]
+</code>
+
+The following letters from A to F will explain different parts of the code you just copied.
+
+A) Anything written inside quotes is a String. For example,
+<code>“The quick brown fox jumps over the lazy dog."</code>
+
+B) The built-in function fromString is used when changing a string into text. For example, this is Text…
+<code>fromString “The quick brown fox jumps over the lazy dog."</code>
+
+C) A List is made up of values placed inside square brackets <code>[</code> and <code>]</code> . Each value must be separated by commas. This is a list of font names:
+<code>["inconsolata", "courier new", "monospace"]</code>
+
+Note: Elm requires you to provide a list of fonts so that in case the first font in the list isn’t available, then it will use other fonts.
+
+D) typeface is another built-in function that needs to have two things after it - a list of fonts and a text. For example,
+<code> typeface    ["inconsolata", "courier new", "monospace"]     (fromString "\nThe quick brown fox jumps over the lazy dog.\n")) </code>
+
+Note: Elm uses the first available font from any given list
+
+E) Now, you can use another built-in function Text.color to change the color of the text. For example, the code below makes your sentence red…
+<code> (Text.color red (typeface ["inconsolata", "courier new", "monospace"] (fromString "\nThe quick brown fox jumps over the lazy dog.\n")))</code>
+
+F) You can use these functions to align your text in different ways. 
+a) leftAligned 
+b) rightAligned 
+c) centered 
+d) justified
+For example, the code below uses leftAligned which starts your sentence at the very left  side of the display screen…
+<code> leftAligned (Text.color blue (typeface ["trebuchet ms"] (fromString "\nThe quick brown fox jumps over the lazy dog.\n"))) </code>
+
+Try: Change the alignment of your function from leftAligned to any of the other options above. Notice what happens.
+
+<strong>Challenges:</strong>
+
+1. Have 3 more sentences display on the screen. Each should have different fonts and colors
+<img src="../../examplepics/formattwo.png" alt="" height="180" width="300"/>
+ 
+Hint: Find the code in your program that looks like the one below and change it by adding more sentences to the list.
+<code>
+	[
+ leftAligned (Text.color red (typeface ["inconsolata", "courier new", 
+"monospace"] (fromString "\nThe quick brown fox jumps over the lazy dog.\n")))
+, leftAligned (Text.color blue (typeface ["comic sans-serif"] (fromString "\nThe quick brown fox jumps over the lazy dog.\n")))
+  	]
+	</code>
+
+<strong>Super Challenge</strong>
+
+Recreate the image below using what you’ve learned so far. Click on this <a href="http://www.w3schools.com/tags/ref_colorpicker.asp" target="blank">link.</a>
+
+
+<img src="../../examplepics/formatthree.png" alt="" height="180" width="180"/>
+
+To get started, copy and paste the following code into <a href="http://elm-lang.org/try" target="_blank">TryElm</a> you just opened.
+<code>
+import Color exposing (..)
+import Graphics.Collage exposing (..)
+import Graphics.Element exposing (..)
+import Text exposing (..)
+
+
+main =
+  collage 150 150 <| List.map shape [0..11] -- Hint 1, 2, & 3 apply here
+
+
+shape n = -- Hint #4
+  let angle = degrees (30 * toFloat n)
+  in
+      circle 10 -- Hint #5
+        |> filled (hsl angle 0.7 0.5) -- Hint #6
+        |> move (45 * cos angle, 45 * sin angle)
+</code>
+
+Here are some hints if you get stuck…
+Hints: 1) On line 8, change <code>List.map</code> to <code>List.map2</code>. 
+<strong>DO NOT CLICK COMPILE UNTIL YOU HAVE FOLLOWED ALL THE HINTS.
+</strong>
+2) Change <code>collage 150 150</code> to <code>collage 300 300</code>
+
+3) Copy and paste this following code at the end of line 8 after <code>[0..11]</code>. 
+<code>
+[ ["times new roman"]
+        , ["helvetica"]
+        , ["sans-serif"]
+        , ["georgia"]
+        , ["serif"]
+        , ["trebuchet ms"]
+        , ["inconsolata"]
+        , ["courier new"]
+        , ["monospace"]
+        , ["calibri"]
+        , ["arial"]
+        , ["verdana"]
+        ]
+</code>
+
+Make sure your code looks like the one shown in the picture below.
+ 
+<img src="../../examplepics/formatfour.png" alt="" height="180" width="400"/> 
+
+4) Change <code> shape n =</code> to <code> shape n font =</code>
+
+5) Delete <code>circle 10</code>, and replace it with a short sentence. For example,
+<code>toForm (centered (Text.color (hsl angle 0.7 0.5) (typeface font (fromString "Hi there"))))</code>
+
+6) Delete the line <code>|> filled (hsl angle 0.7 0.5)</code>
+
+7) In the line <code>|> move (45 * cos angle, 45 * sin angle)</code>. Change 45 to 90. For example, 
+		<code>|> move (90 * cos angle, 90 * sin angle)</code>
+
+<strong>Text Formatting
+</strong>
+Use this <a href="http://elm-lang.org/examples/text" target="blank">link</a> for this part of the tutorial. 
+
+Instructions to get started:
+1) Replace lines 1 and 2 with the following code
+<code>import Graphics.Element exposing (..)
+import Text exposing (..)</code>
+2) On line 9, Change <code>link</code> to <code>Text.link</code>
+
+Explanations for parts of the code
+
+A) The function flow controls the order and the direction in which things are displayed to the screen. For example, when using flow down, each new text is displayed below the previous one. 
+
+Try: Change <code>flow down</code> to <code>flow up</code> or <code>flow right</code> or <code>flow left</code>.
+
+B) bold and italic functions are used to bold and italicize fonts. For example,
+<code>bold (fromString “Bold”)</code> and <code>italic (fromString "Italicize")</code>
+
+Try: Switch the bold and italicize. 
+
+C) link and leftAligned still work the same way as the previous tutorial
+
+Try: Change the link from <code>/</code> to <code>”http://outreach.mcmaster.ca”</code>. Click it and see what happens.
+
+D) You can use <code>++</code> to add two Texts together to make one. For example, <code>(fromString "Hi,")) ++ (fromString "  there.")</code> will create “Hi, there”
+
+Try: Add more words or sentences to the existing word <code>“Bold”</code>. For example, 
+<code>(bold ((fromString "Bold.")) ++ (fromString " This is Bold."))</code>
+
+E) Instead of putting brackets around all your code every time you add new functions. You can use the infix <code><|</code>. for example writing <code>leftAligned <| italic <| fromString "Italicize"</code> is the same as writing <code>leftAligned (italic (fromString "Italicize"))</code>
+
+Try: Add infixes to your code and get rid of the brackets.
+
+F) There is also another function you can use called line. For example, you can use it to underline something or strike a line through something.
+
+Try: 1) Add <code>line Under</code> in front of <code>(italic (fromString "Italicize"))</code>. This should underline the word “Italicize”.
+2) Change the word <code>Under</code> to <code>Through</code>. Notice what happens when you compile.
+
+<strong>Challenge</strong>
+
+1. Try to recreate the following by changing the text in the code from earlier.
+
+ <img src="../../examplepics/formatfive.png" alt="" height="80" width="700"/> 
+
+Hint: You will need to use <code>++</code>, <code>line Under</code>, <code>line Through</code>
+
+Extra: You can also use Text.height to change the size of the font. For example, Text.height 50 <| bold <| fromString "Hi, there."
+
+                                </pre>
+                            </div>
+                        </section>
+                                     
+					
+                        
+                        
+<a href="mouse.html" class="button fit">Previous Tutorial</a>
+<a href="../../menu/tutorials.html" class="button fit">Back to Tutorials</a>
+<a href="maze.html" class="button fit">Next Tutorial</a>                            
+
+							</div>
+						</section>
+					</article>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="icons">
+							<li><a href="http://www.twitter.com/MacCASOutreach" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="http://www.facebook.com/McMasterCASOutreach" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							
+							<li><a href="../../menu/contact.html" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+						</ul>
+						<ul class="copyright">
+							<li>&copy;legionn_&amp; code_blooded 2015 <br> McMaster Computing and Software 2015</br> </li>
+						</ul>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/init.js"></script>
+
+	</body>
+</html>

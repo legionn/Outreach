@@ -1,0 +1,226 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Animation</title>
+        
+        <link rel="apple-touch-icon" sizes="57x57" href="../../icons/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="../../icons/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="../../icons/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="../../icons/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="../../icons/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="../../icons/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="../../icons/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="../../icons/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="../../icons/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="../../icons/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+        <link rel="manifest" href="../../icons/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="../../icons/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+        
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="assets/css/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/style.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie/v9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie/v8.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="../../index.html">MCMASTER <img src="../../images/shield.png" alt="" height="15" width="15"/> OUTREACH</a></h1>
+						<nav id="nav">
+							<ul>
+								<li class="special">
+									<a href="#" class="menuToggle"><span>Menu</span></a>
+									<div id="menu">
+										<ul>
+											<li><a href="../../index.html">Home</a></li>
+											<li><a href="../../menu/tutorials.html">Tutorials</a></li>
+											<li><a href="../../menu/solutions.html">Solutions</a></li>
+                                            <li><a href="../../menu/past.html">Past Workshops</a></li>
+                                            <li><a href="../../menu/resources.html">Resources</a></li>
+                                            <li><a href="../../menu/glossary.html">ElM Glossary</a></li>
+                                            <li><a href="../../menu/fame.html">Hall Of Fame</a></li>
+                                            <li><a href="../../menu/contact.html">Ask Us Questions?</a></li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>Animation</h2>
+							<p>Create animations using 2D shapes!</p>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+
+					
+                        
+                        <!-- Animation -->
+                        <a name="2"></a>
+						<section class="wrapper style5">
+							<div class="inner">
+								
+								<h3>Animation</h3>
+								<pre>
+Code links and examples:
+<a href="http://elm-lang.org/examples/clock" target="_blank">Code Set 1</a>
+
+<b>Objectives of this tutorial:</b>
+1.	Learn to animate shapes
+
+<img src="../../examplepics/BeatingHeart.gif" alt="" height="180" width="180"/><img src="../../examplepics/batmanmove.gif" alt="" height="180" width="180"/><img src="../../examplepics/minion.gif" alt="" height="180" width="180"/><img src="../../examplepics/ironman.gif" alt="" height="180" width="180"/>
+
+<b>Exercises:</b>
+1. Now that you have made some shapes, we can try to animate them. We will first try to make a beating heart by applying the <code>scale _ </code> function onto the heart shape. 
+
+Click on <a href="http://elm-lang.org/examples/clock" target="_blank">Code Set 1</a>
+Steps A) to C) must be completed before clicking compile!
+    A)	Delete the last block of code (hand clr len time …), and <strong>replace it in this format: </strong>
+    
+    <code>variableName = group [… , … , … ] </code>
+    Explanation: 
+    - <code>variableName</code>: This can be any name you want to call the group of shapes, such as <code>heart = … </code>
+    - <code>group</code>: This function groups all the shapes into a combined shape
+    - <code>[ … , … , …]</code>: This is a list with each shape separated by a comma.          
+    <strong>Heart Example: </strong>
+    <code>
+    heart = group [ move (0,0) (filled red (ngon 4 50))
+                  , move (20,20) (filled red (circle 36))
+                  , move (-20,20) (filled red (circle 36))]
+             </code>
+             
+    B)	Delete the “clock t …” block of code, and replace it in this format:
+    <code>functionName t = collage 300 300 [variableName |> scale (abs(sin(t/1000)))] </code>
+    <code>functionName</code>: This can be any name you want to call what will happen (animation) to the shapes, such as <code>heartBeat t</code>
+    <code>collage ___ ___</code> This is how big the background will be (i.e. 300 by 300 pixels)
+    <code>variableName</code> This name must be what you are trying to animate, in this case it would be the <code>heart</code> shape 
+    (combined group of shapes).
+    <code>scale ((abs(sin(t/1000)))+0.5)</code> You can play around with the numbers here. For the heart, since we are scaling, 
+    we need the <code>abs</code> absolute value function to scale only positively. The “sin” is a math trig function that is basically a 
+    wave that goes up and down; <a href="http://www.joelstrait.com/blog/2009/10/12/sine.png" target="_blank">here is a link to the function.</a>
+    
+    <strong>HeartBeat Example: </strong>
+    <code>heartBeat t = collage 300 300 [ heart |> scale (abs(sin (t/1000)))]</code>
+    
+    C)	Change the “clock” variableName in <code>main = Signal.map clock (every second)</code> to your variable name (heart). 
+    Also change <code>(every second)</code> to <code>(every millisecond)</code> so that the screen can re-load so fast that it looks 
+    animated.
+    
+    Main Example: <code>main = Signal.map heartBeat (every millisecond)</code>
+
+<b>Great Job! You now have a beating heart.</b>
+>> Copy-Paste this piece of code inside your <code>heartbeat t</code> function: 
+	<code>collage 300 300 [ heart |> move ((50*(sin (t/500))),(50*(cos (t/500))))]</code>
+	Here we animated the heart by having it move in a circle instead, by using the move function and having (50*sin (x), 50*cos (y))
+    <code>move ((50*(sin (t/500))),(50*(cos (t/500))))</code>
+     
+>> Try changing <code>heart</code> to a different shape such as a ball, or anything you want. 
+	Try changing the numbers around and see what happens
+>> Try to use the rotate function by replacing the move function with <code> |> rotate (5*(sin (t/500)))</code>. 
+>> You can even use all the functions to animate the shape, just remember to separate each animation line with the <code> |> </code>
+(called an infix operator). 
+
+<b>Batman Example!</b>
+<code>
+import Color exposing (..)
+import Graphics.Collage exposing (..)
+import Graphics.Element exposing (..)
+import Time exposing (..)
+
+main = Signal.map animate (every millisecond)
+  
+animate t = collage 300 300 
+  [ batman
+  |> move ((50*(sin (t/1000))),(50*(cos (t/1000))))
+  |> rotate (10*(t/5000))
+  |> scale ((abs(sin (t/500))) + 0.7)
+  ]
+
+batman = group
+    [ move (0,0) (filled black (circle 400))
+    , move (0,0) (filled darkGrey (circle 190))
+    , move (0,0) (filled white (circle 180))
+    , move (0,0) (filled darkGreen (circle 170))
+    , move (0,0) (filled green (circle 160))
+    , move (0,0) (filled blue (circle 150))
+    , move (0,0) (filled darkBlue (circle 140))
+    , move (0,0) (filled yellow (circle 130))
+    , move (0,0) (filled darkYellow (circle 120))
+    , move (0,0) (filled red (circle 110))
+    , move (0,0) (filled lightRed (circle 100))
+    , move (0,0) (filled black (circle 50))
+    , move (0,0) (filled skinColor (circle 50)) |> scale 0.9
+    , move (0,-4) (filled black (polygon [(-10,0),(0,-5),(10,0),(3,10),(-3,10)])) |> scale 5
+    , move (29,35) (filled black (ngon 3 30)) |> rotate (degrees 70)
+    , move (-29,35) (filled black (ngon 3 30)) |> rotate (degrees 110)
+    , move (25,0) (filled white (oval 40 20)) |> rotate (degrees 30)
+    , move (25,8) (filled black (rect 45 15)) |> rotate (degrees 20)
+    , move (-25,0) (filled white (oval 40 20)) |> rotate (degrees 150)
+    , move (-25,8) (filled black (rect 45 15)) |> rotate (degrees 160)
+    , move (0,-35) (filled black (rect 20 2))
+    , move (-12,-36) (filled black (rect 5 2)) |> rotate (degrees 20)
+    , move (12,-36) (filled black (rect 5 2)) |> rotate (degrees 160)
+    ]
+   
+skinColor = hsl 0.17 1 0.74
+</code>
+
+<b>Have fun with animations and see what you can come up with!</b>
+
+                                </pre>
+<a href="shapes.html" class="button fit">Previous Tutorial</a>
+<a href="../../menu/tutorials.html" class="button fit">Back to Tutorials</a>
+<a href="images.html" class="button fit">Next Tutorial</a>
+                            </div>
+                        </section>
+
+
+
+							</div>
+						</section>
+
+							</div>
+						</section>
+					</article>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="icons">
+							<li><a href="http://www.twitter.com/MacCASOutreach" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="http://www.facebook.com/McMasterCASOutreach" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							
+							<li><a href="../../menu/contact.html" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+						</ul>
+						<ul class="copyright">
+							<li>&copy;legionn_&amp; code_blooded 2015 <br> McMaster Computing and Software 2015</br> </li>
+						</ul>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/init.js"></script>
+
+
+	</body>
+</html>

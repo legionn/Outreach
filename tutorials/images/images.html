@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Images</title>
+      
+        <link rel="apple-touch-icon" sizes="57x57" href="../../icons/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="../../icons/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="../../icons/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="../../icons/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="../../icons/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="../../icons/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="../../icons/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="../../icons/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="../../icons/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="../../icons/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+        <link rel="manifest" href="../../icons/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="../../icons/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+        
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="assets/css/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/style.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie/v9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie/v8.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="../../index.html">MCMASTER <img src="../../images/shield.png" alt="" height="15" width="15"/> OUTREACH</a></h1>
+						<nav id="nav">
+							<ul>
+								<li class="special">
+									<a href="#" class="menuToggle"><span>Menu</span></a>
+									<div id="menu">
+										<ul>
+											<li><a href="../../index.html">Home</a></li>
+											<li><a href="../../menu/tutorials.html">Tutorials</a></li>
+											<li><a href="../../menu/solutions.html">Solutions</a></li>
+                                            <li><a href="../../menu/past.html">Past Workshops</a></li>
+                                            <li><a href="../../menu/resources.html">Resources</a></li>
+                                            <li><a href="../../menu/glossary.html">ElM Glossary</a></li>
+                                            <li><a href="../../menu/fame.html">Hall Of Fame</a></li>
+                                            <li><a href="../../menu/contact.html">Ask Us Questions?</a></li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>Images</h2>
+							<p>Insert and modify your own existing images with Elm!</p>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+<!-- Images -->
+                        <a name="3"></a>
+						<section class="wrapper style5">
+							<div class="inner">
+								
+								<h3>Images</h3>
+								<pre>
+Code links and examples: 
+<a href="http://elm-lang.org/examples/Image" target="_blank"> Code Set 1</a>
+<a href="http://elm-lang.org/examples/FittedImage" target="_blank"> Code Set 2</a>
+<a href="http://elm-lang.org/examples/CroppedImage" target="_blank"> Code Set 3</a>
+
+<img src="../../examplepics/image.jpg" alt="" height="180" width="180"/>
+
+
+
+<b>Objectives of this tutorial:</b>
+    Learn to use different types of images
+    Learn to change image sizes
+    Learn how to crop images
+    Learn how to change the dimensions of an image using <code>width</code> and <code>height</code>
+
+<b>Exercises:</b>
+1. Click on the “Code Set 1” link
+    You should be able to see an image of a stack. 
+    Change the size of the image by changing the numbers in the example.
+        Try: On line 6, change <code>image 472 315</code>  to <code>image 200   
+        500</code>
+    Also, change the image to shells by replacing “stack” with “shells”.
+            Try: On line 6, change <code>”/stacks.jpg”</code> to 
+        <code>”/shells.jpg”</code>
+  
+2. Click on the “Code Set 2” link.
+    A) You should see an image of a book.  
+    B) Change the size of the image by changing the numbers.  
+        Try: On line 6, change <code>image 472 315</code>  to <code>image 200   
+        500</code>
+    Notice: that instead of stretching the image, this change maintains the aspect ratio.
+
+3. Click on the “Code Set 3” link.
+    A) You should an image of yogi bear, and on line 9, you should see <code>croppedImage (10,10) 150 150</code>. This means it takes a rectangle out of the picture starting at <code>(10,10)</code> , and that the rectangle it takes out is <code>150</code> pixels wide by <code>150</code>pixels tall in size.
+    B) Change the numbers in the code in order to change the size.
+        Try:   
+    On line 9, change <code>(10,10) 150 150 </code> to <code>(10,10) 250 250</code>
+          b.   Now, again change it to <code>(0,0) 250 250</code>
+          c.   Lastly, change it to <code>(100,0) 250 250</code>
+ 
+<b>Challenge:</b> Crop the picture so that you can only see his hands. (Hint: change the <code>100</code> in <code>(100,0)</code> to a higher number.
+
+Click on “Code Set 1” link again. 
+    Replace <code>image</code> with <code>tiledImage</code>.  
+    Change <code>473 315</code> to <code>600 500</code> .
+    You will notice that the function <code> tiledImage</code> has created multiple tiles or copies of the original image to fill up the space.
+    You can play around with the <code>600 500</code> numbers to see more or less tiles
+
+In the code that you just wrote, delete all of line 6 and replace it with <code>height 100 (width 200 (image 500 300 "/stack.jpg"))</code>.  
+    Change <code>height 100</code> to <code>height 300</code>
+    Change <code>width 200</code> to <code>width 300</code>
+Did you see how the shape of the picture transformed when you changed the height and the width? If not, play around with these two numbers until you think you understand what’s going on.
+
+                                
+                                </pre>
+                            </div>
+                        </section>                        
+					
+                        
+                        
+<a href="animation.html" class="button fit">Previous Tutorial</a>
+<a href="../../menu/tutorials.html" class="button fit">Back to Tutorials</a>
+<a href="fills.html" class="button fit">Next Tutorial</a>                           
+
+							</div>
+						</section>
+					</article>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="icons">
+							<li><a href="http://www.twitter.com/MacCASOutreach" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="http://www.facebook.com/McMasterCASOutreach" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							
+							<li><a href="../../menu/contact.html" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+						</ul>
+						<ul class="copyright">
+							<li>&copy;legionn_&amp; code_blooded 2015 <br> McMaster Computing and Software 2015</br> </li>
+						</ul>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/init.js"></script>
+
+	</body>
+</html>

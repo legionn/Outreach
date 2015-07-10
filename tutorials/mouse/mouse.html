@@ -1,0 +1,275 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Functions: Mouse</title>
+      
+        <link rel="apple-touch-icon" sizes="57x57" href="../../icons/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="../../icons/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="../../icons/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="../../icons/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="../../icons/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="../../icons/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="../../icons/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="../../icons/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="../../icons/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="../../icons/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+        <link rel="manifest" href="../../icons/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="../../icons/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+        
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="assets/css/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/style.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie/v9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie/v8.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="../../index.html">MCMASTER <img src="../../images/shield.png" alt="" height="15" width="15"/> OUTREACH</a></h1>
+						<nav id="nav">
+							<ul>
+								<li class="special">
+									<a href="#" class="menuToggle"><span>Menu</span></a>
+									<div id="menu">
+										<ul>
+											<li><a href="../../index.html">Home</a></li>
+											<li><a href="../../menu/tutorials.html">Tutorials</a></li>
+											<li><a href="../../menu/solutions.html">Solutions</a></li>
+                                            <li><a href="../../menu/past.html">Past Workshops</a></li>
+                                            <li><a href="../../menu/resources.html">Resources</a></li>
+                                            <li><a href="../../menu/glossary.html">ElM Glossary</a></li>
+                                            <li><a href="../../menu/fame.html">Hall Of Fame</a></li>
+                                            <li><a href="../../menu/contact.html">Ask Us Questions?</a></li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>Functions: Mouse</h2>
+							<p>Control objects on the screen using the mouse! </p>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+<!-- Functions with Mouse Interaction -->
+                        <a name="8"></a>
+						<section class="wrapper style5">
+							<div class="inner">
+								
+								<h3>Functions with Mouse Interaction</h3>
+								<pre>
+
+
+Objectives of this tutorial:
+
+1. Learn to use functions in more interesting applications
+Exercises:
+1. Now that you can create simple functions, let’s create a more difficult function that will 
+help us with our next program. Go to <a href="http://elm-lang.org/try">Try ELM</a>.
+A) Let’s start with this template of code that we will modify, and add our own functions. 
+Copy-Paste the follow lines:
+<code>
+import Color exposing (..)
+import Graphics.Collage exposing (..)
+import Graphics.Element exposing (..)
+import Mouse
+import Window
+import Text exposing (..)
+main = Signal.map2 layout Mouse.position Window.dimensions 
+layout (x, y) (width, height) = 
+     let (xCentered, yCentered) = 
+     (toFloat x - toFloat width/2, toFloat height/2 - toFloat y)
+     in collage width height
+                [ eye |> move (xCentered,yCentered)
+                , text <| bold <| fromString 
+                       <| "Window Dimensions: " ++ (toString (width, height))
+                , (text <| bold <| fromString <| "Mouse Position: " ++ (toString (x,y))) 
+                  |> move (0,-20) 
+                ]
+eye = group [ (filled darkBrown (circle 13))  
+            , (filled black (circle 10)) 
+            , move (-4,4) (filled white (circle 3)) 
+            ]
+stopX (x,y)  = (if | x > 100    -> 100
+                   | otherwise -> x       
+               , y)
+stopY (x,y)  = (x,
+               if | y < -200    -> -200
+                  | otherwise -> y
+               )
+broccoli (x,y)  = (if | x > 100   -> 100
+                      | x < -100    -> -100
+                      | otherwise -> x
+                   , y)
+doubleSpeedX (x,y) = (2*x, y)
+distance (x1,y1) (x2,y2) = sqrt((x1 - x2)^2 + (y1 - y2)^2)
+</code>
+
+In depth:
+- The <code>main</code> function uses <code>Signal.map2</code> to combine two 
+signals together.  The first signals change according to the mouse position, and the 
+second signals change according to the size of the window. Try moving the mouse 
+around and watch how the numbers change. We need both signals because the mouse 
+(0,0) point is the top-left corner, but when drawing, (0,0) is the middle.  We can only 
+convert between the two if we know the size of the window, which can change.  Try 
+resizing the drawing window by dragging the pane divider (the bar in the middle) and 
+see the window dimensions get updated.  <code>Signal.map2 </code> uses a function, 
+in this case the custom function layout that we created, to do the combination.  The 
+logic of your program is all contained in this function and functions it calls. 
+- Next we need to determine where the middle of the screen is. The 
+<code>(xCentered,yCentered)</code> is calculated using the mouse position and the 
+window dimensions. The <code>toFloat</code> is used to convert a data type to Float 
+(decimal numbers).
+- Now that we have used <code>let</code> to declare what the centered x and y values 
+are, we use <code>in</code> to say where we need to use these values. In this case, it 
+is in a collage which has the dimensions of the window. Inside the collage function, we 
+call the shape that moves based on the mouse signal, and we have some text that 
+updates based on the two signals in our program. The backwards infix operator <code> 
+<| </code> simply feeds the data on its right side to the function that it points to (left 
+side). You can also use <code> |> </code> to do so the other way around, just like 
+<code>|> move (0,-20)</code> does, except you need to remember that it needs to 
+know what exactly is being fed.  This is why we surround the data before the operator 
+with brackets. 
+B) (Optional) If you want change the eye to your own shape, you can use a shape you’ve 
+already made, such as the heart from the heart tutorial. Make sure to change the variable 
+name <code> eye </code> to describe your new shape.
+<code> 
+eye = group [ (filled darkBrown (circle 13))  
+                 , (filled black (circle 10)) 
+                    , move (-4,4) (filled white (circle 3)) 
+                    ]
+</code>
+
+You will also have to change <code>eye</code> in <code> eye |> move (xCentered, 
+yCentered)</code> to your new variable name. 
+For example: If you called the shapes <code>smileyFace = group […] </code>, then 
+change <code>eye</code> to <code>smileyFace</code> because that is the new group of 
+shapes you would like to use. 
+C) The first function (<code>stopX</code>) stops the object from moving beyond 100 pixels 
+to the right (from the center). Test the following function:
+<code> stopX (x,y)  = (if | x > 100    -> 100
+                         | otherwise -> x       
+                                    , y)
+</code>
+by applying the function to <code>(xCentered,yCentered)</code> This is what it will look 
+like: <code> |> move (stopX (xCentered,yCentered)) </code>. Move the mouse around and 
+see what happens.
+
+<strong>Explanation:</strong>
+- The name of the function is <code> stopX </code>, and it takes the input 
+<code>(x,y)</code>.  (The inputs are also called arguments.) In this function, the 
+output point (x,y) is sometimes the same as the input, and sometimes it is different.  
+- <code>if | … -> … </code> is a special function which makes a choice, and is 
+sometimes called a “case statement”. It computes conditions given on the left, 
+following the <code>|</code>, top to bottom, until it finds a “true” case, and then 
+computes the value after the <code> -> </code>.  Translated into English, this function 
+says “if <code>x</code> is greater than 100, the value is 100, otherwise the value is 
+<code>x</code>.”
+
+D) The second function (<code>stopY</code>) limits the object from moving down less than 
+(-200) pixels. Test this function by applying it in the same way you did for the 
+<code>stopX</code> function.
+
+E) The third function (<code>broccoli</code>) uses three cases. Test the function and see 
+what it does. Once you know what it does, change the function name “broccoli” so that it 
+describes what it does. (This is an example of how a function name or variable name can 
+be anything you want, but should be named something descriptive, so that everyone can 
+understand what the function does.)
+
+F) The fourth function (<code>doubleSpeedX</code>) doubles the distance that the object 
+moves based on the mouse position. Test the function by applying it to 
+<code>(xCentered,yCentered)</code>. 
+
+G) Now try to change the <code>doubleSpeedX</code> function to halve the speed instead. 
+Remember to change the name of the function so that it matches this new purpose.
+
+H) (Optional) You can even add multiple cases and limit the object to move only in a square, 
+or anything else you can think of! Remember that you can have the function modify BOTH 
+<code>x</code> and <code>y</code> at once, since the argument that the function takes is 
+<code>(x,y)</code>. 
+
+BONUS: Black Hole Challenge: 
+We have included a function (<code>distance</code>) that can calculate the distance from 
+one point to another (the function takes both points as arguments). 
+The Challenge: Write a new function which makes the eye (object) “invisible” when inside 
+a circle of radius 100 in the middle of the canvas. 
+
+Hints / Help:
+To do this, you will have to use the distance formula given, as well as have the 
+<code> (width, height) </code> the argument. In English, this is what you need to code: “If the 
+distance from (x,y) and (0,0) is greater than 100, the value is x, otherwise the value is 
+2000”. Keep in mind, the reason we said “otherwise the value is 2000” is because we want 
+it to look like it disappeared. That is why we change its x-value to a huge number like 
+2000, so that we can’t see it on our screen. You can change 2000 to be any big number, as 
+long as we cannot see the object on the screen. You must do this for the y-value as well. 
+To get you started, the frame of the code would look like this: 
+
+<code>
+blackHole (x,y) (width,height) = (If | distance (x,y) (width, height) …
+       | otherwise … 
+ ,    
+  If | distance (x,y) (width, height) …
+     | otherwise …
+  )
+</code>
+~ Finally, you will need to apply the blackHole function to (xCentered, yCentered) and the 
+middle of the screen, which is (0,0). Applying the function would look like:
+<code> |> move (blackHole (xCentered, yCentered) (0,0)) </code>
+
+                                </pre>
+                            </div>
+                        </section>
+                                     
+					
+                        
+                       
+<a href="mouse.html" class="button fit">Previous Tutorial</a>
+<a href="../../menu/tutorials.html" class="button fit">Back to Tutorials</a>
+<a href="formatting.html" class="button fit">Next Tutorial</a>
+                       
+
+							</div>
+						</section>
+					</article>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="icons">
+							<li><a href="http://www.twitter.com/MacCASOutreach" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="http://www.facebook.com/McMasterCASOutreach" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							
+							<li><a href="../../menu/contact.html" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+						</ul>
+						<ul class="copyright">
+							<li>&copy;legionn_&amp; code_blooded 2015 <br> McMaster Computing and Software 2015</br> </li>
+						</ul>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/init.js"></script>
+
+	</body>
+</html>

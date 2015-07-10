@@ -1,0 +1,321 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Colours: 2D Fills</title>
+      
+        <link rel="apple-touch-icon" sizes="57x57" href="../../icons/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="../../icons/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="../../icons/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="../../icons/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="../../icons/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="../../icons/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="../../icons/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="../../icons/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="../../icons/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="../../icons/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+        <link rel="manifest" href="../../icons/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="../../icons/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+        
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="assets/css/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/style.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie/v9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie/v8.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="../../index.html">MCMASTER <img src="../../images/shield.png" alt="" height="15" width="15"/> OUTREACH</a></h1>
+						<nav id="nav">
+							<ul>
+								<li class="special">
+									<a href="#" class="menuToggle"><span>Menu</span></a>
+									<div id="menu">
+										<ul>
+											<li><a href="../../index.html">Home</a></li>
+											<li><a href="../../menu/tutorials.html">Tutorials</a></li>
+											<li><a href="../../menu/solutions.html">Solutions</a></li>
+                                            <li><a href="../../menu/past.html">Past Workshops</a></li>
+                                            <li><a href="../../menu/resources.html">Resources</a></li>
+                                            <li><a href="../../menu/glossary.html">ElM Glossary</a></li>
+                                            <li><a href="../../menu/fame.html">Hall Of Fame</a></li>
+                                            <li><a href="../../menu/contact.html">Ask Us Questions?</a></li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>Colours: 2D Fills</h2>
+							<p>Create custom colours and gradients for your shapes and animations!</p>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+<!-- 2D Fills -->
+                        <a name="4"></a>
+						<section class="wrapper style5">
+							<div class="inner">
+								
+								<h3>2D Fills</h3>
+								<pre>
+                        
+
+<b>The links to the code are:</b>
+
+<a href="http://elm-lang.org/examples/linear-gradient" target="_blank">Example 1</a>
+
+<a href="http://elm-lang.org/examples/radial-gradient" target="_blank">Example 2</a>
+
+<a href="http://elm-lang.org/examples/texture" target="_blank">Example 3</a>
+
+<b>Objectives of this tutorial:</b> 
+
+    1. Learn how to create colours using hsl 
+    
+    2. Learn how to create colours using rgb 
+    
+    3. Learn how to make a linear gradient 
+    
+    4. Learn how to make radial gradient
+
+<b>Colors</b> 
+
+    1. Open a fresh Elm window by clicking this link <a href="http://elm-lang.org/try" target="blank">here!</a>
+    
+    <img src="../../examplepics/fillone.png" alt="" height="180" width="180"/>
+    
+    2. Copy these following lines of code into the Elm window and hit ‘Compile’:
+
+        <code>
+        
+        import Color exposing (..)
+        
+        import Graphics.Collage exposing (..)
+        
+        import Graphics.Element exposing (..)
+        
+        green = hsl (degrees 120) 0.7 0.5
+        
+        blue  = hsl (degrees 240) 0.7 0.5
+        
+        main = collage 300 300 
+        
+            [move (0,0) (filled green (circle 10))
+        
+            ,move (25,25) (filled blue (rect 20 20))
+        
+            ]
+        
+        </code>
+        
+
+        This piece of code creates two shapes with different colours, by using the <code>hsl</code> function. 
+            
+        <code>hsl</code> stands for hue, saturation, and lightness. For example, you can create new colors 
+            
+        the following way: 
+            
+		<code>
+        orange = hsl ( degrees 30) 0.7 0.5 
+            
+        purple = hsl ( degrees 270 ) 0.7 0.5
+        </code>                    
+	
+        By changing the degrees number, you can change the colour. For example, (degrees 0) 
+        
+        is red, (degrees 120) is green, and (degrees 240) is blue. 
+
+        Try: Play around with the degrees and find new colours.
+        
+            Saturation - currently, all the colours have a second number of 0.7, after the degrees. 
+            
+            You can change this to any number between 0.0 to 1.0 . If you change this number to 
+            
+            anything close to 1.0, the colour will appear very bright. Otherwise, if you change it to a 
+            
+            number closer to 0.0, the colour will look very dark.
+        
+        Try: Play around with saturation of each shape
+        
+            The last number – 0.5 – controls lightness. Making this number more than 0.5, adds a 
+            
+            shade of white to your colour. Anything less than 0.5, will add a shade of black.
+            
+        Try: Play around with lightness of each shape
+
+<b>Exercises:</b>
+
+    1. Write code for more colours under the existing green and blue code.
+    
+    2. Create more shapes under “collage” in the “main” function using these new colours.
+    
+    3. Use move and rotate to spread these shapes across the screen.
+    
+    <img src="../../examplepics/filltwo.png" alt="" height="180" width="180"/>
+
+<b>Challenge:</b>
+
+    1. Using the knowledge you just learned about how to create new colours, modify the 
+    
+    colours you made in your previous drawings and animations.
+
+ 
+
+<b>Gradient (Linear) </b>
+
+	<img src="../../examplepics/fillthree.png" alt="" height="180" width="180"/>
+
+	For this part, you will use code from Example 2.
+
+<b>Exercises</b>
+
+    1. On line 9, after the word “rgb”, there are three numbers  “0 171 235”. These numbers 
+    
+    create the colour of the sky behind Mario.
+    
+    2. Change these numbers to change the colour of the sky. Each number has to be 
+    
+    between 0 and 255
+    
+    3. On line 11, there are another set of rgb numbers. These numbers create the colour of 
+    
+    the ground.
+    
+    4. Change these numbers to change the colour of the ground.
+
+<b>Challenge:</b>
+
+    1. The first number inside each set of brackets as shown below, for example, 0, 0.79, 
+    
+    0.8, 1 in,
+
+    <code> 
+    
+    [ (0, rgb 0 171 235)
+    
+        , (0.79, white)
+    
+        , (0.8, rgb 38 192 0)
+    
+        , (1, white)
+    
+        ]
+    
+    </code>
+
+    all these numbers mark where new gradients start (using percentages). For instance, in 
+    
+    this example, the first gradient goes from 0 to 0.79, which means it starts at 0% and 
+    
+    goes all the way down to 79% of the collage. Now, the next gradient starts immediately 
+    
+    after this percentage. And so here, the next percentage goes from 0.8 to 1, or 80% to 
+    
+    100%.
+
+    2. On line 10, replace 0.79 to 0.24, and change 0.8 on line 11 to 0.25.
+    
+    3. Do you see the difference? Play around with these values some more.
+    
+    4. Feel free to also change the rgb values.
+    
+    <img src="../../examplepics/fillfour.png" alt="" height="180" width="180"/>
+
+<b>Radial Gradient</b>
+	
+    <img src="../../examplepics/fillfive.png" alt="" height="180" width="180"/>
+
+    Use Example 3 for this section.
+    
+    Unlike linear gradient which flowed from top to bottom, radial gradient works in a circle. 
+    
+    The colour starts at the centre and expands outwards in steps. The code to create radial 
+    
+    gradient follows the following format:
+
+    <code>
+    
+    grad : Gradient
+    
+    grad =
+    
+      radial (inner circle center x, y) 50 (outer circle center x, y) 90
+    
+        [ (  0, rgb  244 242 1)
+    
+        , (step, rgb  228 199 0)
+    
+        , (  1, rgba 228 199 0 0)
+    
+        ]
+    
+    </code>
+
+    50 is the radius of the inner circle, and 90 is the radius of the outer circle. The radius of 
+    
+    the outer circle must always be bigger.
+
+<b>Exercises: </b>
+
+    1. On line 8, Change 90 to 100. What difference does it make?
+    
+    2. On line 10, change 0.8 to any value between 0 and 1.
+    
+    3. Change the order of the shapes inside the main function. (lines 42-45)
+                              
+                                </pre>
+                            </div>
+                        </section>
+                                     
+					
+                        
+                        
+<a href="images.html" class="button fit">Previous Tutorial</a>
+<a href="../../menu/tutorials.html" class="button fit">Back to Tutorials</a>
+<a href="functions.html" class="button fit">Next Tutorial</a>                           
+
+							</div>
+						</section>
+					</article>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="icons">
+							<li><a href="http://www.twitter.com/MacCASOutreach" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="http://www.facebook.com/McMasterCASOutreach" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							
+							<li><a href="../../menu/contact.html" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+						</ul>
+						<ul class="copyright">
+							<li>&copy;legionn_&amp; code_blooded 2015 <br> McMaster Computing and Software 2015</br> </li>
+						</ul>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/init.js"></script>
+
+	</body>
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Game: Adventure</title>
+      
+        <link rel="apple-touch-icon" sizes="57x57" href="../../icons/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="../../icons/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="../../icons/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="../../icons/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="../../icons/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="../../icons/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="../../icons/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="../../icons/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="../../icons/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="../../icons/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+        <link rel="manifest" href="../../icons/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="../../icons/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+        
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="assets/css/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/style.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie/v9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie/v8.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="../../index.html">MCMASTER <img src="../../images/shield.png" alt="" height="15" width="15"/> OUTREACH</a></h1>
+						<nav id="nav">
+							<ul>
+								<li class="special">
+									<a href="#" class="menuToggle"><span>Menu</span></a>
+									<div id="menu">
+										<ul>
+											<li><a href="../../index.html">Home</a></li>
+											<li><a href="../../menu/tutorials.html">Tutorials</a></li>
+											<li><a href="../../menu/solutions.html">Solutions</a></li>
+                                            <li><a href="../../menu/past.html">Past Workshops</a></li>
+                                            <li><a href="../../menu/resources.html">Resources</a></li>
+                                            <li><a href="../../menu/glossary.html">ElM Glossary</a></li>
+                                            <li><a href="../../menu/fame.html">Hall Of Fame</a></li>
+                                            <li><a href="../../menu/contact.html">Ask Us Questions?</a></li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>Adventure Game</h2>
+							<p>Create an Adventure Game! </p>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+<!-- Bunny Delivery -->
+                        <a name="8"></a>
+						<section class="wrapper style5">
+							<div class="inner">
+								
+								<h3>Adventure Game</h3>
+								<pre>
+Copy the following code to create your own adventure game!
+<code>
+-- Imports
+import Keyboard exposing (..)
+import Signal exposing (..)
+import Graphics.Element exposing (..)
+import Graphics.Collage exposing (..)
+import List exposing (..)
+import Maybe exposing (withDefault, andThen)
+import Window
+import Text exposing (..)
+import Color exposing (..)
+
+-- Model
+
+type Place = MyPlace PlaceName (List PlaceName) Message Image Key Key
+
+type alias GameState = {
+                         places : List Place
+                        ,curPlace : PlaceName
+                        ,keys : List Key
+                       }
+
+type PlaceName = MyPlaceName Location
+               | NoPlaceName   
+
+type Key =     MyKey KeyType
+             | NoKey
+
+
+type Message = MyMessage String
+             | NoMessage
+
+type Image = MyImage String
+           | NoImage
+
+---------------------------------------- THIS IS WHERE YOU CAN ADD KEYS AND LOCATIONS                       
+type KeyType = Wood
+             | Bone
+             | Diamond
+             | Gold 
+             | Siver
+             
+type Location = BSB
+              | ITB
+              | ETB
+              | TSH
+              | MUSC
+
+---------------------------------------- THIS IS WHERE YOU ADD PLACES TO YOUR GAME
+defaultGame : GameState
+defaultGame = {
+                places = [
+                            -- This must be at the beginning of every place
+                            MyPlace 
+                            -- This is the name of the place
+                            (MyPlaceName ETB)
+                            -- These are the places you can go to
+                            [MyPlaceName ITB, MyPlaceName BSB]
+                            -- This is the text in the description
+                            (MyMessage "At the graduate level, the Department offers Master of Applied Science, Master of Engineering and Ph.D. programmes in Software Engineering, and Master of Science and Ph.D. programmes in Computer Science") --
+                            -- This is the URL of the image in the location
+                            (MyImage "http://wbooth.mcmaster.ca/images/etb.jpg")
+                            -- This is the Key you need to go to this location
+                            NoKey
+                            -- This is the key you will pick up at this location
+                            NoKey
+                            
+                           ,-- ONLY THE FIRST PLACE IS EXPLAINED
+                           
+                            MyPlace
+                            (MyPlaceName ITB)
+                            [MyPlaceName ETB, MyPlaceName BSB]
+                            (MyMessage "The Department of Computing and Software offers undergraduate programs in Software Engineering, including one of the first accredited undergraduate software engineering programmes in Canada, Software Engineering (Game Design), the Mechatronics Engineering program, Computer Science, and Business Informatics")
+                            (MyImage "http://www.cas.mcmaster.ca/~oplab/SONAD/img/buildingScaled.jpg")
+                            (MyKey Wood)
+                            (MyKey Diamond)
+                            
+                           ,
+                           
+                            MyPlace
+                            (MyPlaceName BSB)
+                            [MyPlaceName ITB, MyPlaceName ETB]
+                            (MyMessage "Consistently ranked as one of the top research universities in Canada and one of the country's most innovative, McMaster believes in creating an innovative and stimulating learning environment where students can prepare themselves to excel, both at the university and beyond. Science is a research-focused student-centred Faculty at the heart of McMaster University")
+                            (MyImage "http://ppims.mcmaster.ca/construction/med/60_BSB_15.jpg")
+                            NoKey
+                            (MyKey Wood)
+                         ]
+               ,curPlace = MyPlaceName ETB
+               ,keys = []
+            }
+
+-- User Input 
+type alias UserInput = Int
+
+userInput : Signal Int -- 1: 49, 2: 50, 3: 51, 4: 52
+userInput = Keyboard.presses
+
+-- Update
+
+step : UserInput -> GameState -> GameState
+step userInput gameState =
+    let 
+        newPlace = updatePlaceName userInput gameState
+        newKey = updateKey userInput gameState
+    in 
+        if canUpdate userInput gameState
+        then {gameState | curPlace <- newPlace, keys <- newKey}
+        else gameState
+
+
+
+updatePlaceName : UserInput -> GameState -> PlaceName
+updatePlaceName userInput gameState =
+    let 
+        fullPlace = getFullPlace gameState.curPlace gameState.places -- Get the full current place
+        getOtherList (MyPlace _ l _ _ _ _) = l -- Get the list of other places from current place
+        newPlaceName = getIthPlaceName (userInput - 49) (getOtherList fullPlace) -- Get the user inputted PlaceName from the list
+    in
+        newPlaceName
+
+updatePlace : UserInput -> GameState -> Place -- Returns the user inputted place
+updatePlace userInput gameState = 
+    getFullPlace (updatePlaceName userInput gameState) gameState.places -- Get the full new place from new Place name
+
+getFullPlace : PlaceName -> List Place -> Place
+getFullPlace placeName places = 
+    let 
+        getCurPlaceHelper placeName nthPlace =
+            let 
+                getCurPlaceHelper2 placeName (MyPlace name _ _ _ _ _) = 
+                placeName == name
+            in
+                getCurPlaceHelper2 placeName nthPlace
+        defaultPlace = MyPlace NoPlaceName [NoPlaceName, NoPlaceName] NoMessage NoImage NoKey NoKey
+
+    in
+        if (Maybe.map (getCurPlaceHelper placeName) (List.head places)) |> (withDefault False)
+        then (List.head places) |> (withDefault defaultPlace)
+        else (Maybe.map (getFullPlace placeName) (tail places)) |> (withDefault defaultPlace)
+
+getIthPlaceName : Int -> List PlaceName -> PlaceName
+getIthPlaceName i l = Maybe.withDefault NoPlaceName (head (drop i l))
+
+updateKey : UserInput -> GameState -> List Key
+updateKey userInput gameState = 
+    let 
+        pullKey (MyPlace _ _ _ _ _ k) = k
+        newPlace = updatePlace userInput gameState
+        newKey = pullKey newPlace
+        
+    in
+        case newKey of
+            NoKey -> gameState.keys
+            MyKey name -> (if (MyKey name) `member` gameState.keys then gameState.keys else (MyKey name) :: gameState.keys)
+
+canUpdate : UserInput -> GameState -> Bool
+canUpdate userInput gameState = 
+    if inputIsValid userInput -- Input is numbers 1-4
+    && inputInList userInput gameState -- List is smaller than input number
+    && keyValid userInput gameState -- The player should have the required key (if a key is required)
+    then True
+    else False
+
+inputIsValid : UserInput -> Bool
+inputIsValid userInput = 
+    let possibleInputs = [49,50,51,52]
+    in member userInput possibleInputs
+
+
+inputInList : UserInput -> GameState -> Bool
+inputInList userInput gameState = 
+  let getLSize (MyPlace _ l _ _ _ _) = length l
+  in (userInput - 48) <= ((getFullPlace gameState.curPlace gameState.places) |> getLSize)
+
+
+keyValid : UserInput -> GameState -> Bool
+keyValid userInput gameState =
+    let 
+        getReqKey (MyPlace _ _ _ _ k _) = k
+        newPlace = updatePlace userInput gameState
+        newKey = getReqKey newPlace
+    in
+        case newKey of
+            NoKey -> True
+            MyKey name -> member (MyKey name) gameState.keys
+
+
+-- View
+view : (Int, Int) -> GameState -> Element
+view (w,h) gameState =
+  let 
+     (MyPlace name options message picture _ _) = getFullPlace gameState.curPlace gameState.places
+     topElement = flow down [drawName name (w,h), drawImage picture (w,h), drawMessage message (w,h)]
+     bottomElement = flow down [drawKeys gameState.keys (w,h), drawOptions options (w,h) gameState]
+  in
+    flow down [topElement, bottomElement]
+    
+view2 (w,h) gameState = show gameState.keys
+
+drawName : PlaceName -> (Int,Int) -> Element
+drawName name (w,h) = 
+  let 
+    render a = collage (w) (h//8) [scale 4 <| toForm (show a)]
+  in
+    case name of
+      NoPlaceName -> render NoPlaceName
+      MyPlaceName placeName -> Graphics.Element.color blue <| render placeName
+
+drawImage : Image -> (Int,Int) -> Element
+drawImage picture (w,h) =
+  let 
+    render = fittedImage (w) (5*h//8)
+    defaultPath = "http://upload.wikimedia.org/wikipedia/en/f/f0/A_Place_to_Call_Home_title_card.png"
+  in
+    case picture of 
+      NoImage -> render defaultPath
+      MyImage path -> render path
+
+drawMessage : Message -> (Int,Int) -> Element
+drawMessage message (w,h) =
+  let
+    cllg = collage (w) (h//8)
+  in
+    case message of
+      NoMessage -> cllg [toForm (show NoMessage)] 
+      MyMessage string -> Graphics.Element.color yellow <| leftAligned (fromString string)
+
+drawOptions : (List PlaceName) -> (Int,Int) -> GameState -> Element
+drawOptions options (w,h) gameState =
+  let
+    getIndexOf el (x::xs) n = if el == x then n else getIndexOf el (xs) (n+1)
+    cllg a p = collage ((5*w//6)//((length options))) (h//16) [toForm (show a), moveX (-22) (toForm <| show (getIndexOf p options 1)), moveX (-17) (text (fromString ")"))]
+    optionsName = Graphics.Element.color orange <| collage (w//6) (h//16) [text (fromString "Options:")]
+    renderOptions place =
+      let 
+        pullNeededKey (MyPlace _ _ _ _ k _) = k
+        placeKey = pullNeededKey (getFullPlace place gameState.places)
+        isRed = (not (placeKey `member` gameState.keys)) && (not (placeKey == NoKey))
+      in
+        case place of 
+          NoPlaceName -> collage ((5*w//6)//((length options))) (h//16) [text (fromString "Nowhere to go")]
+          MyPlaceName name -> if isRed then (Graphics.Element.color red <| cllg name place) else (Graphics.Element.color grey <| cllg name place)
+  in
+     flow right (optionsName :: (List.map renderOptions options))
+
+
+drawKeys : (List Key) -> (Int,Int) -> Element
+drawKeys keys (w,h) =
+  let
+    cllg a = Graphics.Element.color grey <| collage ((5*w//6)//((length keys))) (h//16) [toForm (show a)]
+    keyName = Graphics.Element.color green <| collage (w//6) (h//16) [text (fromString "Keys:")]
+    renderKey k = 
+      case k of 
+        NoKey -> cllg NoKey
+        MyKey name -> cllg name
+  in
+     flow right (keyName :: (List.map renderKey keys))
+    
+    
+    
+    
+    
+
+-- Putting it all together 
+gameState : Signal GameState
+gameState =
+    Signal.foldp step defaultGame userInput
+
+
+main : Signal Element
+main =
+    Signal.map2 view Window.dimensions gameState
+</code>
+
+                                </pre>
+                            </div>
+                        </section>
+                                     
+					
+                        
+                        
+<a href="bunny.html" class="button fit">Previous Tutorial</a>
+<a href="../../menu/tutorials.html" class="button fit">Back to Tutorials</a>
+<a href="colour.html" class="button fit">Next Tutorial</a>
+
+							</div>
+						</section>
+					</article>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="icons">
+							<li><a href="http://www.twitter.com/MacCASOutreach" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="http://www.facebook.com/McMasterCASOutreach" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							
+							<li><a href="../../menu/contact.html" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+						</ul>
+						<ul class="copyright">
+							<li>&copy;legionn_&amp; code_blooded 2015 <br> McMaster Computing and Software 2015</br> </li>
+						</ul>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/init.js"></script>
+
+	</body>
+</html>

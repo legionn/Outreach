@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Functions: Basics</title>
+        
+        <link rel="apple-touch-icon" sizes="57x57" href="../../icons/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="../../icons/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="../../icons/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="../../icons/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="../../icons/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="../../icons/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="../../icons/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="../../icons/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="../../icons/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="../../icons/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../icons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="../../icons/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../icons/favicon-16x16.png">
+        <link rel="manifest" href="../../icons/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="../../icons/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+        
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="assets/css/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../../assets/css/style.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie/v9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie/v8.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="../../index.html">MCMASTER <img src="../../images/shield.png" alt="" height="15" width="15"/> OUTREACH</a></h1>
+						<nav id="nav">
+							<ul>
+								<li class="special">
+									<a href="#" class="menuToggle"><span>Menu</span></a>
+									<div id="menu">
+										<ul>
+											<li><a href="../../index.html">Home</a></li>
+											<li><a href="../../menu/tutorials.html">Tutorials</a></li>
+											<li><a href="../../menu/solutions.html">Solutions</a></li>
+                                            <li><a href="../../menu/past.html">Past Workshops</a></li>
+                                            <li><a href="../../menu/resources.html">Resources</a></li>
+                                            <li><a href="../../menu/glossary.html">ElM Glossary</a></li>
+                                            <li><a href="../../menu/fame.html">Hall Of Fame</a></li>
+                                            <li><a href="../../menu/contact.html">Ask Us Questions?</a></li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>Functions: Basics</h2>
+							<p>Learn functions with Elm!</p>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+<!-- Functions -->
+                        <a name="13"></a>
+						<section class="wrapper style5">
+							<div class="inner">
+								
+								<h3>Functions</h3>
+								<pre>
+
+<strong>Objectives of this tutorial:</strong>
+1.	Learn to use functions
+
+<strong>Exercises:</strong>
+1. Now that you have made some shapes, we can try to apply functions to them. Click on the blank code page link: 
+<a href="http://elm-lang.org/try" target="blank">TRY ELM.</a>
+A)	Copy-Paste this code:
+<code>import Color exposing (..)
+import Graphics.Collage exposing (..)
+
+main = collage 300 300 
+       [ (heart) ]
+
+heart = group [ move (0,0) (filled red (ngon 4 50))
+                  , move (20,20) (filled red (circle 36))
+                  , move (-20,20) (filled red (circle 36))] </code>
+B)	You can replace the <code>heart</code> shape with your own shape if you want. 
+	To do this:
+	i)  Change the group of shapes that make up the heart to your own set of shapes
+      ii) Name your new shape and reference it in the collage <code>[ (heart) ]</code>
+        
+C)	Now we can create a <em><strong>User-Defined function</strong></em> (a custom function) in order to double the size of our shape! To create a custom function, we follow this syntax:
+<code>functionName parameter = … </code> 
+Explanation:
+- <code>functionName</code> This can be any name that you want to call the function
+- <code>parameter</code> This represents the condition or the value you would want to change.
+>> Try to create a function that will return double the parameter value. You may type this new code right under the rest of the code. 
+
+Answer >> <code>double n = 2*n </code> 
+
+D)	Now we apply this function to a number. Since we are trying to double the size of the shape, we will apply <code>double</code> to a number <code>n</code>, inside the function <code>scale _ _ </code>, which is a <em><strong>Built-In function</strong></em> that takes a number and a shape as its parameters. For example: <code>scale (2) (filled red (circle 5))</code>
+
+Answer >> Change <code> [(heart)] </code> to <code>[scale (double 1) (heart)]</code>
+(The reason it is “scale (double 1) (heart)” is because a shape (heart) scaled to size “1” is normal size. So applying the double function does 2*(1) = 2, which is 2 times the size.
+
+>> You can use the double function to double any number you want! If you just wanted to double the size of one of the shapes in the group of shapes, try this for the heart example above:
+<code>(filled red (circle (double 36))</code>.
+BONUS: Try changing the double function to halve the size instead! 
+
+                                </pre>
+                            </div>
+                        </section>
+                        
+					
+                        
+                        
+<a href="fills.html" class="button fit">Previous Tutorial</a>
+<a href="../../menu/tutorials.html" class="button fit">Back to Tutorials</a>
+<a href="mouse.html" class="button fit">Next Tutorial</a>                        
+
+							</div>
+						</section>
+					</article>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="icons">
+							<li><a href="http://www.twitter.com/MacCASOutreach" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="http://www.facebook.com/McMasterCASOutreach" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							
+							<li><a href="../../menu/contact.html" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+						</ul>
+						<ul class="copyright">
+							<li>&copy;legionn_&amp; code_blooded 2015 <br> McMaster Computing and Software 2015</br> </li>
+						</ul>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/init.js"></script>
+
+	</body>
+</html>
