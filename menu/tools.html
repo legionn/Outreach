@@ -1,0 +1,561 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Tools</title>
+        
+        <link rel="apple-touch-icon" sizes="57x57" href="../icons/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="../icons/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="../icons/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="../icons/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="../icons/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="../icons/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="../icons/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="../icons/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="../icons/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="../icons/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
+        <link rel="manifest" href="../icons/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="../icons/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+        
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="assets/css/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="../assets/css/style.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie/v9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie/v8.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="../index.html">MCMASTER <img src="../images/shield.png" alt="" height="15" width="15"/> OUTREACH</a></h1>
+						<nav id="nav">
+							<ul>
+								<li class="special">
+									<a href="#" class="menuToggle"><span>Menu</span></a>
+									<div id="menu">
+										<ul>
+											<li><a href="../index.html">Home</a></li>
+											<li><a href="tutorials.html">Tutorials</a></li>
+											<li><a href="solutions.html">Solutions</a></li>
+                                            <li><a href="past.html">Past Workshops</a></li>
+                                            <li><a href="resources.html">Resources</a></li>
+                                            <li><a href="glossary.html">ElM Glossary</a></li>
+                                            <li><a href="tools.html">Tools</a></li>
+                                            <li><a href="fame.html">Hall Of Fame</a></li>
+                                            <li><a href="contact.html">Ask Us Questions?</a></li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>Tools</h2>
+							<p>Tools to help you with Elm!</p>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+
+								<center>
+								<h4>Shape Code Creator [Beta]</h4>
+									<a href="../tools/output.html" target="blank" >Shape Code Creator</a>
+								<hr>
+                                <center><h4>Custom Colour Picker</h4></center>
+                                	<a href="../tools/ColourPicker.html" target="blank" >Custom Colour Picker</a>
+                                <hr>
+                                <h4>Polygon Plotter [Beta]</h4>
+                                	<a href="../tools/grapher.html" target="blank">Polygon Plotter</a>
+                                    </center>
+                                    <pre>
+                                    <code>
+import Color exposing (..)
+import Graphics.Collage exposing (..)
+import Graphics.Element exposing (..)
+import Mouse
+import Window
+import Text exposing (..)
+
+---------- YOUR SHAPES HERE -------------
+
+yourShapes = group [
+        ]
+
+---------- IGNORE CODE BELOW. ***READ: FOR DRAWING, TO CHANGE FROM FILLED DRAW TO LINE DRAW, SCROLL AND FIND THE 
+---------- LONG DASHED LINE TO SWITCH! IF YOU'RE CONFUSED, ASK AN INSTRUCTOR! ------------------------------
+
+main : Signal Element
+-- signal is a value that you want to change over time
+-- this can be things like numbers, or even html
+main =
+  -- 3 arguments are pattern matched to scene [1] (w,h) [2] locs [3] (a,b)
+  Signal.map3 scene Window.dimensions clickLocations Mouse.position -- takes 3 arguments
+
+clickLocations : Signal (List (Int,Int))
+clickLocations =
+  -- fold allows signal to start at 0
+  Signal.foldp (::) [] (Signal.sampleOn Mouse.clicks Mouse.position)  --TECHNICALLY....AN UPDATE
+-- foldp listens for events to happen. It tells elm when the next event occurs
+-- thereforE telling everyone else to update their shit
+
+--2 different types: (1) type alias (2) just a type
+--records ({fields, names of fields}), type alias, good for multiple components (e.g x,y + a colour)
+--type constructor (outside/inside) case statement
+
+scene : (Int,Int) -> List (Int,Int) -> (Int,Int) -> Element
+-- 3 scene arguments are pattern matched to main:
+    -- [1] Window.dimensions
+    -- [2] clickLocations
+    -- [3] Mouse.position
+scene (w,h) locs (a,b) =
+
+  -- let = definitions
+  let
+
+    drawLines (locs) = 
+        let
+           floatlocs = List.map (\(a,b) -> (toFloat (a - (w//2)), (-1) * (toFloat (b - (h//2))))) locs
+           -- \ (arguments) anonymous functions, quick functions
+        in
+-------- SWITCH THESE TO GET FILLED VS LINES ----------------------------------------------------------------------
+            
+            --traced (solid black) (path floatlocs)
+            polygon floatlocs |> filled red
+    -- pointer code
+    (xCentered,yCentered) =
+    (toFloat a - toFloat w/2, toFloat h/2 - toFloat b)
+    -- updating point position next to pointer
+    xy = (text <| bold <| fromString <| "(x, y) = " ++ (toString (a - (w//2),b - (h//2))))
+                  |> move (xCentered + 70, yCentered)
+    -- draws points
+    drawPoint (x,y) =
+          circle 5
+          -- creates the circle for each point
+            |> filled (hsla (toFloat x) 0.99 0.5 0.99) -- points change colour
+            |> move (toFloat x - toFloat w / 2, toFloat h / 2 - toFloat y)
+            |> rotate (toFloat x) -- only used if the user wants to change the circle to another shape
+  -- in = things that execute
+    
+    showCoordinate (x,y) =   
+    -- For each 
+          text (fromString <| "                        " ++ (toString (x - (w//2), y - (h//2))))
+            |> move (toFloat x - toFloat w / 2, toFloat h / 2 - toFloat y)
+          
+  in
+      layers
+        [ collage w h [pointer |> move (xCentered,yCentered)]
+        , collage w h [xy]
+        , collage w h [drawLines locs]
+        , collage w h [yourShapes]
+        , collage w h [cartesianPlane]
+        , collage w h (List.map showCoordinate locs)
+        , collage w h (List.map drawPoint locs)
+
+        
+        ]
+
+
+------------- V - - - v ALL GRAPHICS BELOW v - - - V --------------
+
+outlineOption = group [ (outlined (solid black) (ngon 4 20))
+            ]
+
+filledOption = group [ ngon 4 20
+        |> filled blue
+        |> move (0,0)
+        ]   
+
+pointer = group [ (outlined (solid black) (circle 5))
+            ]
+
+undoButton = group [ circle 30
+        |> filled yellow
+        |> move (0,0)
+    , circle 20
+        |> filled black
+        |> move (0,0)
+    , circle 10
+        |> filled yellow
+        |> move (0,0)
+    , rect 17 15
+        |> filled yellow
+        |> move (-15, 5)
+        |> rotate (degrees 10)
+    , ngon 3 10
+        |> filled black
+        |> move (-11, 10)
+        |> rotate (degrees -40)
+    ]
+
+
+garbageCan = group [ rect 10 50
+        |> filled lightRed
+        |> move (0,0)
+        |> rotate (degrees 43)
+    , rect 10 50
+        |> filled lightRed
+        |> move (0,0)
+        |> rotate (degrees -43)        
+    , circle 6
+        |> filled white
+        |> move (0,14)           
+    , circle 5
+        |> filled darkGrey
+        |> move (0,14)   
+    , rect 22 32
+        |> filled white
+        |> move (0,0)
+    , circle 4
+        |> filled white
+        |> move (0,13.5)        
+    , rect 20 30
+        |> filled darkGrey
+        |> move (0,0)  
+    , rect 20 0.7
+        |> filled white
+        |> move (0,10)
+    , rect 0.3 26
+        |> filled white
+        |> move (-7,-2.5)
+    , rect 0.3 26
+        |> filled white
+        |> move (-3,-2.5)
+    , rect 0.3 26
+        |> filled white
+        |> move (1,-2.5)
+    , rect 0.3 26
+        |> filled white
+        |> move (5,-2.5)
+    , rect 0.3 26
+        |> filled white
+        |> move (9,-2.5)             
+    ]
+
+darkGrey : Color
+darkGrey =
+  rgba 111 111 111 1
+
+buttonMenu = group
+    [ rect 225 50
+         |> filled black
+         |> move (2.5,25)
+    , rect 224 49
+         |> filled white
+         |> move (2.5,25)
+    ]
+
+cartesianPlane = group
+    [    
+     move (0,0) (filled black (rect 2 700)) |> rotate (degrees 90 )    
+    , move (0,0) (filled black (rect 2 700))
+       -- black cartesian arrows --
+    , move (0, 255) (filled black (ngon 3 5)) |> rotate (degrees 90 )
+    , move (0, -255) (filled black (ngon 3 5)) |> rotate (degrees 270 )
+    , move (255, 0) (filled black (ngon 3 5))
+    , move (-255, 0) (filled black (ngon 3 5))  |> rotate (degrees 180 )
+       -- grey grid lines --
+    , move (50,0) (filled clearGrey (rect 2 700))
+    , move (100,0) (filled clearGrey (rect 2 700))
+    , move (150,0) (filled clearGrey (rect 2 700))
+    , move (200,0) (filled clearGrey (rect 2 700))
+    , move (250,0) (filled clearGrey (rect 2 700))
+    , move (300,0) (filled clearGrey (rect 2 700))
+    , move (350,0) (filled clearGrey (rect 2 700))
+    , move (-50,0) (filled clearGrey (rect 2 700))
+    , move (-100,0) (filled clearGrey (rect 2 700))
+    , move (-150,0) (filled clearGrey (rect 2 700))
+    , move (-200,0) (filled clearGrey (rect 2 700))
+    , move (-250,0) (filled clearGrey (rect 2 700))
+    , move (-300,0) (filled clearGrey (rect 2 700))
+    , move (-350,0) (filled clearGrey (rect 2 700))
+    , move (0,50) (filled clearGrey (rect 2 700)) |> rotate (degrees 90 )
+    , move (0,100) (filled clearGrey (rect 2 700)) |> rotate (degrees 90 )
+    , move (0,150) (filled clearGrey (rect 2 700)) |> rotate (degrees 90 )
+    , move (0,200) (filled clearGrey (rect 2 700)) |> rotate (degrees 90 )    
+    , move (0,250) (filled clearGrey (rect 2 700)) |> rotate (degrees 90 )
+    , move (0,300) (filled clearGrey (rect 2 700)) |> rotate (degrees 90 )
+    , move (0,350) (filled clearGrey (rect 2 700)) |> rotate (degrees 90 )
+    , move (0,-50) (filled clearGrey (rect 2 700)) |> rotate (degrees 90 )
+    , move (0,-100) (filled clearGrey (rect 2 700)) |> rotate (degrees 90 )
+    , move (0,-150) (filled clearGrey (rect 2 700)) |> rotate (degrees 90 )
+    , move (0,-200) (filled clearGrey (rect 2 700)) |> rotate (degrees 90 )    
+    , move (0,-250) (filled clearGrey (rect 2 700)) |> rotate (degrees 90 )
+    , move (0,-300) (filled clearGrey (rect 2 700)) |> rotate (degrees 90 )
+    , move (0,-350) (filled clearGrey (rect 2 700)) |> rotate (degrees 90 )
+         -- black co-ordinate ticks --
+    , move (50,0) (filled black (rect 2 6))
+    , move (100,0) (filled black (rect 2 6))
+    , move (150,0) (filled black (rect 2 6))
+    , move (200,0) (filled black (rect 2 6))
+    , move (250,0) (filled black (rect 2 6))
+    , move (300,0) (filled black (rect 2 6))
+    , move (350,0) (filled black (rect 2 6))
+    , move (-50,0) (filled black (rect 2 6))
+    , move (-100,0) (filled black (rect 2 6))
+    , move (-150,0) (filled black (rect 2 6))
+    , move (-200,0) (filled black (rect 2 6))
+    , move (-250,0) (filled black (rect 2 6))
+    , move (-300,0) (filled black (rect 2 6))
+    , move (-350,0) (filled black (rect 2 6))
+    , move (0,50) (filled black (rect 2 6)) |> rotate (degrees 90 )
+    , move (0,100) (filled black (rect 2 6)) |> rotate (degrees 90 )
+    , move (0,150) (filled black (rect 2 6)) |> rotate (degrees 90 )
+    , move (0,200) (filled black (rect 2 6)) |> rotate (degrees 90 )
+    , move (0,250) (filled black (rect 2 6)) |> rotate (degrees 90 )
+    , move (0,300) (filled black (rect 2 6)) |> rotate (degrees 90 )
+    , move (0,350) (filled black (rect 2 6)) |> rotate (degrees 90 )
+    , move (0,-50) (filled black (rect 2 6)) |> rotate (degrees 90 )
+    , move (0,-100) (filled black (rect 2 6)) |> rotate (degrees 90 )
+    , move (0,-150) (filled black (rect 2 6)) |> rotate (degrees 90 )
+    , move (0,-200) (filled black (rect 2 6)) |> rotate (degrees 90 )
+    , move (0,-250) (filled black (rect 2 6)) |> rotate (degrees 90 )
+    , move (0,-300) (filled black (rect 2 6)) |> rotate (degrees 90 )
+    , move (0,-350) (filled black (rect 2 6)) |> rotate (degrees 90 )
+          -- numbers on the plane, x axis --
+    , text (fromString "0")
+    , text (fromString "50") |> move (50,-20)    
+    , text (fromString "100") |> move (100,-20)       
+    , text (fromString "150") |> move (150,-20)        
+    , text (fromString "200") |> move (200,-20)  
+    , text (fromString "250") |> move (250,-20)       
+    , text (fromString "300") |> move (300,-20)        
+    , text (fromString "350") |> move (350,-20)   
+    , text (fromString "-50") |> move (-50,-20)  
+    , text (fromString "-100") |> move (-100,-20)  
+    , text (fromString "-150") |> move (-150,-20)  
+    , text (fromString "-200") |> move (-200,-20)
+    , text (fromString "-250") |> move (-250,-20)  
+    , text (fromString "-300") |> move (-300,-20)  
+    , text (fromString "-350") |> move (-350,-20)  
+          -- numbers on the plane, y axis --
+    , text (fromString "50") |> move (20,50)    
+    , text (fromString "100") |> move (20,100)        
+    , text (fromString "150") |> move (20,150)        
+    , text (fromString "200") |> move (20,200)
+    , text (fromString "250") |> move (20,250)        
+    , text (fromString "300") |> move (20,300)        
+    , text (fromString "350") |> move (20,350)  
+    , text (fromString "-50") |> move (20,-50)   
+    , text (fromString "-100") |> move (20,-100)   
+    , text (fromString "-150") |> move (20,-150)   
+    , text (fromString "-200") |> move (20,-200)
+    , text (fromString "-250") |> move (20,-250)   
+    , text (fromString "-300") |> move (20,-300)   
+    , text (fromString "-350") |> move (20,-350)
+    
+    ]
+    
+clearGrey : Color
+clearGrey =
+  rgba 111 111 111 0.3
+                                    </code></pre>
+                                    <hr>
+                                    <center><h4>Graph Background Code</h4></center>
+                                    <pre><code>import Color exposing (..)
+import Graphics.Collage exposing (..)
+import Graphics.Element exposing (..)
+import Mouse
+import Window
+import Text exposing (..)
+
+main = Signal.map2 layout Mouse.position Window.dimensions
+
+layout (x,y) (width,height) =
+ 	let (xCentered,yCentered) =
+ 	(toFloat x - toFloat width/2, toFloat height/2 - toFloat y)
+ 	in collage width height
+            	[ yourShapes
+            	, cartesianPlane |> move (0,0)  
+            	, pointer |> move (xCentered,yCentered)
+            	, (text <| bold <| fromString <| "(x, y) = " ++ (toString (x - (width//2),y - (height//2))))
+              	|> move (xCentered + 70, yCentered)
+            	]
+           	 
+           	 
+------------------ IGNORE CODE ABOVE THIS LINE -----------------------           	 
+           	 
+           	 
+yourShapes = group
+         	[
+        	 
+         	--insert your shapes here--
+        	 
+        	 
+         	]
+        	 
+
+-------------------- IGNORE CODE BELOW THIS LINE ---------------------
+
+
+pointer = group [ (filled red (circle 5))
+        	]
+
+cartesianPlane = group
+	[    
+ 	move (0,0) (filled black (rect 2 650)) |> rotate (degrees 90 )    
+	, move (0,0) (filled black (rect 2 650))
+   	-- black cartesian arrows --
+	, move (0, 255) (filled black (ngon 3 5)) |> rotate (degrees 90 )
+	, move (0, -255) (filled black (ngon 3 5)) |> rotate (degrees 270 )
+	, move (255, 0) (filled black (ngon 3 5))
+	, move (-255, 0) (filled black (ngon 3 5))  |> rotate (degrees 180 )
+   	-- grey grid lines --
+	, move (50,0) (filled clearGrey (rect 2 650))
+	, move (100,0) (filled clearGrey (rect 2 650))
+	, move (150,0) (filled clearGrey (rect 2 650))
+	, move (200,0) (filled clearGrey (rect 2 650))
+	, move (250,0) (filled clearGrey (rect 2 650))
+	, move (300,0) (filled clearGrey (rect 2 650))
+	, move (350,0) (filled clearGrey (rect 2 650))
+	, move (-50,0) (filled clearGrey (rect 2 650))
+	, move (-100,0) (filled clearGrey (rect 2 650))
+	, move (-150,0) (filled clearGrey (rect 2 650))
+	, move (-200,0) (filled clearGrey (rect 2 650))
+	, move (-250,0) (filled clearGrey (rect 2 650))
+	, move (-300,0) (filled clearGrey (rect 2 650))
+	, move (-350,0) (filled clearGrey (rect 2 650))
+	, move (0,50) (filled clearGrey (rect 2 650)) |> rotate (degrees 90 )
+	, move (0,100) (filled clearGrey (rect 2 650)) |> rotate (degrees 90 )
+	, move (0,150) (filled clearGrey (rect 2 650)) |> rotate (degrees 90 )
+	, move (0,200) (filled clearGrey (rect 2 650)) |> rotate (degrees 90 )    
+	, move (0,250) (filled clearGrey (rect 2 650)) |> rotate (degrees 90 )
+	, move (0,300) (filled clearGrey (rect 2 650)) |> rotate (degrees 90 )
+	, move (0,350) (filled clearGrey (rect 2 650)) |> rotate (degrees 90 )
+	, move (0,-50) (filled clearGrey (rect 2 650)) |> rotate (degrees 90 )
+	, move (0,-100) (filled clearGrey (rect 2 650)) |> rotate (degrees 90 )
+	, move (0,-150) (filled clearGrey (rect 2 650)) |> rotate (degrees 90 )
+	, move (0,-200) (filled clearGrey (rect 2 650)) |> rotate (degrees 90 )    
+	, move (0,-250) (filled clearGrey (rect 2 650)) |> rotate (degrees 90 )
+	, move (0,-300) (filled clearGrey (rect 2 650)) |> rotate (degrees 90 )
+	, move (0,-350) (filled clearGrey (rect 2 650)) |> rotate (degrees 90 )
+     	-- black co-ordinate ticks --
+	, move (50,0) (filled black (rect 2 6))
+	, move (100,0) (filled black (rect 2 6))
+	, move (150,0) (filled black (rect 2 6))
+	, move (200,0) (filled black (rect 2 6))
+	, move (250,0) (filled black (rect 2 6))
+	, move (300,0) (filled black (rect 2 6))
+	, move (350,0) (filled black (rect 2 6))
+	, move (-50,0) (filled black (rect 2 6))
+	, move (-100,0) (filled black (rect 2 6))
+	, move (-150,0) (filled black (rect 2 6))
+	, move (-200,0) (filled black (rect 2 6))
+	, move (-250,0) (filled black (rect 2 6))
+	, move (-300,0) (filled black (rect 2 6))
+	, move (-350,0) (filled black (rect 2 6))
+	, move (0,50) (filled black (rect 2 6)) |> rotate (degrees 90 )
+	, move (0,100) (filled black (rect 2 6)) |> rotate (degrees 90 )
+	, move (0,150) (filled black (rect 2 6)) |> rotate (degrees 90 )
+	, move (0,200) (filled black (rect 2 6)) |> rotate (degrees 90 )
+	, move (0,250) (filled black (rect 2 6)) |> rotate (degrees 90 )
+	, move (0,300) (filled black (rect 2 6)) |> rotate (degrees 90 )
+	, move (0,350) (filled black (rect 2 6)) |> rotate (degrees 90 )
+	, move (0,-50) (filled black (rect 2 6)) |> rotate (degrees 90 )
+	, move (0,-100) (filled black (rect 2 6)) |> rotate (degrees 90 )
+	, move (0,-150) (filled black (rect 2 6)) |> rotate (degrees 90 )
+	, move (0,-200) (filled black (rect 2 6)) |> rotate (degrees 90 )
+	, move (0,-250) (filled black (rect 2 6)) |> rotate (degrees 90 )
+	, move (0,-300) (filled black (rect 2 6)) |> rotate (degrees 90 )
+	, move (0,-350) (filled black (rect 2 6)) |> rotate (degrees 90 )
+      	-- numbers on the plane, x axis --
+	, text (fromString "0")
+	, text (fromString "50") |> move (50,-20)    
+	, text (fromString "100") |> move (100,-20)  	 
+	, text (fromString "150") |> move (150,-20)   	 
+	, text (fromString "200") |> move (200,-20)  
+	, text (fromString "250") |> move (250,-20)  	 
+	, text (fromString "300") |> move (300,-20)   	 
+	, text (fromString "350") |> move (350,-20)   
+	, text (fromString "-50") |> move (-50,-20)  
+	, text (fromString "-100") |> move (-100,-20)  
+	, text (fromString "-150") |> move (-150,-20)  
+	, text (fromString "-200") |> move (-200,-20)
+	, text (fromString "-250") |> move (-250,-20)  
+	, text (fromString "-300") |> move (-300,-20)  
+	, text (fromString "-350") |> move (-350,-20)  
+      	-- numbers on the plane, y axis --
+	, text (fromString "50") |> move (20,50)    
+	, text (fromString "100") |> move (20,100)   	 
+	, text (fromString "150") |> move (20,150)   	 
+	, text (fromString "200") |> move (20,200)
+	, text (fromString "250") |> move (20,250)   	 
+	, text (fromString "300") |> move (20,300)   	 
+	, text (fromString "350") |> move (20,350)  
+	, text (fromString "-50") |> move (20,-50)   
+	, text (fromString "-100") |> move (20,-100)   
+	, text (fromString "-150") |> move (20,-150)   
+	, text (fromString "-200") |> move (20,-200)
+	, text (fromString "-250") |> move (20,-250)   
+	, text (fromString "-300") |> move (20,-300)   
+	, text (fromString "-350") |> move (20,-350)
+    
+	]
+
+stopX (x,y)  = (if | x > 100	-> 100
+               	| otherwise -> x  	 
+           	, y)
+
+stopY (x,y)  = (x,
+           	if | y < -200	-> -200
+              	| otherwise -> y
+           	)
+
+broccoli (x,y)  = (if | x > 100   -> 100
+                  	| x < -100	-> -100
+                  	| otherwise -> x
+               	, y)
+
+doubleSpeedX (x,y) = (if | x == 0 -> 0
+                     	| otherwise -> 2*x
+                 	, y)
+              	 
+distance (x1,y1) (x2,y2) = sqrt((x1 - x2)^2 + (y1 - y2)^2) 	 
+
+
+clearGrey : Color
+clearGrey =
+  rgba 111 111 111 0.3</pre></code>
+
+								
+<br/><br/>
+							</div>
+						</section>
+					</article>
+
+<!-- Footer -->
+					<footer id="footer">
+						<ul class="icons">
+							<li><a href="http://www.twitter.com/MacCASOutreach" class="icon fa-twitter" target="_blank"><span class="label">Twitter</span></a></li>
+							<li><a href="http://www.facebook.com/McMasterCASOutreach" class="icon fa-facebook" target="_blank"><span class="label">Facebook</span></a></li>
+							<li><a href="../tools/contact.html" class="icon fa-envelope-o" target="_blank"><span class="label">Email</span></a></li>
+						</ul>
+						<ul class="copyright">
+							<li>&copy;legionn_&amp; code_blooded 2015 <br> McMaster Computing and Software 2015</br> 
+							</li>
+						</ul>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../assets/js/skel.min.js"></script>
+			<script src="../assets/js/init.js"></script>
+
+	</body>
+</html>
