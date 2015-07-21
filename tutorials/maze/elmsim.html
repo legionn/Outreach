@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Test Your Code</title>
+        
+        <link rel="apple-touch-icon" sizes="57x57" href="../../apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="../../apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="../../apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="../../apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="../../apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="../../apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="../../apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="../../apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="../../apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="../../android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="../../favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+        <link rel="manifest" href="../../manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+        
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="../../assets/css/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="/../assets/css/style.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="../../assets/css/ie/v9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="../../assets/css/ie/v8.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Page Wrapper -->
+			<div>
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="../..index.html">MCMASTER <img src="images/shield.png" alt="" height="15" width="15"/> OUTREACH</a></h1>
+                        
+						<nav id="nav">
+							<ul>
+								<li class="special">
+									<a href="#" class="menuToggle"><span>Menu</span></a>
+									<div id="menu">
+										<ul>
+											<li><a href="../../index.html">Home</a></li>
+                                             <li><a href="elmsim.html">Test Your Code</a></li>
+											<li><a href="../../tutorials.html">Tutorials</a></li>
+											<li><a href="../../solutions.html">Solutions</a></li>
+                                            <li><a href="../../past.html">Past Workshops</a></li>
+                                            <li><a href="../../resources.html">Resources</a></li>
+                                            <li><a href="../../fame.html">Hall Of Fame</a></li>
+                                            <li><a href="../../contacts.html">Ask Us Questions?</a></li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<article id="main">
+						
+						<section >
+							<div id="wrapper" class="inner">
+							
+							<body scrolling="no">
+							
+                            <div>
+                          
+                            
+                                 <div id="editor"></div>
+                                
+				
+								
+
+                                                       
+                              	<iframe id="output" src="output.html" scrolling="no" align="right|top">
+                 
+                              	</iframe>
+                                
+                                
+                                
+                               
+
+                                                        
+                            </div>
+                          	
+            
+
+                            
+                            <form id="button" method="post"><button type="submit" id="compile" value="" name="compile" align="right|bottom">Compile!</button>
+								</form>
+                            </body>
+                            
+						</section>
+                        <script src="../../TEXTEDIT/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+                                    <script>
+                                    	var reader = new XMLHttpRequest() || new ActiveXObject('MSXML2.XMLHTTP');
+
+										function loadFile() {
+										    reader.open('get', 'input.elm', true); 
+										    reader.onreadystatechange = displayContents;
+										    reader.send(null);
+										}
+
+										function displayContents() {
+										    if(reader.readyState==4) {
+										        // var el = document.getElementById('editor');
+										        // el.innerHTML = reader.responseText;
+										        editor.setValue(reader.responseText)
+										    }
+										}
+                                        var editor = ace.edit("editor");
+                                        editor.setTheme("ace/theme/monokai");
+                                        editor.getSession().setMode("ace/mode/elm");                                    
+                                        // Initial load
+                                        document.getElementById("compile").value = editor.getValue();
+                                        // Set the name to make the new folder 
+                                        var folderName = Math.random().toString(36).substring(7);
+                                        loadFile();
+                                        // On change
+                                        editor.on('change', function() {
+                                        	// Set the compile's value to the inputted code
+                                        	document.getElementById("compile").value = editor.getValue()
+                                        })
+
+                                        
+                                    </script>
+					</article>
+			
+			</div>
+
+
+		<!-- Scripts -->
+			<script src="../../assets/js/jquery.min.js"></script>
+			<script src="../../assets/js/jquery.scrollex.min.js"></script>
+			<script src="../../assets/js/jquery.scrolly.min.js"></script>
+			<script src="../../assets/js/skel.min.js"></script>
+			<script src="../../assets/js/init.js"></script>
+
+	</body>
+    
+</html>

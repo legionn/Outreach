@@ -1,0 +1,467 @@
+import Color exposing (..)
+import Graphics.Collage exposing (..)
+import Graphics.Element exposing (..)
+import Keyboard
+import Time exposing (..)
+import Window
+import List
+import Text exposing (..)
+
+-- MODEL
+rabbit = { x=0, y=0, vx=0, vy=0, isDead = False
+        , carrot1 = True, carrot2 = True, slowItem = True, slowDownNum = 0
+        , mudList = [-110, -200, 80, 150], health = 100, heartCoverPos = 0
+        , jumpBonus = 0, carrotsNum = 0, wind = 0, ouch = False
+        , giveBird = False, birdx = 500, gameWin = False, facingRight = True
+        , jumping = False}
+
+-- UPDATE -- ("m" is for Rabbit)
+
+-- Sets the jump, gravity, and physics of the game (references the rabbit model's x/y values
+jump {y} m = if y > 0 && m.y == 0 then { m | vy <- 4 + m.jumpBonus } else m
+jumpUpdate m = {m | jumping <- if m.y > 0 then True else False}
+gravity t m = if m.y > 0 then { m | vy <- m.vy - t/(4 + m.slowDownNum) } else m
+physics t m = { m | x <- m.x + t*m.vx + m.wind , y <- max 0 (m.y + t*m.vy ) }
+
+-- Converts x to float for movement, and modifies model's booleon variables that involve the rabbit's movement
+walk {x} m = { m | vx <- toFloat x 
+                 , carrot1 <- if m.x > -60 && m.x < -30 && m.y == 0 then False else m.carrot1
+                 , carrot2 <- if m.x > -250 && m.x < -220 && m.y == 0 then False else m.carrot2
+                 , slowItem <- if m.x > 265 && m.x < 315 && m.y >= 100 then False else m.slowItem
+                 , giveBird <- if abs(m.x - m.birdx) < 5 && m.y >= 270 then True else m.giveBird
+                 , facingRight <- if x < 0 then False else 
+                                  if x > 0 then True else m.facingRight 
+             } 
+-- Functions for game visuals and mechanics
+
+-- Moves the bird from one side to another
+moveBird m = if m.birdx < -400 then {m | birdx <- 400} else {m | birdx <- m.birdx - 1} 
+-- If the rabbit is in range of the clock item, slow down the speed of jumps 
+slowSpeed m = if m.slowItem == True && m.x > 265 && m.x < 315 && m.y >= 100 then {m | slowDownNum <- 10} else m
+
+--Increments the carrot number if rabbit is in range of any of the carrots
+increaseCarrots1 m = if m.carrot1 == True && m.x > -60 && m.x < -30 && m.y == 0 then {m | carrotsNum <- m.carrotsNum + 1} else m 
+increaseCarrots2 m = if m.carrot2 == True && m.x > -250 && m.x < -220 && m.y == 0 then {m | carrotsNum <- m.carrotsNum + 1} else m
+--Increment the jumpBonus number based on the carrot number
+increaseJump m = {m | jumpBonus <- (1.5*(m.carrotsNum))}   
+
+--First sets giveBird to True if the rabbit touches the bird, then if the bird reaches the end with the envelope, the game is won
+checkWin m = if m.giveBird == True && m.birdx == -400 then {m | gameWin <- True  } else m
+birdGrab m = if abs(m.x - m.birdx) < 5 && m.y >= 270 then {m | giveBird <- True} else m                    
+
+-- Checks if rabbit is dead (health from model), modify boolean values 
+deadCheck m = if checkDead m then {m | isDead <- True} else m
+checkDead m = if m.health < 40 then True else False
+
+--Checks if on a spike, drops a shape over the heart accordingly
+dropCover m = if (onSpike m == True) then {m | heartCoverPos <- m.heartCoverPos - 0.5 } else m
+ouchCheck m = if (onSpike m == True) then {m | ouch <- True} else {m | ouch <- False}
+health m = {m | health <- updateHealth m}                
+onSpike m = (List.any trueFalse (List.map ((\f x -> if abs(x - m.x) < 20 && m.y == 0 then True else False) m) m.mudList))                          
+updateHealth m = if onSpike m == True && m.gameWin == False then m.health - 0.5 else m.health
+trueFalse x = if x == True then True else False
+
+-- The step passes the values returned from the updating functions
+step (dt, keys) =
+    
+    slowSpeed >>
+    increaseCarrots2 >> 
+    increaseCarrots1 >> 
+    increaseJump >> deadCheck >> ouchCheck >> dropCover
+    >> health >> jump keys >> walk keys >> gravity dt >>
+    physics dt 
+    >> moveBird 
+    >> birdGrab 
+    >> checkWin
+    >> jumpUpdate
+
+-- DISPLAY
+render (w',h') rabbit t =
+  -- Screen for not being dead and not winning yet
+  if rabbit.isDead == False && rabbit.gameWin == False then
+    let (w,h) = (toFloat w', toFloat h')
+    in collage w' h'
+      [ 
+      -- Background 
+        rect w h  |> filled lightBlue
+      , mountain |> move (-200,-100)
+      , mountain |> move (90,-180) |> scale 0.3
+      , (filled grassColor (oval 600 200)) |> move (-250,-300)
+      , (filled grassColor (oval 500 100)) |> move (200,-280)
+      , tree |> scale 0.6 |> move (-160,-170)
+      , homeText |> scale 0.7 |> move (-180,-180)
+      , hole |> move (-150, -240)
+      , rect w 50 |> filled grassColor |> move (0, 24 - h/2)
+      , sun |> move (150, 120)
+      
+      --Animated bird, moves based on the updating birdx variable from the model
+      , bird t 
+      |> move (rabbit.birdx,130) 
+      , if rabbit.giveBird == True 
+      then envelope 
+      |> scale 0.7 
+      |> move (rabbit.birdx - 42,130)
+      else nothing
+      , if rabbit.giveBird == True then thankYou |> move (rabbit.birdx + 30,150) else nothing
+      
+      --Clouds moving from right to left using the modulus function to reset its position back 
+      , cloud1 |> move (900 - (toFloat ((round (t/4)) % 900)) ,0) |> move (-400,0)
+      , move (-500,30) cloud2 |> move (1050 - (toFloat ((round (t/7)) % 1050)),0)
+      , move (-200,-70) cloud3 |> move (500 - (toFloat ((round (t/6)) % 800)),0) 
+      
+      -- Carrot objects are drawn based on the boolean values
+      , if rabbit.carrot1 == True then move (-50,-305) carrot |> scale 0.7 
+      else nothing
+      , if rabbit.carrot2 == True then move (-240,-305) carrot |> scale 0.7 
+      else nothing
+      , if rabbit.slowItem == True then move (290,-120) clockShape |> scale 0.85
+      else nothing 
+      
+      --Uses the mudDrawer function to take the model's mudList and draw mud
+      , mudDrawer rabbit.mudList
+      
+      -- Rabbit ouch dialog shows if he is on a mud
+      , if rabbit.ouch == True then ouchText |> move (rabbit.x, rabbit.y + 62 - h/2) |> move (50,100) else nothing
+      
+      -- Heart drawn, rectangular cover shifts over it based on losing health or not
+      -- Other Asthetics (rules etc)
+      , heart |> scale 0.5 |> move (-300,250)
+      , heartCover |> move (-300,250 + rabbit.heartCoverPos)
+      , healthText |> move (-300,290)
+      , healthBackground, carrot |> move (-190, 225) |> scale 0.8
+      , rules |> move (185,0)
+      , numOfCarrots rabbit
+      
+      -- Rabbit object
+      , if rabbit.facingRight == True && rabbit.gameWin == False then rabbitRight rabbit |> move (rabbit.x, rabbit.y + 62 - h/2) |> scale 0.7 
+        else if rabbit.facingRight == False then rabbitLeft rabbit |> move (rabbit.x, rabbit.y + 62 - h/2) |> scale 0.7
+        else nothing
+      
+      --The envelope is attached to the rabbit if he has not yet given it to the bird
+      , if rabbit.giveBird == False then 
+      envelope |> move (rabbit.x, rabbit.y + 62 - h/2) |> scale 0.6 |> move (-15,-5) 
+      else  nothing
+      , if rabbit.giveBird == False then 
+      handOverlap |> move (rabbit.x, rabbit.y + 62 - h/2) |> scale 0.7 |> move (-2,2) else nothing
+      
+      -- Trees for background
+      , tree |> move (410, -210)
+      , tree |> move (630, -175) |> scale 1.5
+      
+      -- Some displays to be shown, and jump/slow to be update
+      , if rabbit.y /= 0 then displayFun |> move (rabbit.x, rabbit.y + 62 - h/2) |> move (50,100) else nothing
+      , if rabbit.jumpBonus > 0 then (displayJumpBonus rabbit) else nothing
+      , if rabbit.slowDownNum > 0 then (displaySlowMo rabbit) else nothing
+      ]
+  -- Screen for Game Over (Dead)
+  else if rabbit.isDead == True && rabbit.gameWin == False then 
+    let (w,h) = (toFloat w', toFloat h')
+    in collage w' h'
+    [ (rect w h  |> filled white)
+    , (rect w 50 |> filled (rgb 74 163 41) |> move (0, 24 - h/2)) 
+    , (text (bold (fromString "GAME OVER"))) |> scale 3 
+    ]
+  -- Screen for winning game
+  else if rabbit.isDead == False && rabbit.gameWin == True then  
+    let (w,h) = (toFloat w', toFloat h')
+    in collage w' h'
+    [ (rect w h  |> filled orange) 
+    , (rect w 50 |> filled (rgb 74 163 41) |> move (0, 24 - h/2)) 
+    , playText |> move (0,-90) 
+    , if rabbit.health >= 50 && rabbit.health <= 80 then silverMedal t |> move (-120, 80) else nothing
+    , if rabbit.health >= 81 && rabbit.health <= 100 then goldMedal t |> move (-120, 80) else nothing
+    , winGameText |> scale 2 
+    ]
+  -- Impossible case of Dead + Won, blankform  
+  else
+    collage 100 100 
+    [nothing]
+
+-- Shapes / Drawing
+winGameText = (toForm (centered (Text.color black (typeface ["sans-serif"] (bold (fromString "Mail Delivered! You Won!"))))))
+playText = (toForm (centered (Text.color black (typeface ["sans-serif"] (bold (fromString "Click Compile to Play Again"))))))
+ouchText = group [ move (30,20) (filled white (oval 105 50))
+                 , move (-10,0) (filled white (ngon 3 10))
+                 , move (20,20) (toForm (centered (Text.color black (typeface ["sans-serif"] (italic (bold (fromString "    Ewww!")))))))
+                 ]
+displayFun  = group [ move (30,20) (filled white (oval 105 50))
+                 , move (-10,0) (filled white (ngon 3 10))
+                 , move (20,20) (toForm (centered (Text.color black (typeface ["sans-serif"] (italic (bold (fromString "    Woohoo!")))))))
+                 ]
+thankYou = group [ move (30,20) (filled white (oval 105 50))
+                 , move (-10,0) (filled white (ngon 3 10))
+                 , move (20,20) (toForm (centered (Text.color black (typeface ["sans-serif"] (italic (bold (fromString "   Thank you!")))))))
+                 ]
+
+rules = group [move (-142,260) ((filled black (rect 131 91)))
+              , move (-142,260) ((filled yellow (rect 129 89)))
+              , move (-144, 295) (text (bold (fromString "How to Play:")))
+              , move (-144, 275) (text (bold (fromString "~ Arrow keys to move"))) |> scale 0.9
+              , move (-148, 260) (text (bold (fromString "~ Don't step on mud "))) |> scale 0.9
+              , move (-154, 245) (text (bold (fromString "~ Give mail to bird"))) |> scale 0.9
+              , move (-148, 230) (text (bold (fromString "~ Explore and enjoy!"))) |> scale 0.9
+              ] 
+
+envelope = group [ (filled black (rect 52 29)) |> move (0,1) 
+                 , (filled paperColor (rect 50 25))
+                 , (filled black (polygon [(-26,30),(0,13),(26,30)])) |> move (0,-17)
+                 , (filled paperColor (polygon [(-26,31),(0,13),(26,31)])) |> move (0,-16)
+                 , (text (bold (fromString "To: Birdy"))) |> scale 0.4 |> move (-11,-7)
+                 ]
+handOverlap = group [ move (-7,0) (filled black (oval 7 15)) |> rotate (degrees 40)
+                    , move (-7,0) (filled white (oval 5 13)) |> rotate (degrees 40)
+                    , move (-12,5) (filled white (ngon 4 6)) |> rotate (degrees 0) |> scale 0.5 |> move (0,1)
+                    ]        
+
+paperColor = hsl 0.17 1 0.74
+grassColor = (rgb 74 163 41)
+healthText = group [(text (bold (fromString "Health")))
+                   , move (0,-30) ((outlined (solid black) (rect 80 80)))]
+healthBackground = group [move (-142,260) ((filled black (rect 227 81)))
+                         , move (-142,260) ((filled (rgb 174 238 238) (rect 225 79)))
+                         , move (-222, 235) (text (bold (fromString "Carrots")))
+                         ]                         
+numOfCarrots rabbit = group [ move (-222, 265) (text (fromString (toString (rabbit.carrotsNum)))) |> scale 2]                         
+
+displayJumpBonus rabbit = group 
+                   [move (-112, 280) (text (bold (fromString ("Jump Bonus! (+" ++ (toString (2*(rabbit.carrotsNum) + rabbit.slowDownNum)) ++ ")"))))]                        
+
+displaySlowMo rabbit = group
+                      [move (-108, 260) (text (bold (fromString ("Slow Motion Jump! (+" ++ (toString (rabbit.slowDownNum - 2)) ++ ")"))))]
+heart = group [ move (0,0) (filled red (ngon 4 50))
+              , move (20,20) (filled red (circle 36))
+              , move (-20,20) (filled red (circle 36))]
+heartCover = group [move(0,80) (filled lightBlue (rect 100 100))]
+
+--Function to draw the mud more efficiently
+mudDrawer : List Float -> Form
+mudDrawer l = group (List.map drawMud l)
+drawMud : Float -> Form
+drawMud x = move (x,-284) mud 
+
+
+mud : Form
+mud = group [ move (0,0) (filled darkBrown (oval 40 15)) |> scale 0.8
+    , move (10,-7) (filled darkBrown (oval 40 15)) |> scale 0.8
+    , move (15,5) (filled darkBrown (oval 40 15)) |> scale 0.8
+    , move (24,-2) (filled darkBrown (oval 40 15)) |> scale 0.8
+    ]
+    
+tree = group [move (-190,0) (filled darkBrown (rect 40 150))
+             , move (-200,110) (filled darkGreen (circle 45)) 
+             , move (-160,140) (filled darkGreen (circle 45))
+             , move (-200,170) (filled darkGreen (circle 50)) 
+             ]
+sun = group [ move (200,200) (filled orange (circle 100))
+            , move (200,200) (filled yellow (circle 65))
+            , move (80,180) (filled lightBlue (circle 40)) |> rotate (degrees -50)
+            , move (120,130) (filled lightBlue (circle 30)) |> rotate (degrees -30)
+            , move (160,100) (filled lightBlue (circle 30)) |> rotate (degrees -10)
+            , move (210,85) (filled lightBlue (circle 30)) |> rotate (degrees -10)
+            , move (250,95) (filled lightBlue (circle 30)) |> rotate (degrees 10)]
+
+carrot = group [ move (0,62) (filled darkGreen (rect 2 4)) |> scale 3
+  , move (-4,71) (filled darkGreen (circle 2)) |> scale 2
+  , move (4,69) (filled darkGreen (circle 2)) |> scale 2
+  , move (0,75) (filled darkGreen (circle 2)) |> scale 2
+  , move (0,70) (filled darkGreen (circle 2)) |> scale 2
+  , (filled orange (polygon [(0,6),(-4,30),(4,30)])) |> scale 2 
+  ]
+  
+nothing = group [(filled red (circle 0))]
+rabbitLeft rabbit = group [(if rabbit.jumping then feetJump else feetLeft), 
+      (if rabbit.jumping then ear1 |> move (-17,80) |> rotate (degrees (25)) 
+      else ear1 |> move (-17,87) |> rotate (degrees (15)) )
+      , (if rabbit.jumping then ear2 |> move (17,80) |> rotate (degrees (-25)) 
+      else ear2 |> move (17,87) |> rotate (degrees (-15)) )
+      , rabbitShapes]
+
+rabbitRight rabbit = group [(if rabbit.jumping then feetJump else feetRight),
+      (if rabbit.jumping then ear1 |> move (-17,80) |> rotate (degrees (25)) 
+      else ear1 |> move (-17,87) |> rotate (degrees (15)) )
+      , (if rabbit.jumping then ear2 |> move (17,80) |> rotate (degrees (-25)) 
+      else ear2 |> move (17,87) |> rotate (degrees (-15)) )
+      , rabbitShapes ]
+feetJump = group [
+        move (-10,-22) (filled black (oval 10 20)) |> rotate (degrees 15)
+      , move (-10,-22) (filled white (oval 8 18)) |> rotate (degrees 15)
+      , move (5,-25) (filled black (oval 10 20)) |> rotate (degrees -15)
+      , move (5,-25) (filled white (oval 8 18)) |> rotate (degrees -15)]
+feetLeft = group [
+        move (-14,-22) (filled black (oval 10 20)) |> rotate (degrees -60)
+      , move (-14,-22) (filled white (oval 8 18)) |> rotate (degrees -60)
+      , move (3,-25) (filled black (oval 10 20)) |> rotate (degrees -50)
+      , move (3,-25) (filled white (oval 8 18)) |> rotate (degrees -50)]
+feetRight = group [ move (-10,-24) (filled black (oval 10 20)) |> rotate (degrees -150)
+              , move (-10,-24) (filled white (oval 8 18)) |> rotate (degrees -150)
+              , move (10,-25) (filled black (oval 10 20)) |> rotate (degrees -130)
+              , move (10,-25) (filled white (oval 8 18)) |> rotate (degrees -130)]
+rabbitShapes = group [
+      -- Body
+       move (0,3) (filled black (oval 42 52)) 
+      , move (0,3) (filled white (oval 40 50)) 
+      -- Hands
+      , move (7,0) (filled black (oval 7 15)) |> rotate (degrees -30)
+      , move (7,0) (filled white (oval 5 13)) |> rotate (degrees -30)
+      , move (-7,0) (filled black (oval 7 15)) |> rotate (degrees 40)
+      , move (-7,0) (filled white (oval 5 13)) |> rotate (degrees 40)
+      , move (-12,5) (filled white (ngon 4 6)) |> rotate (degrees 0)
+      , move (11,6) (filled white (ngon 4 6)) |> rotate (degrees 20)
+      -- Face
+      , move (0,55) (filled white (circle 30))
+      , move (0,55) (filled black (circle 31))
+      , move (0,55) (filled white (circle 30))
+      , move (0,30) (filled black (oval 60 24))
+      , move (0,30) (filled white (oval 58 22))
+      -- Eyes
+      , move (-13,55) (filled black (oval 15 35)) 
+      , move (13,55) (filled black (oval 15 35))
+      , move (-13,55) (filled white (oval 13 32))
+      , move (13,55) (filled white (oval 13 32))      
+      -- Pupils
+      , move (-13,55) (filled black (oval 9 27)) 
+      , move (13,55) (filled black (oval 9 27))
+      , move (-13,60) (filled white (circle 2.5))
+      , move (13,60) (filled white (circle 2.5))
+      , move (-14,55) (filled white (circle 1.5))
+      , move (12,55) (filled white (circle 1.5))
+      , move (0,35) (filled white (rect 45 20))
+      , move (-13,45) (filled black (rect 11 1))
+      , move (13,45) (filled black (rect 11 1))      
+      -- Teeth
+      , move (-3,25) (filled black (rect 7 23))
+      , move (3,25) (filled black (rect 7 23))
+      , move (-3,25) (filled white (rect 5 21))
+      , move (3,25) (filled white (rect 5 21))      
+      -- Mouth
+      , move (-5,30) (filled black (circle 5))
+      , move (5,30) (filled black (circle 5))
+      , move (-5,30) (filled white (circle 4))
+      , move (5,30) (filled white (circle 4))
+      , move (0,34) (filled white (rect 20 6))      
+      -- Nose
+      , move (0,36) (filled black (ngon 3 6)) |> rotate (degrees 30)
+      , move (0,39) (filled black (oval 13 4)) |> scale 0.6
+      , move (3,35) (filled black (oval 13 4)) |> rotate (degrees 62) |> scale 0.6
+      , move (-3,35) (filled black (oval 13 4)) |> rotate (degrees 118) |> scale 0.6
+      , move (-2,35) (filled white (oval 8 2)) |> rotate (degrees 118) |> scale 0.6
+      ]
+ear1 = group [ (filled black (oval 27 72)) |> rotate (degrees 15)
+      , (filled white (oval 25 70)) |> rotate (degrees 15)
+      , (filled darkGrey (oval 15 55)) |> rotate (degrees 15)]
+ear2 = group [ (filled black (oval 27 72)) |> rotate (degrees -10)
+      , (filled white (oval 25 70)) |> rotate (degrees -10)
+      , (filled darkGrey (oval 15 55)) |> rotate (degrees -10)]  
+      
+bird t = group [ wing |> scale (0.5) |> move (23,-11) 
+             |> rotate (degrees (30*(sin(t/25)))) |> move (-1*cos(t/50),-1*cos(t/50)) 
+             , move (30,-10) (filled orange (oval 8 5))
+             , move (30,-15) (filled orange (oval 8 5))
+             , move (15,-10) (filled blue (oval 30 22))
+             , move (-12,-3) (filled orange (polygon [(0,5),(-7,2),(-1,1),(-4,0),(0,-2)]))
+             |> scale 2.2
+             , move (0,0) (filled blue (oval 30 25))
+             ,move (-3,4) (filled black (circle 5))
+             ,move (-3,4) (filled white (circle 4))
+             ,move (-4,5) (filled black (circle 2))
+             ,move (-5,6) (filled white (circle 0.6))
+             , wing |> scale (0.5) |> move (23,-13) 
+             |> rotate (degrees (30*(sin(t/25))))
+             ]
+             
+wing = group [(filled blue (oval 60 16)) |> rotate (degrees -210)]
+
+silverOutside = group [ (filled black (ngon 3 10.5)) |> scale 2.4 |> move (0,0)
+    , (filled black (ngon 3 10.5)) |> scale 2.4 |> move (0,0) |> rotate (degrees 90)
+    , (filled black (ngon 3 10.5)) |> scale 2.4 |> move (0,0) |> rotate (degrees 180)
+    , (filled black (ngon 3 10.5)) |> scale 2.4 |> move (0,0) |> rotate (degrees 270)
+    , (filled silver (ngon 3 10)) |> scale 2.4 |> move (0,0)
+    , (filled black (ngon 3 10)) |> scale 2.4 |> move (0,0) |> rotate (degrees 90)
+    , (filled silver (ngon 3 10)) |> scale 2.4 |> move (0,0) |> rotate (degrees 180)
+    , (filled black (ngon 3 10)) |> scale 2.4 |> move (0,0) |> rotate (degrees 270)
+    ]
+silver = hsl 0 0 0.75
+silverInside = group [ (filled black (circle 15)) |> scale 1.5
+               , (filled silver (circle 14)) |> scale 1.5
+               , (text (bold (fromString "Silver"))) |> move (-1,1)
+               ]
+silverText = move (20,20) (toForm (centered (Text.color black (typeface ["sans-serif"] (italic (bold (fromString "Silver Medal Awarded!")))))))
+silverMedal t = group [silverOutside |> rotate (degrees (100*sin(t/400))) |> scale 1.5, silverInside, silverText |> move (120,-20) ]
+
+goldOutside = group [ (filled black (ngon 3 10.5)) |> scale 2.4 |> move (0,0)
+    , (filled black (ngon 3 10.5)) |> scale 2.4 |> move (0,0) |> rotate (degrees 90)
+    , (filled black (ngon 3 10.5)) |> scale 2.4 |> move (0,0) |> rotate (degrees 180)
+    , (filled black (ngon 3 10.5)) |> scale 2.4 |> move (0,0) |> rotate (degrees 270)
+    , (filled gold (ngon 3 10)) |> scale 2.4 |> move (0,0)
+    , (filled red (ngon 3 10)) |> scale 2.4 |> move (0,0) |> rotate (degrees 90)
+    , (filled gold (ngon 3 10)) |> scale 2.4 |> move (0,0) |> rotate (degrees 180)
+    , (filled darkRed (ngon 3 10)) |> scale 2.4 |> move (0,0) |> rotate (degrees 270)
+    ]
+gold = hsl 0.47 1 0.53
+goldInside = group [ (filled black (circle 15)) |> scale 1.5
+               , (filled yellow (circle 14)) |> scale 1.5
+               , (text (bold (fromString "Gold"))) |> move (-1,1)
+               ]
+goldText = move (20,20) (toForm (centered (Text.color black (typeface ["sans-serif"] (italic (bold (fromString "Gold Medal Awarded!")))))))
+goldMedal t = group [goldOutside |> rotate (degrees (100*sin(t/400))) |> scale 1.5, goldInside, goldText |> move (120,-20) ]
+
+clockShape = group [ (filled black (ngon 3 10.5)) |> scale 2.4 |> move (0,0)
+    , (filled black (ngon 3 10.5)) |> scale 2.4 |> move (0,0) |> rotate (degrees 90)
+    , (filled black (ngon 3 10.5)) |> scale 2.4 |> move (0,0) |> rotate (degrees 180)
+    , (filled black (ngon 3 10.5)) |> scale 2.4 |> move (0,0) |> rotate (degrees 270)
+    , (filled orange (ngon 3 10)) |> scale 2.4 |> move (0,0)
+    , (filled orange (ngon 3 10)) |> scale 2.4 |> move (0,0) |> rotate (degrees 90)
+    , (filled orange (ngon 3 10)) |> scale 2.4 |> move (0,0) |> rotate (degrees 180)
+    , (filled orange (ngon 3 10)) |> scale 2.4 |> move (0,0) |> rotate (degrees 270)
+    , (filled black (circle 15))
+    , (filled white (circle 13))
+    , (filled black (circle 1))
+    , (filled black (rect 7 1)) |> rotate (degrees 10) |> move (5,1)
+    , (filled black (rect 11 1)) |> rotate (degrees 90) |> move (0,5)
+    ]
+
+cloud1 = group [move (20,150) cloud1Part1 , move (0,150) cloud1Part2, move (40,150) cloud1Part3]  
+cloud2 = group [move (20,150) cloud2Part1 , move (0,150) cloud2Part2, move (40,150) cloud2Part3]
+cloud3 = group [move (20,150) cloud3Part1 , move (0,150) cloud3Part2, move (40,150) cloud3Part3] 
+                   
+cloud1Part1 = (filled darkGrey (oval 75 75))
+cloud1Part2 = (filled darkGrey (oval 65 50))
+cloud1Part3 = (filled darkGrey (oval 65 50))
+cloud2Part1 = (filled cloud3Color (oval 75 75))
+cloud2Part2 = (filled cloud3Color (oval 65 50))
+cloud2Part3 = (filled cloud3Color (oval 65 50))
+cloud3Part1 = (filled grey (oval 75 75))
+cloud3Part2 = (filled grey (oval 65 50))
+cloud3Part3 = (filled grey (oval 65 50))
+
+cloud3Color = hsl (degrees 180) 0.43 0.9
+
+house = group
+    [ move (0,-50) (filled darkBrown (rect 100 100))
+    , move (0,30) (filled lightRed (ngon 3 60)) |> rotate (degrees 90)
+    , move (0,-72) (filled brown (rect 30 42))
+    , move (-25,-25) (filled white (rect 25 25))
+    , move (25,-25) (filled white (rect 25 25))
+    ]
+
+mountain = group [(filled (hsl 0.40 0.60 0.35) (ngon 3 400 )) |> rotate (degrees 210)]
+
+homeText = group [ (filled black (rect 11 51)) |> move (0,-44)
+             , (filled brown (rect 10 50)) |> move (0,-44)
+             , (filled black (rect 81 51))
+             , (filled peachColor (rect 80 50))
+             , (toForm (centered (Text.color black (typeface ["sans-serif"] (italic (bold (fromString "Bunny's")))))))
+             |> scale 0.8 |> move (0,10)
+             , (toForm (centered (Text.color black (typeface ["sans-serif"] (italic (bold (fromString "Home")))))))
+             |> scale 0.8 |> move (0,-10)
+             ]
+hole = group [ (filled black (oval 35 16)) |> scale 1.05
+                 , (filled darkBrown (oval 35 16))
+                 , (filled black (oval 34 10)) |> scale 0.98 |> move (0,-2.7)]
+                 
+peachColor = hsl 0.17 1 0.74
+-- RABBIT
+input = let delta = Signal.map (\t -> t/9) (fps 205)
+        in  Signal.sampleOn delta (Signal.map2 (,) delta Keyboard.arrows)
+
+main = Signal.map3 render Window.dimensions (Signal.foldp step rabbit input) (Signal.foldp (\add total -> total + 1) 0 (fps 200))

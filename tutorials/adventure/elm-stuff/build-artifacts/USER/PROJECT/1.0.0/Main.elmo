@@ -1,0 +1,61 @@
+Elm.Main = Elm.Main || {};
+Elm.Main.make = function (_elm) {
+   "use strict";
+   _elm.Main = _elm.Main || {};
+   if (_elm.Main.values)
+   return _elm.Main.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "Main",
+   $Graphics$Element = Elm.Graphics.Element.make(_elm),
+   $Keyboard = Elm.Keyboard.make(_elm),
+   $Model = Elm.Model.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $Step = Elm.Step.make(_elm),
+   $View = Elm.View.make(_elm),
+   $Window = Elm.Window.make(_elm);
+   var userInput = $Keyboard.presses;
+   var defaultGame = {_: {}
+                     ,curPlace: $Model.MyPlaceName($Model.ETB)
+                     ,keys: _L.fromArray([])
+                     ,places: _L.fromArray([A6($Model.MyPlace,
+                                           $Model.MyPlaceName($Model.ETB),
+                                           _L.fromArray([$Model.MyPlaceName($Model.ITB)
+                                                        ,$Model.MyPlaceName($Model.BSB)]),
+                                           $Model.MyMessage("At the graduate level, the Department offers Master of Applied Science, Master of Engineering and Ph.D. programmes in Software Engineering, and Master of Science and Ph.D. programmes in Computer Science"),
+                                           $Model.MyImage("http://wbooth.mcmaster.ca/images/etb.jpg"),
+                                           $Model.NoKey,
+                                           $Model.NoKey)
+                                           ,A6($Model.MyPlace,
+                                           $Model.MyPlaceName($Model.ITB),
+                                           _L.fromArray([$Model.MyPlaceName($Model.ETB)
+                                                        ,$Model.MyPlaceName($Model.BSB)]),
+                                           $Model.MyMessage("The Department of Computing and Software offers undergraduate programs in Software Engineering, including one of the first accredited undergraduate software engineering programmes in Canada, Software Engineering (Game Design), the Mechatronics Engineering program, Computer Science, and Business Informatics"),
+                                           $Model.MyImage("http://www.cas.mcmaster.ca/~oplab/SONAD/img/buildingScaled.jpg"),
+                                           $Model.MyKey($Model.Wood),
+                                           $Model.MyKey($Model.Diamond))
+                                           ,A6($Model.MyPlace,
+                                           $Model.MyPlaceName($Model.BSB),
+                                           _L.fromArray([$Model.MyPlaceName($Model.ITB)
+                                                        ,$Model.MyPlaceName($Model.ETB)]),
+                                           $Model.MyMessage("Consistently ranked as one of the top research universities in Canada and one of the country’s most innovative, McMaster believes in creating an innovative and stimulating learning environment where students can prepare themselves to excel, both at the university and beyond. Science is a research-focused student-centred Faculty at the heart of McMaster University"),
+                                           $Model.MyImage("http://ppims.mcmaster.ca/construction/med/60_BSB_15.jpg"),
+                                           $Model.NoKey,
+                                           $Model.MyKey($Model.Wood))])};
+   var gameState = A3($Signal.foldp,
+   $Step.step,
+   defaultGame,
+   userInput);
+   var main = A3($Signal.map2,
+   $View.playView,
+   $Window.dimensions,
+   gameState);
+   _elm.Main.values = {_op: _op
+                      ,defaultGame: defaultGame
+                      ,userInput: userInput
+                      ,gameState: gameState
+                      ,main: main};
+   return _elm.Main.values;
+};

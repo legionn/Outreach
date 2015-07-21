@@ -1,0 +1,203 @@
+Elm.Step = Elm.Step || {};
+Elm.Step.make = function (_elm) {
+   "use strict";
+   _elm.Step = _elm.Step || {};
+   if (_elm.Step.values)
+   return _elm.Step.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "Step",
+   $Basics = Elm.Basics.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Model = Elm.Model.make(_elm);
+   var inputIsValid = function (userInput) {
+      return function () {
+         var possibleInputs = _L.fromArray([49
+                                           ,50
+                                           ,51
+                                           ,52]);
+         return A2($List.member,
+         userInput,
+         possibleInputs);
+      }();
+   };
+   var getIthPlaceName = F2(function (i,
+   l) {
+      return A2($Maybe.withDefault,
+      $Model.NoPlaceName,
+      $List.head(A2($List.drop,i,l)));
+   });
+   var getFullPlace = F2(function (placeName,
+   places) {
+      return function () {
+         var defaultPlace = A6($Model.MyPlace,
+         $Model.NoPlaceName,
+         _L.fromArray([$Model.NoPlaceName
+                      ,$Model.NoPlaceName]),
+         $Model.NoMessage,
+         $Model.NoImage,
+         $Model.NoKey,
+         $Model.NoKey);
+         var getCurPlaceHelper = F2(function (placeName,
+         nthPlace) {
+            return function () {
+               var getCurPlaceHelper2 = F2(function (placeName,
+               _v0) {
+                  return function () {
+                     switch (_v0.ctor)
+                     {case "MyPlace":
+                        return _U.eq(placeName,_v0._0);}
+                     _U.badCase($moduleName,
+                     "on line 37, column 17 to 34");
+                  }();
+               });
+               return A2(getCurPlaceHelper2,
+               placeName,
+               nthPlace);
+            }();
+         });
+         return $Maybe.withDefault(false)(A2($Maybe.map,
+         getCurPlaceHelper(placeName),
+         $List.head(places))) ? $Maybe.withDefault(defaultPlace)($List.head(places)) : $Maybe.withDefault(defaultPlace)(A2($Maybe.map,
+         getFullPlace(placeName),
+         $List.tail(places)));
+      }();
+   });
+   var inputInList = F2(function (userInput,
+   gameState) {
+      return function () {
+         var getLSize = function (_v8) {
+            return function () {
+               switch (_v8.ctor)
+               {case "MyPlace":
+                  return $List.length(_v8._1);}
+               _U.badCase($moduleName,
+               "on line 78, column 40 to 48");
+            }();
+         };
+         return _U.cmp(userInput - 48,
+         getLSize(A2(getFullPlace,
+         gameState.curPlace,
+         gameState.places))) < 1;
+      }();
+   });
+   var updatePlaceName = F2(function (userInput,
+   gameState) {
+      return function () {
+         var getOtherList = function (_v16) {
+            return function () {
+               switch (_v16.ctor)
+               {case "MyPlace":
+                  return _v16._1;}
+               _U.badCase($moduleName,
+               "on line 22, column 46 to 47");
+            }();
+         };
+         var fullPlace = A2(getFullPlace,
+         gameState.curPlace,
+         gameState.places);
+         var newPlaceName = A2(getIthPlaceName,
+         userInput - 49,
+         getOtherList(fullPlace));
+         return newPlaceName;
+      }();
+   });
+   var updatePlace = F2(function (userInput,
+   gameState) {
+      return A2(getFullPlace,
+      A2(updatePlaceName,
+      userInput,
+      gameState),
+      gameState.places);
+   });
+   var updateKey = F2(function (userInput,
+   gameState) {
+      return function () {
+         var newPlace = A2(updatePlace,
+         userInput,
+         gameState);
+         var pullKey = function (_v24) {
+            return function () {
+               switch (_v24.ctor)
+               {case "MyPlace":
+                  return _v24._5;}
+               _U.badCase($moduleName,
+               "on line 53, column 41 to 42");
+            }();
+         };
+         var newKey = pullKey(newPlace);
+         return function () {
+            switch (newKey.ctor)
+            {case "MyKey":
+               return A2($List.member,
+                 $Model.MyKey(newKey._0),
+                 gameState.keys) ? gameState.keys : A2($List._op["::"],
+                 $Model.MyKey(newKey._0),
+                 gameState.keys);
+               case "NoKey":
+               return gameState.keys;}
+            _U.badCase($moduleName,
+            "between lines 58 and 60");
+         }();
+      }();
+   });
+   var keyValid = F2(function (userInput,
+   gameState) {
+      return function () {
+         var newPlace = A2(updatePlace,
+         userInput,
+         gameState);
+         var getReqKey = function (_v34) {
+            return function () {
+               switch (_v34.ctor)
+               {case "MyPlace":
+                  return _v34._4;}
+               _U.badCase($moduleName,
+               "on line 85, column 43 to 44");
+            }();
+         };
+         var newKey = getReqKey(newPlace);
+         return function () {
+            switch (newKey.ctor)
+            {case "MyKey":
+               return A2($List.member,
+                 $Model.MyKey(newKey._0),
+                 gameState.keys);
+               case "NoKey": return true;}
+            _U.badCase($moduleName,
+            "between lines 89 and 91");
+         }();
+      }();
+   });
+   var canUpdate = F2(function (userInput,
+   gameState) {
+      return inputIsValid(userInput) && (A2(inputInList,
+      userInput,
+      gameState) && A2(keyValid,
+      userInput,
+      gameState)) ? true : false;
+   });
+   var step = F2(function (userInput,
+   gameState) {
+      return function () {
+         var newKey = A2(updateKey,
+         userInput,
+         gameState);
+         var newPlace = A2(updatePlaceName,
+         userInput,
+         gameState);
+         return A2(canUpdate,
+         userInput,
+         gameState) ? _U.replace([["curPlace"
+                                  ,newPlace]
+                                 ,["keys",newKey]],
+         gameState) : gameState;
+      }();
+   });
+   _elm.Step.values = {_op: _op
+                      ,step: step};
+   return _elm.Step.values;
+};

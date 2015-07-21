@@ -1,0 +1,465 @@
+Elm.View = Elm.View || {};
+Elm.View.make = function (_elm) {
+   "use strict";
+   _elm.View = _elm.View || {};
+   if (_elm.View.values)
+   return _elm.View.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "View",
+   $Basics = Elm.Basics.make(_elm),
+   $Color = Elm.Color.make(_elm),
+   $Graphics$Collage = Elm.Graphics.Collage.make(_elm),
+   $Graphics$Element = Elm.Graphics.Element.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Maybe = Elm.Maybe.make(_elm),
+   $Model = Elm.Model.make(_elm),
+   $Text = Elm.Text.make(_elm);
+   var drawKeys = F2(function (keys,
+   _v0) {
+      return function () {
+         switch (_v0.ctor)
+         {case "_Tuple2":
+            return function () {
+                 var keyName = $Graphics$Element.color($Color.green)(A3($Graphics$Collage.collage,
+                 _v0._0 / 6 | 0,
+                 _v0._1 / 16 | 0,
+                 _L.fromArray([$Graphics$Collage.text($Text.fromString("Keys:"))])));
+                 var cllg = function (a) {
+                    return $Graphics$Element.color($Color.grey)(A3($Graphics$Collage.collage,
+                    (5 * _v0._0 / 6 | 0) / $List.length(keys) | 0,
+                    _v0._1 / 16 | 0,
+                    _L.fromArray([$Graphics$Collage.toForm($Graphics$Element.show(a))])));
+                 };
+                 var renderKey = function (k) {
+                    return function () {
+                       switch (k.ctor)
+                       {case "MyKey":
+                          return cllg(k._0);
+                          case "NoKey":
+                          return cllg($Model.NoKey);}
+                       _U.badCase($moduleName,
+                       "between lines 155 and 158");
+                    }();
+                 };
+                 return A2($Graphics$Element.flow,
+                 $Graphics$Element.right,
+                 A2($List._op["::"],
+                 keyName,
+                 A2($List.map,renderKey,keys)));
+              }();}
+         _U.badCase($moduleName,
+         "between lines 151 and 159");
+      }();
+   });
+   var drawMessage = F2(function (message,
+   _v6) {
+      return function () {
+         switch (_v6.ctor)
+         {case "_Tuple2":
+            return function () {
+                 var cllg = A2($Graphics$Collage.collage,
+                 _v6._0,
+                 _v6._1 / 8 | 0);
+                 return function () {
+                    switch (message.ctor)
+                    {case "MyMessage":
+                       return $Graphics$Element.color($Color.yellow)($Graphics$Element.leftAligned($Text.fromString(message._0)));
+                       case "NoMessage":
+                       return cllg(_L.fromArray([$Graphics$Collage.toForm($Graphics$Element.show($Model.NoMessage))]));}
+                    _U.badCase($moduleName,
+                    "between lines 127 and 129");
+                 }();
+              }();}
+         _U.badCase($moduleName,
+         "between lines 124 and 129");
+      }();
+   });
+   var drawImage = F2(function (picture,
+   _v12) {
+      return function () {
+         switch (_v12.ctor)
+         {case "_Tuple2":
+            return function () {
+                 var defaultPath = "http://upload.wikimedia.org/wikipedia/en/f/f0/A_Place_to_Call_Home_title_card.png";
+                 var render = A2($Graphics$Element.fittedImage,
+                 _v12._0,
+                 5 * _v12._1 / 8 | 0);
+                 return function () {
+                    switch (picture.ctor)
+                    {case "MyImage":
+                       return render(picture._0);
+                       case "NoImage":
+                       return render(defaultPath);}
+                    _U.badCase($moduleName,
+                    "between lines 118 and 120");
+                 }();
+              }();}
+         _U.badCase($moduleName,
+         "between lines 114 and 120");
+      }();
+   });
+   var drawName = F2(function (name,
+   _v18) {
+      return function () {
+         switch (_v18.ctor)
+         {case "_Tuple2":
+            return function () {
+                 var render = function (a) {
+                    return A3($Graphics$Collage.collage,
+                    _v18._0,
+                    _v18._1 / 8 | 0,
+                    _L.fromArray([$Graphics$Collage.scale(4)($Graphics$Collage.toForm($Graphics$Element.show(a)))]));
+                 };
+                 return function () {
+                    switch (name.ctor)
+                    {case "MyPlaceName":
+                       return $Graphics$Element.color($Color.blue)(render(name._0));
+                       case "NoPlaceName":
+                       return render($Model.NoPlaceName);}
+                    _U.badCase($moduleName,
+                    "between lines 108 and 110");
+                 }();
+              }();}
+         _U.badCase($moduleName,
+         "between lines 105 and 110");
+      }();
+   });
+   var getFullPlace = F2(function (placeName,
+   places) {
+      return function () {
+         var defaultPlace = A6($Model.MyPlace,
+         $Model.NoPlaceName,
+         _L.fromArray([$Model.NoPlaceName
+                      ,$Model.NoPlaceName]),
+         $Model.NoMessage,
+         $Model.NoImage,
+         $Model.NoKey,
+         $Model.NoKey);
+         var getCurPlaceHelper = F2(function (placeName,
+         nthPlace) {
+            return function () {
+               var getCurPlaceHelper2 = F2(function (placeName,
+               _v24) {
+                  return function () {
+                     switch (_v24.ctor)
+                     {case "MyPlace":
+                        return _U.eq(placeName,
+                          _v24._0);}
+                     _U.badCase($moduleName,
+                     "on line 92, column 17 to 34");
+                  }();
+               });
+               return A2(getCurPlaceHelper2,
+               placeName,
+               nthPlace);
+            }();
+         });
+         return $Maybe.withDefault(false)(A2($Maybe.map,
+         getCurPlaceHelper(placeName),
+         $List.head(places))) ? $Maybe.withDefault(defaultPlace)($List.head(places)) : $Maybe.withDefault(defaultPlace)(A2($Maybe.map,
+         getFullPlace(placeName),
+         $List.tail(places)));
+      }();
+   });
+   var drawOptions = F3(function (options,
+   _v32,
+   gameState) {
+      return function () {
+         switch (_v32.ctor)
+         {case "_Tuple2":
+            return function () {
+                 var optionsName = $Graphics$Element.color($Color.orange)(A3($Graphics$Collage.collage,
+                 _v32._0 / 6 | 0,
+                 _v32._1 / 16 | 0,
+                 _L.fromArray([$Graphics$Collage.text($Text.fromString("Options:"))])));
+                 var cllg = function (a) {
+                    return A3($Graphics$Collage.collage,
+                    (5 * _v32._0 / 6 | 0) / $List.length(options) | 0,
+                    _v32._1 / 16 | 0,
+                    _L.fromArray([$Graphics$Collage.toForm($Graphics$Element.show(a))]));
+                 };
+                 var renderOptions = function (place) {
+                    return function () {
+                       var pullNeededKey = function (_v36) {
+                          return function () {
+                             switch (_v36.ctor)
+                             {case "MyPlace":
+                                return _v36._4;}
+                             _U.badCase($moduleName,
+                             "on line 138, column 47 to 48");
+                          }();
+                       };
+                       var placeKey = pullNeededKey(A2(getFullPlace,
+                       place,
+                       gameState.places));
+                       var isRed = $Basics.not(A2($List.member,
+                       placeKey,
+                       gameState.keys)) && $Basics.not(_U.eq(placeKey,
+                       $Model.NoKey));
+                       return function () {
+                          switch (place.ctor)
+                          {case "MyPlaceName":
+                             return isRed ? $Graphics$Element.color($Color.red)(cllg(place._0)) : $Graphics$Element.color($Color.grey)(cllg(place._0));
+                             case "NoPlaceName":
+                             return A3($Graphics$Collage.collage,
+                               (5 * _v32._0 / 6 | 0) / $List.length(options) | 0,
+                               _v32._1 / 16 | 0,
+                               _L.fromArray([$Graphics$Collage.text($Text.fromString("Nowhere to go"))]));}
+                          _U.badCase($moduleName,
+                          "between lines 142 and 145");
+                       }();
+                    }();
+                 };
+                 return A2($Graphics$Element.flow,
+                 $Graphics$Element.right,
+                 A2($List._op["::"],
+                 optionsName,
+                 A2($List.map,
+                 renderOptions,
+                 options)));
+              }();}
+         _U.badCase($moduleName,
+         "between lines 133 and 146");
+      }();
+   });
+   var playView = F2(function (_v46,
+   gameState) {
+      return function () {
+         switch (_v46.ctor)
+         {case "_Tuple2":
+            return function () {
+                 var _ = A2(getFullPlace,
+                 gameState.curPlace,
+                 gameState.places);
+                 var message = function () {
+                    switch (_.ctor)
+                    {case "MyPlace": return _._2;}
+                    _U.badCase($moduleName,
+                    "on line 80, column 51 to 99");
+                 }();
+                 var name = function () {
+                    switch (_.ctor)
+                    {case "MyPlace": return _._0;}
+                    _U.badCase($moduleName,
+                    "on line 80, column 51 to 99");
+                 }();
+                 var options = function () {
+                    switch (_.ctor)
+                    {case "MyPlace": return _._1;}
+                    _U.badCase($moduleName,
+                    "on line 80, column 51 to 99");
+                 }();
+                 var picture = function () {
+                    switch (_.ctor)
+                    {case "MyPlace": return _._3;}
+                    _U.badCase($moduleName,
+                    "on line 80, column 51 to 99");
+                 }();
+                 var topElement = A2($Graphics$Element.flow,
+                 $Graphics$Element.down,
+                 _L.fromArray([A2(drawName,
+                              name,
+                              {ctor: "_Tuple2"
+                              ,_0: _v46._0
+                              ,_1: _v46._1})
+                              ,A2(drawImage,
+                              picture,
+                              {ctor: "_Tuple2"
+                              ,_0: _v46._0
+                              ,_1: _v46._1})
+                              ,A2(drawMessage,
+                              message,
+                              {ctor: "_Tuple2"
+                              ,_0: _v46._0
+                              ,_1: _v46._1})]));
+                 var bottomElement = A2($Graphics$Element.flow,
+                 $Graphics$Element.down,
+                 _L.fromArray([A2(drawKeys,
+                              gameState.keys,
+                              {ctor: "_Tuple2"
+                              ,_0: _v46._0
+                              ,_1: _v46._1})
+                              ,A3(drawOptions,
+                              options,
+                              {ctor: "_Tuple2"
+                              ,_0: _v46._0
+                              ,_1: _v46._1},
+                              gameState)]));
+                 return A2($Graphics$Element.flow,
+                 $Graphics$Element.down,
+                 _L.fromArray([topElement
+                              ,bottomElement]));
+              }();}
+         _U.badCase($moduleName,
+         "between lines 79 and 84");
+      }();
+   });
+   var getLocation = function (_v78) {
+      return function () {
+         switch (_v78.ctor)
+         {case "MyPlaceName":
+            return _v78._0;}
+         _U.badCase($moduleName,
+         "on line 73, column 34 to 38");
+      }();
+   };
+   var getIndexOf = F2(function (place,
+   places) {
+      return function () {
+         var helper = F3(function (e,
+         _v81,
+         n) {
+            return function () {
+               switch (_v81.ctor)
+               {case "::": return _U.eq(e,
+                    _v81._0) ? $Basics.toFloat(n) : _U.cmp($List.length(_v81._1),
+                    0) > 0 ? A3(helper,
+                    e,
+                    _v81._1,
+                    n + 1) : $Basics.toFloat(-1);}
+               _U.badCase($moduleName,
+               "between lines 56 and 61");
+            }();
+         });
+         return A3(helper,
+         place,
+         places,
+         0);
+      }();
+   });
+   var getXY = F3(function (place,
+   places,
+   theta) {
+      return function () {
+         var angle = A2(getIndexOf,
+         place,
+         places) * theta;
+         var radius = 250;
+         return {ctor: "_Tuple2"
+                ,_0: radius * $Basics.sin($Basics.degrees(angle))
+                ,_1: radius * $Basics.cos($Basics.degrees(angle))};
+      }();
+   });
+   var getPlaceName = function (_v85) {
+      return function () {
+         switch (_v85.ctor)
+         {case "MyPlace":
+            return _v85._0;}
+         _U.badCase($moduleName,
+         "on line 50, column 41 to 45");
+      }();
+   };
+   var drawLine = F3(function (places,
+   place1,
+   place2) {
+      return function () {
+         var place2Name = A2(getFullPlace,
+         place2,
+         places);
+         var place1Name = A2(getFullPlace,
+         place1,
+         places);
+         var theta = $Basics.toFloat(360 / $List.length(places) | 0);
+         return A2($Graphics$Collage.traced,
+         $Graphics$Collage.solid($Color.green),
+         A2($Graphics$Collage.segment,
+         A3(getXY,
+         place1Name,
+         places,
+         theta),
+         A3(getXY,
+         place2Name,
+         places,
+         theta)));
+      }();
+   });
+   var drawPlace = F2(function (places,
+   place) {
+      return function () {
+         var mycircle = A2($Graphics$Collage.filled,
+         $Color.red,
+         $Graphics$Collage.circle(80));
+         var keyNeeded = function (_v93) {
+            return function () {
+               switch (_v93.ctor)
+               {case "MyPlace":
+                  return function ($) {
+                       return $Graphics$Collage.moveY(-50)($Graphics$Collage.toForm($Graphics$Element.show($)));
+                    }(_v93._4);}
+               _U.badCase($moduleName,
+               "on line 34, column 58 to 92");
+            }();
+         }(place);
+         var keyGot = function (_v101) {
+            return function () {
+               switch (_v101.ctor)
+               {case "MyPlace":
+                  return function ($) {
+                       return $Graphics$Collage.moveY(-30)($Graphics$Collage.toForm($Graphics$Element.show($)));
+                    }(_v101._5);}
+               _U.badCase($moduleName,
+               "on line 33, column 55 to 89");
+            }();
+         }(place);
+         var name = function ($) {
+            return $Graphics$Collage.scale(2)($Graphics$Collage.toForm($Graphics$Element.show(getLocation(getPlaceName($)))));
+         }(place);
+         var $ = A3(getXY,
+         place,
+         places,
+         $Basics.toFloat(360 / $List.length(places) | 0)),
+         x = $._0,
+         y = $._1;
+         return $Graphics$Collage.move({ctor: "_Tuple2"
+                                       ,_0: x
+                                       ,_1: y})($Graphics$Collage.group(_L.fromArray([mycircle
+                                                                                     ,name
+                                                                                     ,keyGot
+                                                                                     ,keyNeeded])));
+      }();
+   });
+   var drawLines = function (places) {
+      return $Graphics$Collage.group(A2($List.map,
+      function (_v109) {
+         return function () {
+            switch (_v109.ctor)
+            {case "MyPlace":
+               return $Graphics$Collage.group(A2($List.map,
+                 A2(drawLine,places,_v109._0),
+                 _v109._1));}
+            _U.badCase($moduleName,
+            "on line 21, column 48 to 83");
+         }();
+      },
+      places));
+   };
+   var drawPlaces = function (places) {
+      return $Graphics$Collage.group(A2($List.map,
+      drawPlace(places),
+      places));
+   };
+   var drawAll = function (places) {
+      return $Graphics$Collage.group(_L.fromArray([drawPlaces(places)
+                                                  ,drawLines(places)]));
+   };
+   var graphView = F2(function (_v117,
+   gameState) {
+      return function () {
+         switch (_v117.ctor)
+         {case "_Tuple2":
+            return A3($Graphics$Collage.collage,
+              _v117._0,
+              _v117._1,
+              _L.fromArray([drawAll(gameState.places)]));}
+         _U.badCase($moduleName,
+         "on line 13, column 29 to 67");
+      }();
+   });
+   _elm.View.values = {_op: _op
+                      ,graphView: graphView
+                      ,playView: playView};
+   return _elm.View.values;
+};

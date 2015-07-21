@@ -24,14 +24,15 @@ function getRandomDirName (tutorial, res) {
 function createDir (tutorial, foldername, res) {
 	var fs = require('fs')
 	// Get the full directory to make the folder
-	var compilepath = __dirname + '/../views/compile/' + foldername
+	var compilepath = __dirname + '/../compile/' + foldername
+	console.log(compilepath)
 	// Make the new folder
 	fs.mkdir(compilepath, function (e) {
 		if (e) {
 			console.log(e)
 		}
 		else {
-			console.log('Created directory: ' + __dirname + '/views/compile/' + foldername)
+			console.log('Created directory: ' + __dirname + '/../compile/' + foldername)
 			// Create default files (input.elm, elmsim.html, output.html)
 			moveDefaultFiles(tutorial, foldername, res)
 		}
@@ -44,16 +45,19 @@ function moveDefaultFiles (tutorial, foldername, res) {
 	// Copy all of the contents in default to the new folder
 	ncp.limit = 16
 	if (tutorial.enabled) {
-		defaultpath = 'views' + tutorial.name.substring(0, tutorial.name.length - 1)
+		defaultpath = tutorial.name.substring(0, tutorial.name.length - 1)
 	}
 	else {
-		defaultpath = 'views/compile/default'
+		defaultpath = '/compile/default'
 	}
-	ncp(defaultpath, 'views/compile/' + foldername, function (e) {
+	////////////////////////////////// 	GOT ABOUT HERE
+	
+	ncp('/../' + defaultpath, '../compile/' + foldername, function (e) {
 		if (e) {
+			console.log(defaultpath + '\n\n\n\n')
 			console.log(e)
 		}
-		console.log('Moved files to: ' + 'views/compile/' + foldername)
+		console.log('Moved files to: ' + '../compile/' + foldername)
 		// Send get response
 		sendGetResponse(foldername, res)
 	})

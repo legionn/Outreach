@@ -1,0 +1,2113 @@
+Elm.Main = Elm.Main || {};
+Elm.Main.make = function (_elm) {
+   "use strict";
+   _elm.Main = _elm.Main || {};
+   if (_elm.Main.values)
+   return _elm.Main.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "Main",
+   $Basics = Elm.Basics.make(_elm),
+   $Color = Elm.Color.make(_elm),
+   $Graphics$Collage = Elm.Graphics.Collage.make(_elm),
+   $Graphics$Element = Elm.Graphics.Element.make(_elm),
+   $Keyboard = Elm.Keyboard.make(_elm),
+   $List = Elm.List.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $Text = Elm.Text.make(_elm),
+   $Time = Elm.Time.make(_elm),
+   $Window = Elm.Window.make(_elm);
+   var input = function () {
+      var delta = A2($Signal.map,
+      function (t) {
+         return t / 9;
+      },
+      $Time.fps(205));
+      return A2($Signal.sampleOn,
+      delta,
+      A3($Signal.map2,
+      F2(function (v0,v1) {
+         return {ctor: "_Tuple2"
+                ,_0: v0
+                ,_1: v1};
+      }),
+      delta,
+      $Keyboard.arrows));
+   }();
+   var peachColor = A3($Color.hsl,
+   0.17,
+   1,
+   0.74);
+   var hole = $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.scale(1.05)(A2($Graphics$Collage.filled,
+                                                   $Color.black,
+                                                   A2($Graphics$Collage.oval,
+                                                   35,
+                                                   16)))
+                                                   ,A2($Graphics$Collage.filled,
+                                                   $Color.darkBrown,
+                                                   A2($Graphics$Collage.oval,
+                                                   35,
+                                                   16))
+                                                   ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                           ,_0: 0
+                                                                           ,_1: -2.7})($Graphics$Collage.scale(0.98)(A2($Graphics$Collage.filled,
+                                                   $Color.black,
+                                                   A2($Graphics$Collage.oval,
+                                                   34,
+                                                   10))))]));
+   var homeText = $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                               ,_0: 0
+                                                                               ,_1: -44})(A2($Graphics$Collage.filled,
+                                                       $Color.black,
+                                                       A2($Graphics$Collage.rect,
+                                                       11,
+                                                       51)))
+                                                       ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                               ,_0: 0
+                                                                               ,_1: -44})(A2($Graphics$Collage.filled,
+                                                       $Color.brown,
+                                                       A2($Graphics$Collage.rect,
+                                                       10,
+                                                       50)))
+                                                       ,A2($Graphics$Collage.filled,
+                                                       $Color.black,
+                                                       A2($Graphics$Collage.rect,
+                                                       81,
+                                                       51))
+                                                       ,A2($Graphics$Collage.filled,
+                                                       peachColor,
+                                                       A2($Graphics$Collage.rect,
+                                                       80,
+                                                       50))
+                                                       ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                               ,_0: 0
+                                                                               ,_1: 10})($Graphics$Collage.scale(0.8)($Graphics$Collage.toForm($Graphics$Element.centered(A2($Text.color,
+                                                       $Color.black,
+                                                       A2($Text.typeface,
+                                                       _L.fromArray(["sans-serif"]),
+                                                       $Text.italic($Text.bold($Text.fromString("Bunny\'s")))))))))
+                                                       ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                               ,_0: 0
+                                                                               ,_1: -10})($Graphics$Collage.scale(0.8)($Graphics$Collage.toForm($Graphics$Element.centered(A2($Text.color,
+                                                       $Color.black,
+                                                       A2($Text.typeface,
+                                                       _L.fromArray(["sans-serif"]),
+                                                       $Text.italic($Text.bold($Text.fromString("Home")))))))))]));
+   var mountain = $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.rotate($Basics.degrees(210))(A2($Graphics$Collage.filled,
+   A3($Color.hsl,0.4,0.6,0.35),
+   A2($Graphics$Collage.ngon,
+   3,
+   400)))]));
+   var house = $Graphics$Collage.group(_L.fromArray([A2($Graphics$Collage.move,
+                                                    {ctor: "_Tuple2"
+                                                    ,_0: 0
+                                                    ,_1: -50},
+                                                    A2($Graphics$Collage.filled,
+                                                    $Color.darkBrown,
+                                                    A2($Graphics$Collage.rect,
+                                                    100,
+                                                    100)))
+                                                    ,$Graphics$Collage.rotate($Basics.degrees(90))(A2($Graphics$Collage.move,
+                                                    {ctor: "_Tuple2"
+                                                    ,_0: 0
+                                                    ,_1: 30},
+                                                    A2($Graphics$Collage.filled,
+                                                    $Color.lightRed,
+                                                    A2($Graphics$Collage.ngon,
+                                                    3,
+                                                    60))))
+                                                    ,A2($Graphics$Collage.move,
+                                                    {ctor: "_Tuple2"
+                                                    ,_0: 0
+                                                    ,_1: -72},
+                                                    A2($Graphics$Collage.filled,
+                                                    $Color.brown,
+                                                    A2($Graphics$Collage.rect,
+                                                    30,
+                                                    42)))
+                                                    ,A2($Graphics$Collage.move,
+                                                    {ctor: "_Tuple2"
+                                                    ,_0: -25
+                                                    ,_1: -25},
+                                                    A2($Graphics$Collage.filled,
+                                                    $Color.white,
+                                                    A2($Graphics$Collage.rect,
+                                                    25,
+                                                    25)))
+                                                    ,A2($Graphics$Collage.move,
+                                                    {ctor: "_Tuple2"
+                                                    ,_0: 25
+                                                    ,_1: -25},
+                                                    A2($Graphics$Collage.filled,
+                                                    $Color.white,
+                                                    A2($Graphics$Collage.rect,
+                                                    25,
+                                                    25)))]));
+   var cloud3Color = A3($Color.hsl,
+   $Basics.degrees(180),
+   0.43,
+   0.9);
+   var cloud3Part3 = A2($Graphics$Collage.filled,
+   $Color.grey,
+   A2($Graphics$Collage.oval,
+   65,
+   50));
+   var cloud3Part2 = A2($Graphics$Collage.filled,
+   $Color.grey,
+   A2($Graphics$Collage.oval,
+   65,
+   50));
+   var cloud3Part1 = A2($Graphics$Collage.filled,
+   $Color.grey,
+   A2($Graphics$Collage.oval,
+   75,
+   75));
+   var cloud2Part3 = A2($Graphics$Collage.filled,
+   cloud3Color,
+   A2($Graphics$Collage.oval,
+   65,
+   50));
+   var cloud2Part2 = A2($Graphics$Collage.filled,
+   cloud3Color,
+   A2($Graphics$Collage.oval,
+   65,
+   50));
+   var cloud2Part1 = A2($Graphics$Collage.filled,
+   cloud3Color,
+   A2($Graphics$Collage.oval,
+   75,
+   75));
+   var cloud1Part3 = A2($Graphics$Collage.filled,
+   $Color.darkGrey,
+   A2($Graphics$Collage.oval,
+   65,
+   50));
+   var cloud1Part2 = A2($Graphics$Collage.filled,
+   $Color.darkGrey,
+   A2($Graphics$Collage.oval,
+   65,
+   50));
+   var cloud1Part1 = A2($Graphics$Collage.filled,
+   $Color.darkGrey,
+   A2($Graphics$Collage.oval,
+   75,
+   75));
+   var cloud3 = $Graphics$Collage.group(_L.fromArray([A2($Graphics$Collage.move,
+                                                     {ctor: "_Tuple2"
+                                                     ,_0: 20
+                                                     ,_1: 150},
+                                                     cloud3Part1)
+                                                     ,A2($Graphics$Collage.move,
+                                                     {ctor: "_Tuple2"
+                                                     ,_0: 0
+                                                     ,_1: 150},
+                                                     cloud3Part2)
+                                                     ,A2($Graphics$Collage.move,
+                                                     {ctor: "_Tuple2"
+                                                     ,_0: 40
+                                                     ,_1: 150},
+                                                     cloud3Part3)]));
+   var cloud2 = $Graphics$Collage.group(_L.fromArray([A2($Graphics$Collage.move,
+                                                     {ctor: "_Tuple2"
+                                                     ,_0: 20
+                                                     ,_1: 150},
+                                                     cloud2Part1)
+                                                     ,A2($Graphics$Collage.move,
+                                                     {ctor: "_Tuple2"
+                                                     ,_0: 0
+                                                     ,_1: 150},
+                                                     cloud2Part2)
+                                                     ,A2($Graphics$Collage.move,
+                                                     {ctor: "_Tuple2"
+                                                     ,_0: 40
+                                                     ,_1: 150},
+                                                     cloud2Part3)]));
+   var cloud1 = $Graphics$Collage.group(_L.fromArray([A2($Graphics$Collage.move,
+                                                     {ctor: "_Tuple2"
+                                                     ,_0: 20
+                                                     ,_1: 150},
+                                                     cloud1Part1)
+                                                     ,A2($Graphics$Collage.move,
+                                                     {ctor: "_Tuple2"
+                                                     ,_0: 0
+                                                     ,_1: 150},
+                                                     cloud1Part2)
+                                                     ,A2($Graphics$Collage.move,
+                                                     {ctor: "_Tuple2"
+                                                     ,_0: 40
+                                                     ,_1: 150},
+                                                     cloud1Part3)]));
+   var clockShape = $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                 ,_0: 0
+                                                                                 ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                         $Color.black,
+                                                         A2($Graphics$Collage.ngon,
+                                                         3,
+                                                         10.5))))
+                                                         ,$Graphics$Collage.rotate($Basics.degrees(90))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                               ,_0: 0
+                                                                                                                               ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                         $Color.black,
+                                                         A2($Graphics$Collage.ngon,
+                                                         3,
+                                                         10.5)))))
+                                                         ,$Graphics$Collage.rotate($Basics.degrees(180))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                ,_0: 0
+                                                                                                                                ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                         $Color.black,
+                                                         A2($Graphics$Collage.ngon,
+                                                         3,
+                                                         10.5)))))
+                                                         ,$Graphics$Collage.rotate($Basics.degrees(270))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                ,_0: 0
+                                                                                                                                ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                         $Color.black,
+                                                         A2($Graphics$Collage.ngon,
+                                                         3,
+                                                         10.5)))))
+                                                         ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                 ,_0: 0
+                                                                                 ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                         $Color.orange,
+                                                         A2($Graphics$Collage.ngon,
+                                                         3,
+                                                         10))))
+                                                         ,$Graphics$Collage.rotate($Basics.degrees(90))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                               ,_0: 0
+                                                                                                                               ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                         $Color.orange,
+                                                         A2($Graphics$Collage.ngon,
+                                                         3,
+                                                         10)))))
+                                                         ,$Graphics$Collage.rotate($Basics.degrees(180))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                ,_0: 0
+                                                                                                                                ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                         $Color.orange,
+                                                         A2($Graphics$Collage.ngon,
+                                                         3,
+                                                         10)))))
+                                                         ,$Graphics$Collage.rotate($Basics.degrees(270))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                ,_0: 0
+                                                                                                                                ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                         $Color.orange,
+                                                         A2($Graphics$Collage.ngon,
+                                                         3,
+                                                         10)))))
+                                                         ,A2($Graphics$Collage.filled,
+                                                         $Color.black,
+                                                         $Graphics$Collage.circle(15))
+                                                         ,A2($Graphics$Collage.filled,
+                                                         $Color.white,
+                                                         $Graphics$Collage.circle(13))
+                                                         ,A2($Graphics$Collage.filled,
+                                                         $Color.black,
+                                                         $Graphics$Collage.circle(1))
+                                                         ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                 ,_0: 5
+                                                                                 ,_1: 1})($Graphics$Collage.rotate($Basics.degrees(10))(A2($Graphics$Collage.filled,
+                                                         $Color.black,
+                                                         A2($Graphics$Collage.rect,
+                                                         7,
+                                                         1))))
+                                                         ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                 ,_0: 0
+                                                                                 ,_1: 5})($Graphics$Collage.rotate($Basics.degrees(90))(A2($Graphics$Collage.filled,
+                                                         $Color.black,
+                                                         A2($Graphics$Collage.rect,
+                                                         11,
+                                                         1))))]));
+   var goldText = A2($Graphics$Collage.move,
+   {ctor: "_Tuple2",_0: 20,_1: 20},
+   $Graphics$Collage.toForm($Graphics$Element.centered(A2($Text.color,
+   $Color.black,
+   A2($Text.typeface,
+   _L.fromArray(["sans-serif"]),
+   $Text.italic($Text.bold($Text.fromString("Gold Medal Awarded!"))))))));
+   var goldInside = $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.scale(1.5)(A2($Graphics$Collage.filled,
+                                                         $Color.black,
+                                                         $Graphics$Collage.circle(15)))
+                                                         ,$Graphics$Collage.scale(1.5)(A2($Graphics$Collage.filled,
+                                                         $Color.yellow,
+                                                         $Graphics$Collage.circle(14)))
+                                                         ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                 ,_0: -1
+                                                                                 ,_1: 1})($Graphics$Collage.text($Text.bold($Text.fromString("Gold"))))]));
+   var gold = A3($Color.hsl,
+   0.47,
+   1,
+   0.53);
+   var goldOutside = $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                  ,_0: 0
+                                                                                  ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                          $Color.black,
+                                                          A2($Graphics$Collage.ngon,
+                                                          3,
+                                                          10.5))))
+                                                          ,$Graphics$Collage.rotate($Basics.degrees(90))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                ,_0: 0
+                                                                                                                                ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                          $Color.black,
+                                                          A2($Graphics$Collage.ngon,
+                                                          3,
+                                                          10.5)))))
+                                                          ,$Graphics$Collage.rotate($Basics.degrees(180))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                 ,_0: 0
+                                                                                                                                 ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                          $Color.black,
+                                                          A2($Graphics$Collage.ngon,
+                                                          3,
+                                                          10.5)))))
+                                                          ,$Graphics$Collage.rotate($Basics.degrees(270))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                 ,_0: 0
+                                                                                                                                 ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                          $Color.black,
+                                                          A2($Graphics$Collage.ngon,
+                                                          3,
+                                                          10.5)))))
+                                                          ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                  ,_0: 0
+                                                                                  ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                          gold,
+                                                          A2($Graphics$Collage.ngon,
+                                                          3,
+                                                          10))))
+                                                          ,$Graphics$Collage.rotate($Basics.degrees(90))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                ,_0: 0
+                                                                                                                                ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                          $Color.red,
+                                                          A2($Graphics$Collage.ngon,
+                                                          3,
+                                                          10)))))
+                                                          ,$Graphics$Collage.rotate($Basics.degrees(180))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                 ,_0: 0
+                                                                                                                                 ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                          gold,
+                                                          A2($Graphics$Collage.ngon,
+                                                          3,
+                                                          10)))))
+                                                          ,$Graphics$Collage.rotate($Basics.degrees(270))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                 ,_0: 0
+                                                                                                                                 ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                          $Color.darkRed,
+                                                          A2($Graphics$Collage.ngon,
+                                                          3,
+                                                          10)))))]));
+   var goldMedal = function (t) {
+      return $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.scale(1.5)($Graphics$Collage.rotate($Basics.degrees(100 * $Basics.sin(t / 400)))(goldOutside))
+                                                  ,goldInside
+                                                  ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                          ,_0: 120
+                                                                          ,_1: -20})(goldText)]));
+   };
+   var silverText = A2($Graphics$Collage.move,
+   {ctor: "_Tuple2",_0: 20,_1: 20},
+   $Graphics$Collage.toForm($Graphics$Element.centered(A2($Text.color,
+   $Color.black,
+   A2($Text.typeface,
+   _L.fromArray(["sans-serif"]),
+   $Text.italic($Text.bold($Text.fromString("Silver Medal Awarded!"))))))));
+   var silver = A3($Color.hsl,
+   0,
+   0,
+   0.75);
+   var silverInside = $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.scale(1.5)(A2($Graphics$Collage.filled,
+                                                           $Color.black,
+                                                           $Graphics$Collage.circle(15)))
+                                                           ,$Graphics$Collage.scale(1.5)(A2($Graphics$Collage.filled,
+                                                           silver,
+                                                           $Graphics$Collage.circle(14)))
+                                                           ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                   ,_0: -1
+                                                                                   ,_1: 1})($Graphics$Collage.text($Text.bold($Text.fromString("Silver"))))]));
+   var silverOutside = $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                    ,_0: 0
+                                                                                    ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                            $Color.black,
+                                                            A2($Graphics$Collage.ngon,
+                                                            3,
+                                                            10.5))))
+                                                            ,$Graphics$Collage.rotate($Basics.degrees(90))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                  ,_0: 0
+                                                                                                                                  ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                            $Color.black,
+                                                            A2($Graphics$Collage.ngon,
+                                                            3,
+                                                            10.5)))))
+                                                            ,$Graphics$Collage.rotate($Basics.degrees(180))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                   ,_0: 0
+                                                                                                                                   ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                            $Color.black,
+                                                            A2($Graphics$Collage.ngon,
+                                                            3,
+                                                            10.5)))))
+                                                            ,$Graphics$Collage.rotate($Basics.degrees(270))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                   ,_0: 0
+                                                                                                                                   ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                            $Color.black,
+                                                            A2($Graphics$Collage.ngon,
+                                                            3,
+                                                            10.5)))))
+                                                            ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                    ,_0: 0
+                                                                                    ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                            silver,
+                                                            A2($Graphics$Collage.ngon,
+                                                            3,
+                                                            10))))
+                                                            ,$Graphics$Collage.rotate($Basics.degrees(90))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                  ,_0: 0
+                                                                                                                                  ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                            $Color.black,
+                                                            A2($Graphics$Collage.ngon,
+                                                            3,
+                                                            10)))))
+                                                            ,$Graphics$Collage.rotate($Basics.degrees(180))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                   ,_0: 0
+                                                                                                                                   ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                            silver,
+                                                            A2($Graphics$Collage.ngon,
+                                                            3,
+                                                            10)))))
+                                                            ,$Graphics$Collage.rotate($Basics.degrees(270))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                   ,_0: 0
+                                                                                                                                   ,_1: 0})($Graphics$Collage.scale(2.4)(A2($Graphics$Collage.filled,
+                                                            $Color.black,
+                                                            A2($Graphics$Collage.ngon,
+                                                            3,
+                                                            10)))))]));
+   var silverMedal = function (t) {
+      return $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.scale(1.5)($Graphics$Collage.rotate($Basics.degrees(100 * $Basics.sin(t / 400)))(silverOutside))
+                                                  ,silverInside
+                                                  ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                          ,_0: 120
+                                                                          ,_1: -20})(silverText)]));
+   };
+   var wing = $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.rotate($Basics.degrees(-210))(A2($Graphics$Collage.filled,
+   $Color.blue,
+   A2($Graphics$Collage.oval,
+   60,
+   16)))]));
+   var bird = function (t) {
+      return $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                          ,_0: -1 * $Basics.cos(t / 50)
+                                                                          ,_1: -1 * $Basics.cos(t / 50)})($Graphics$Collage.rotate($Basics.degrees(30 * $Basics.sin(t / 25)))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                                                                                     ,_0: 23
+                                                                                                                                                                                                     ,_1: -11})($Graphics$Collage.scale(0.5)(wing))))
+                                                  ,A2($Graphics$Collage.move,
+                                                  {ctor: "_Tuple2"
+                                                  ,_0: 30
+                                                  ,_1: -10},
+                                                  A2($Graphics$Collage.filled,
+                                                  $Color.orange,
+                                                  A2($Graphics$Collage.oval,
+                                                  8,
+                                                  5)))
+                                                  ,A2($Graphics$Collage.move,
+                                                  {ctor: "_Tuple2"
+                                                  ,_0: 30
+                                                  ,_1: -15},
+                                                  A2($Graphics$Collage.filled,
+                                                  $Color.orange,
+                                                  A2($Graphics$Collage.oval,
+                                                  8,
+                                                  5)))
+                                                  ,A2($Graphics$Collage.move,
+                                                  {ctor: "_Tuple2"
+                                                  ,_0: 15
+                                                  ,_1: -10},
+                                                  A2($Graphics$Collage.filled,
+                                                  $Color.blue,
+                                                  A2($Graphics$Collage.oval,
+                                                  30,
+                                                  22)))
+                                                  ,$Graphics$Collage.scale(2.2)(A2($Graphics$Collage.move,
+                                                  {ctor: "_Tuple2"
+                                                  ,_0: -12
+                                                  ,_1: -3},
+                                                  A2($Graphics$Collage.filled,
+                                                  $Color.orange,
+                                                  $Graphics$Collage.polygon(_L.fromArray([{ctor: "_Tuple2"
+                                                                                          ,_0: 0
+                                                                                          ,_1: 5}
+                                                                                         ,{ctor: "_Tuple2"
+                                                                                          ,_0: -7
+                                                                                          ,_1: 2}
+                                                                                         ,{ctor: "_Tuple2"
+                                                                                          ,_0: -1
+                                                                                          ,_1: 1}
+                                                                                         ,{ctor: "_Tuple2"
+                                                                                          ,_0: -4
+                                                                                          ,_1: 0}
+                                                                                         ,{ctor: "_Tuple2"
+                                                                                          ,_0: 0
+                                                                                          ,_1: -2}])))))
+                                                  ,A2($Graphics$Collage.move,
+                                                  {ctor: "_Tuple2",_0: 0,_1: 0},
+                                                  A2($Graphics$Collage.filled,
+                                                  $Color.blue,
+                                                  A2($Graphics$Collage.oval,
+                                                  30,
+                                                  25)))
+                                                  ,A2($Graphics$Collage.move,
+                                                  {ctor: "_Tuple2"
+                                                  ,_0: -3
+                                                  ,_1: 4},
+                                                  A2($Graphics$Collage.filled,
+                                                  $Color.black,
+                                                  $Graphics$Collage.circle(5)))
+                                                  ,A2($Graphics$Collage.move,
+                                                  {ctor: "_Tuple2"
+                                                  ,_0: -3
+                                                  ,_1: 4},
+                                                  A2($Graphics$Collage.filled,
+                                                  $Color.white,
+                                                  $Graphics$Collage.circle(4)))
+                                                  ,A2($Graphics$Collage.move,
+                                                  {ctor: "_Tuple2"
+                                                  ,_0: -4
+                                                  ,_1: 5},
+                                                  A2($Graphics$Collage.filled,
+                                                  $Color.black,
+                                                  $Graphics$Collage.circle(2)))
+                                                  ,A2($Graphics$Collage.move,
+                                                  {ctor: "_Tuple2"
+                                                  ,_0: -5
+                                                  ,_1: 6},
+                                                  A2($Graphics$Collage.filled,
+                                                  $Color.white,
+                                                  $Graphics$Collage.circle(0.6)))
+                                                  ,$Graphics$Collage.rotate($Basics.degrees(30 * $Basics.sin(t / 25)))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                              ,_0: 23
+                                                                                                                                              ,_1: -13})($Graphics$Collage.scale(0.5)(wing)))]));
+   };
+   var ear2 = $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.rotate($Basics.degrees(-10))(A2($Graphics$Collage.filled,
+                                                   $Color.black,
+                                                   A2($Graphics$Collage.oval,
+                                                   27,
+                                                   72)))
+                                                   ,$Graphics$Collage.rotate($Basics.degrees(-10))(A2($Graphics$Collage.filled,
+                                                   $Color.white,
+                                                   A2($Graphics$Collage.oval,
+                                                   25,
+                                                   70)))
+                                                   ,$Graphics$Collage.rotate($Basics.degrees(-10))(A2($Graphics$Collage.filled,
+                                                   $Color.darkGrey,
+                                                   A2($Graphics$Collage.oval,
+                                                   15,
+                                                   55)))]));
+   var ear1 = $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.rotate($Basics.degrees(15))(A2($Graphics$Collage.filled,
+                                                   $Color.black,
+                                                   A2($Graphics$Collage.oval,
+                                                   27,
+                                                   72)))
+                                                   ,$Graphics$Collage.rotate($Basics.degrees(15))(A2($Graphics$Collage.filled,
+                                                   $Color.white,
+                                                   A2($Graphics$Collage.oval,
+                                                   25,
+                                                   70)))
+                                                   ,$Graphics$Collage.rotate($Basics.degrees(15))(A2($Graphics$Collage.filled,
+                                                   $Color.darkGrey,
+                                                   A2($Graphics$Collage.oval,
+                                                   15,
+                                                   55)))]));
+   var rabbitShapes = $Graphics$Collage.group(_L.fromArray([A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 0
+                                                           ,_1: 3},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.black,
+                                                           A2($Graphics$Collage.oval,
+                                                           42,
+                                                           52)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 0
+                                                           ,_1: 3},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.white,
+                                                           A2($Graphics$Collage.oval,
+                                                           40,
+                                                           50)))
+                                                           ,$Graphics$Collage.rotate($Basics.degrees(-30))(A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 7
+                                                           ,_1: 0},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.black,
+                                                           A2($Graphics$Collage.oval,
+                                                           7,
+                                                           15))))
+                                                           ,$Graphics$Collage.rotate($Basics.degrees(-30))(A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 7
+                                                           ,_1: 0},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.white,
+                                                           A2($Graphics$Collage.oval,
+                                                           5,
+                                                           13))))
+                                                           ,$Graphics$Collage.rotate($Basics.degrees(40))(A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: -7
+                                                           ,_1: 0},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.black,
+                                                           A2($Graphics$Collage.oval,
+                                                           7,
+                                                           15))))
+                                                           ,$Graphics$Collage.rotate($Basics.degrees(40))(A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: -7
+                                                           ,_1: 0},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.white,
+                                                           A2($Graphics$Collage.oval,
+                                                           5,
+                                                           13))))
+                                                           ,$Graphics$Collage.rotate($Basics.degrees(0))(A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: -12
+                                                           ,_1: 5},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.white,
+                                                           A2($Graphics$Collage.ngon,
+                                                           4,
+                                                           6))))
+                                                           ,$Graphics$Collage.rotate($Basics.degrees(20))(A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 11
+                                                           ,_1: 6},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.white,
+                                                           A2($Graphics$Collage.ngon,
+                                                           4,
+                                                           6))))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 0
+                                                           ,_1: 55},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.white,
+                                                           $Graphics$Collage.circle(30)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 0
+                                                           ,_1: 55},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.black,
+                                                           $Graphics$Collage.circle(31)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 0
+                                                           ,_1: 55},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.white,
+                                                           $Graphics$Collage.circle(30)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 0
+                                                           ,_1: 30},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.black,
+                                                           A2($Graphics$Collage.oval,
+                                                           60,
+                                                           24)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 0
+                                                           ,_1: 30},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.white,
+                                                           A2($Graphics$Collage.oval,
+                                                           58,
+                                                           22)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: -13
+                                                           ,_1: 55},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.black,
+                                                           A2($Graphics$Collage.oval,
+                                                           15,
+                                                           35)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 13
+                                                           ,_1: 55},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.black,
+                                                           A2($Graphics$Collage.oval,
+                                                           15,
+                                                           35)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: -13
+                                                           ,_1: 55},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.white,
+                                                           A2($Graphics$Collage.oval,
+                                                           13,
+                                                           32)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 13
+                                                           ,_1: 55},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.white,
+                                                           A2($Graphics$Collage.oval,
+                                                           13,
+                                                           32)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: -13
+                                                           ,_1: 55},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.black,
+                                                           A2($Graphics$Collage.oval,
+                                                           9,
+                                                           27)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 13
+                                                           ,_1: 55},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.black,
+                                                           A2($Graphics$Collage.oval,
+                                                           9,
+                                                           27)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: -13
+                                                           ,_1: 60},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.white,
+                                                           $Graphics$Collage.circle(2.5)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 13
+                                                           ,_1: 60},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.white,
+                                                           $Graphics$Collage.circle(2.5)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: -14
+                                                           ,_1: 55},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.white,
+                                                           $Graphics$Collage.circle(1.5)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 12
+                                                           ,_1: 55},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.white,
+                                                           $Graphics$Collage.circle(1.5)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 0
+                                                           ,_1: 35},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.white,
+                                                           A2($Graphics$Collage.rect,
+                                                           45,
+                                                           20)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: -13
+                                                           ,_1: 45},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.black,
+                                                           A2($Graphics$Collage.rect,
+                                                           11,
+                                                           1)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 13
+                                                           ,_1: 45},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.black,
+                                                           A2($Graphics$Collage.rect,
+                                                           11,
+                                                           1)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: -3
+                                                           ,_1: 25},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.black,
+                                                           A2($Graphics$Collage.rect,
+                                                           7,
+                                                           23)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 3
+                                                           ,_1: 25},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.black,
+                                                           A2($Graphics$Collage.rect,
+                                                           7,
+                                                           23)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: -3
+                                                           ,_1: 25},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.white,
+                                                           A2($Graphics$Collage.rect,
+                                                           5,
+                                                           21)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 3
+                                                           ,_1: 25},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.white,
+                                                           A2($Graphics$Collage.rect,
+                                                           5,
+                                                           21)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: -5
+                                                           ,_1: 30},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.black,
+                                                           $Graphics$Collage.circle(5)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 5
+                                                           ,_1: 30},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.black,
+                                                           $Graphics$Collage.circle(5)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: -5
+                                                           ,_1: 30},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.white,
+                                                           $Graphics$Collage.circle(4)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 5
+                                                           ,_1: 30},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.white,
+                                                           $Graphics$Collage.circle(4)))
+                                                           ,A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 0
+                                                           ,_1: 34},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.white,
+                                                           A2($Graphics$Collage.rect,
+                                                           20,
+                                                           6)))
+                                                           ,$Graphics$Collage.rotate($Basics.degrees(30))(A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 0
+                                                           ,_1: 36},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.black,
+                                                           A2($Graphics$Collage.ngon,
+                                                           3,
+                                                           6))))
+                                                           ,$Graphics$Collage.scale(0.6)(A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 0
+                                                           ,_1: 39},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.black,
+                                                           A2($Graphics$Collage.oval,
+                                                           13,
+                                                           4))))
+                                                           ,$Graphics$Collage.scale(0.6)($Graphics$Collage.rotate($Basics.degrees(62))(A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: 3
+                                                           ,_1: 35},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.black,
+                                                           A2($Graphics$Collage.oval,
+                                                           13,
+                                                           4)))))
+                                                           ,$Graphics$Collage.scale(0.6)($Graphics$Collage.rotate($Basics.degrees(118))(A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: -3
+                                                           ,_1: 35},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.black,
+                                                           A2($Graphics$Collage.oval,
+                                                           13,
+                                                           4)))))
+                                                           ,$Graphics$Collage.scale(0.6)($Graphics$Collage.rotate($Basics.degrees(118))(A2($Graphics$Collage.move,
+                                                           {ctor: "_Tuple2"
+                                                           ,_0: -2
+                                                           ,_1: 35},
+                                                           A2($Graphics$Collage.filled,
+                                                           $Color.white,
+                                                           A2($Graphics$Collage.oval,
+                                                           8,
+                                                           2)))))]));
+   var feetRight = $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.rotate($Basics.degrees(-150))(A2($Graphics$Collage.move,
+                                                        {ctor: "_Tuple2"
+                                                        ,_0: -10
+                                                        ,_1: -24},
+                                                        A2($Graphics$Collage.filled,
+                                                        $Color.black,
+                                                        A2($Graphics$Collage.oval,
+                                                        10,
+                                                        20))))
+                                                        ,$Graphics$Collage.rotate($Basics.degrees(-150))(A2($Graphics$Collage.move,
+                                                        {ctor: "_Tuple2"
+                                                        ,_0: -10
+                                                        ,_1: -24},
+                                                        A2($Graphics$Collage.filled,
+                                                        $Color.white,
+                                                        A2($Graphics$Collage.oval,
+                                                        8,
+                                                        18))))
+                                                        ,$Graphics$Collage.rotate($Basics.degrees(-130))(A2($Graphics$Collage.move,
+                                                        {ctor: "_Tuple2"
+                                                        ,_0: 10
+                                                        ,_1: -25},
+                                                        A2($Graphics$Collage.filled,
+                                                        $Color.black,
+                                                        A2($Graphics$Collage.oval,
+                                                        10,
+                                                        20))))
+                                                        ,$Graphics$Collage.rotate($Basics.degrees(-130))(A2($Graphics$Collage.move,
+                                                        {ctor: "_Tuple2"
+                                                        ,_0: 10
+                                                        ,_1: -25},
+                                                        A2($Graphics$Collage.filled,
+                                                        $Color.white,
+                                                        A2($Graphics$Collage.oval,
+                                                        8,
+                                                        18))))]));
+   var feetLeft = $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.rotate($Basics.degrees(-60))(A2($Graphics$Collage.move,
+                                                       {ctor: "_Tuple2"
+                                                       ,_0: -14
+                                                       ,_1: -22},
+                                                       A2($Graphics$Collage.filled,
+                                                       $Color.black,
+                                                       A2($Graphics$Collage.oval,
+                                                       10,
+                                                       20))))
+                                                       ,$Graphics$Collage.rotate($Basics.degrees(-60))(A2($Graphics$Collage.move,
+                                                       {ctor: "_Tuple2"
+                                                       ,_0: -14
+                                                       ,_1: -22},
+                                                       A2($Graphics$Collage.filled,
+                                                       $Color.white,
+                                                       A2($Graphics$Collage.oval,
+                                                       8,
+                                                       18))))
+                                                       ,$Graphics$Collage.rotate($Basics.degrees(-50))(A2($Graphics$Collage.move,
+                                                       {ctor: "_Tuple2"
+                                                       ,_0: 3
+                                                       ,_1: -25},
+                                                       A2($Graphics$Collage.filled,
+                                                       $Color.black,
+                                                       A2($Graphics$Collage.oval,
+                                                       10,
+                                                       20))))
+                                                       ,$Graphics$Collage.rotate($Basics.degrees(-50))(A2($Graphics$Collage.move,
+                                                       {ctor: "_Tuple2"
+                                                       ,_0: 3
+                                                       ,_1: -25},
+                                                       A2($Graphics$Collage.filled,
+                                                       $Color.white,
+                                                       A2($Graphics$Collage.oval,
+                                                       8,
+                                                       18))))]));
+   var feetJump = $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.rotate($Basics.degrees(15))(A2($Graphics$Collage.move,
+                                                       {ctor: "_Tuple2"
+                                                       ,_0: -10
+                                                       ,_1: -22},
+                                                       A2($Graphics$Collage.filled,
+                                                       $Color.black,
+                                                       A2($Graphics$Collage.oval,
+                                                       10,
+                                                       20))))
+                                                       ,$Graphics$Collage.rotate($Basics.degrees(15))(A2($Graphics$Collage.move,
+                                                       {ctor: "_Tuple2"
+                                                       ,_0: -10
+                                                       ,_1: -22},
+                                                       A2($Graphics$Collage.filled,
+                                                       $Color.white,
+                                                       A2($Graphics$Collage.oval,
+                                                       8,
+                                                       18))))
+                                                       ,$Graphics$Collage.rotate($Basics.degrees(-15))(A2($Graphics$Collage.move,
+                                                       {ctor: "_Tuple2"
+                                                       ,_0: 5
+                                                       ,_1: -25},
+                                                       A2($Graphics$Collage.filled,
+                                                       $Color.black,
+                                                       A2($Graphics$Collage.oval,
+                                                       10,
+                                                       20))))
+                                                       ,$Graphics$Collage.rotate($Basics.degrees(-15))(A2($Graphics$Collage.move,
+                                                       {ctor: "_Tuple2"
+                                                       ,_0: 5
+                                                       ,_1: -25},
+                                                       A2($Graphics$Collage.filled,
+                                                       $Color.white,
+                                                       A2($Graphics$Collage.oval,
+                                                       8,
+                                                       18))))]));
+   var rabbitRight = function (rabbit) {
+      return $Graphics$Collage.group(_L.fromArray([rabbit.jumping ? feetJump : feetRight
+                                                  ,rabbit.jumping ? $Graphics$Collage.rotate($Basics.degrees(25))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                         ,_0: -17
+                                                                                                                                         ,_1: 80})(ear1)) : $Graphics$Collage.rotate($Basics.degrees(15))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                                                                                                                 ,_0: -17
+                                                                                                                                                                                                                                 ,_1: 87})(ear1))
+                                                  ,rabbit.jumping ? $Graphics$Collage.rotate($Basics.degrees(-25))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                          ,_0: 17
+                                                                                                                                          ,_1: 80})(ear2)) : $Graphics$Collage.rotate($Basics.degrees(-15))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                                                                                                                   ,_0: 17
+                                                                                                                                                                                                                                   ,_1: 87})(ear2))
+                                                  ,rabbitShapes]));
+   };
+   var rabbitLeft = function (rabbit) {
+      return $Graphics$Collage.group(_L.fromArray([rabbit.jumping ? feetJump : feetLeft
+                                                  ,rabbit.jumping ? $Graphics$Collage.rotate($Basics.degrees(25))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                         ,_0: -17
+                                                                                                                                         ,_1: 80})(ear1)) : $Graphics$Collage.rotate($Basics.degrees(15))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                                                                                                                 ,_0: -17
+                                                                                                                                                                                                                                 ,_1: 87})(ear1))
+                                                  ,rabbit.jumping ? $Graphics$Collage.rotate($Basics.degrees(-25))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                          ,_0: 17
+                                                                                                                                          ,_1: 80})(ear2)) : $Graphics$Collage.rotate($Basics.degrees(-15))($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                                                                                                                                   ,_0: 17
+                                                                                                                                                                                                                                   ,_1: 87})(ear2))
+                                                  ,rabbitShapes]));
+   };
+   var nothing = $Graphics$Collage.group(_L.fromArray([A2($Graphics$Collage.filled,
+   $Color.red,
+   $Graphics$Collage.circle(0))]));
+   var carrot = $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.scale(3)(A2($Graphics$Collage.move,
+                                                     {ctor: "_Tuple2"
+                                                     ,_0: 0
+                                                     ,_1: 62},
+                                                     A2($Graphics$Collage.filled,
+                                                     $Color.darkGreen,
+                                                     A2($Graphics$Collage.rect,
+                                                     2,
+                                                     4))))
+                                                     ,$Graphics$Collage.scale(2)(A2($Graphics$Collage.move,
+                                                     {ctor: "_Tuple2"
+                                                     ,_0: -4
+                                                     ,_1: 71},
+                                                     A2($Graphics$Collage.filled,
+                                                     $Color.darkGreen,
+                                                     $Graphics$Collage.circle(2))))
+                                                     ,$Graphics$Collage.scale(2)(A2($Graphics$Collage.move,
+                                                     {ctor: "_Tuple2"
+                                                     ,_0: 4
+                                                     ,_1: 69},
+                                                     A2($Graphics$Collage.filled,
+                                                     $Color.darkGreen,
+                                                     $Graphics$Collage.circle(2))))
+                                                     ,$Graphics$Collage.scale(2)(A2($Graphics$Collage.move,
+                                                     {ctor: "_Tuple2"
+                                                     ,_0: 0
+                                                     ,_1: 75},
+                                                     A2($Graphics$Collage.filled,
+                                                     $Color.darkGreen,
+                                                     $Graphics$Collage.circle(2))))
+                                                     ,$Graphics$Collage.scale(2)(A2($Graphics$Collage.move,
+                                                     {ctor: "_Tuple2"
+                                                     ,_0: 0
+                                                     ,_1: 70},
+                                                     A2($Graphics$Collage.filled,
+                                                     $Color.darkGreen,
+                                                     $Graphics$Collage.circle(2))))
+                                                     ,$Graphics$Collage.scale(2)(A2($Graphics$Collage.filled,
+                                                     $Color.orange,
+                                                     $Graphics$Collage.polygon(_L.fromArray([{ctor: "_Tuple2"
+                                                                                             ,_0: 0
+                                                                                             ,_1: 6}
+                                                                                            ,{ctor: "_Tuple2"
+                                                                                             ,_0: -4
+                                                                                             ,_1: 30}
+                                                                                            ,{ctor: "_Tuple2"
+                                                                                             ,_0: 4
+                                                                                             ,_1: 30}]))))]));
+   var sun = $Graphics$Collage.group(_L.fromArray([A2($Graphics$Collage.move,
+                                                  {ctor: "_Tuple2"
+                                                  ,_0: 200
+                                                  ,_1: 200},
+                                                  A2($Graphics$Collage.filled,
+                                                  $Color.orange,
+                                                  $Graphics$Collage.circle(100)))
+                                                  ,A2($Graphics$Collage.move,
+                                                  {ctor: "_Tuple2"
+                                                  ,_0: 200
+                                                  ,_1: 200},
+                                                  A2($Graphics$Collage.filled,
+                                                  $Color.yellow,
+                                                  $Graphics$Collage.circle(65)))
+                                                  ,$Graphics$Collage.rotate($Basics.degrees(-50))(A2($Graphics$Collage.move,
+                                                  {ctor: "_Tuple2"
+                                                  ,_0: 80
+                                                  ,_1: 180},
+                                                  A2($Graphics$Collage.filled,
+                                                  $Color.lightBlue,
+                                                  $Graphics$Collage.circle(40))))
+                                                  ,$Graphics$Collage.rotate($Basics.degrees(-30))(A2($Graphics$Collage.move,
+                                                  {ctor: "_Tuple2"
+                                                  ,_0: 120
+                                                  ,_1: 130},
+                                                  A2($Graphics$Collage.filled,
+                                                  $Color.lightBlue,
+                                                  $Graphics$Collage.circle(30))))
+                                                  ,$Graphics$Collage.rotate($Basics.degrees(-10))(A2($Graphics$Collage.move,
+                                                  {ctor: "_Tuple2"
+                                                  ,_0: 160
+                                                  ,_1: 100},
+                                                  A2($Graphics$Collage.filled,
+                                                  $Color.lightBlue,
+                                                  $Graphics$Collage.circle(30))))
+                                                  ,$Graphics$Collage.rotate($Basics.degrees(-10))(A2($Graphics$Collage.move,
+                                                  {ctor: "_Tuple2"
+                                                  ,_0: 210
+                                                  ,_1: 85},
+                                                  A2($Graphics$Collage.filled,
+                                                  $Color.lightBlue,
+                                                  $Graphics$Collage.circle(30))))
+                                                  ,$Graphics$Collage.rotate($Basics.degrees(10))(A2($Graphics$Collage.move,
+                                                  {ctor: "_Tuple2"
+                                                  ,_0: 250
+                                                  ,_1: 95},
+                                                  A2($Graphics$Collage.filled,
+                                                  $Color.lightBlue,
+                                                  $Graphics$Collage.circle(30))))]));
+   var tree = $Graphics$Collage.group(_L.fromArray([A2($Graphics$Collage.move,
+                                                   {ctor: "_Tuple2"
+                                                   ,_0: -190
+                                                   ,_1: 0},
+                                                   A2($Graphics$Collage.filled,
+                                                   $Color.darkBrown,
+                                                   A2($Graphics$Collage.rect,
+                                                   40,
+                                                   150)))
+                                                   ,A2($Graphics$Collage.move,
+                                                   {ctor: "_Tuple2"
+                                                   ,_0: -200
+                                                   ,_1: 110},
+                                                   A2($Graphics$Collage.filled,
+                                                   $Color.darkGreen,
+                                                   $Graphics$Collage.circle(45)))
+                                                   ,A2($Graphics$Collage.move,
+                                                   {ctor: "_Tuple2"
+                                                   ,_0: -160
+                                                   ,_1: 140},
+                                                   A2($Graphics$Collage.filled,
+                                                   $Color.darkGreen,
+                                                   $Graphics$Collage.circle(45)))
+                                                   ,A2($Graphics$Collage.move,
+                                                   {ctor: "_Tuple2"
+                                                   ,_0: -200
+                                                   ,_1: 170},
+                                                   A2($Graphics$Collage.filled,
+                                                   $Color.darkGreen,
+                                                   $Graphics$Collage.circle(50)))]));
+   var mud = $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.scale(0.8)(A2($Graphics$Collage.move,
+                                                  {ctor: "_Tuple2",_0: 0,_1: 0},
+                                                  A2($Graphics$Collage.filled,
+                                                  $Color.darkBrown,
+                                                  A2($Graphics$Collage.oval,
+                                                  40,
+                                                  15))))
+                                                  ,$Graphics$Collage.scale(0.8)(A2($Graphics$Collage.move,
+                                                  {ctor: "_Tuple2"
+                                                  ,_0: 10
+                                                  ,_1: -7},
+                                                  A2($Graphics$Collage.filled,
+                                                  $Color.darkBrown,
+                                                  A2($Graphics$Collage.oval,
+                                                  40,
+                                                  15))))
+                                                  ,$Graphics$Collage.scale(0.8)(A2($Graphics$Collage.move,
+                                                  {ctor: "_Tuple2"
+                                                  ,_0: 15
+                                                  ,_1: 5},
+                                                  A2($Graphics$Collage.filled,
+                                                  $Color.darkBrown,
+                                                  A2($Graphics$Collage.oval,
+                                                  40,
+                                                  15))))
+                                                  ,$Graphics$Collage.scale(0.8)(A2($Graphics$Collage.move,
+                                                  {ctor: "_Tuple2"
+                                                  ,_0: 24
+                                                  ,_1: -2},
+                                                  A2($Graphics$Collage.filled,
+                                                  $Color.darkBrown,
+                                                  A2($Graphics$Collage.oval,
+                                                  40,
+                                                  15))))]));
+   var drawMud = function (x) {
+      return A2($Graphics$Collage.move,
+      {ctor: "_Tuple2"
+      ,_0: x
+      ,_1: -284},
+      mud);
+   };
+   var mudDrawer = function (l) {
+      return $Graphics$Collage.group(A2($List.map,
+      drawMud,
+      l));
+   };
+   var heartCover = $Graphics$Collage.group(_L.fromArray([A2($Graphics$Collage.move,
+   {ctor: "_Tuple2",_0: 0,_1: 80},
+   A2($Graphics$Collage.filled,
+   $Color.lightBlue,
+   A2($Graphics$Collage.rect,
+   100,
+   100)))]));
+   var heart = $Graphics$Collage.group(_L.fromArray([A2($Graphics$Collage.move,
+                                                    {ctor: "_Tuple2"
+                                                    ,_0: 0
+                                                    ,_1: 0},
+                                                    A2($Graphics$Collage.filled,
+                                                    $Color.red,
+                                                    A2($Graphics$Collage.ngon,
+                                                    4,
+                                                    50)))
+                                                    ,A2($Graphics$Collage.move,
+                                                    {ctor: "_Tuple2"
+                                                    ,_0: 20
+                                                    ,_1: 20},
+                                                    A2($Graphics$Collage.filled,
+                                                    $Color.red,
+                                                    $Graphics$Collage.circle(36)))
+                                                    ,A2($Graphics$Collage.move,
+                                                    {ctor: "_Tuple2"
+                                                    ,_0: -20
+                                                    ,_1: 20},
+                                                    A2($Graphics$Collage.filled,
+                                                    $Color.red,
+                                                    $Graphics$Collage.circle(36)))]));
+   var displaySlowMo = function (rabbit) {
+      return $Graphics$Collage.group(_L.fromArray([A2($Graphics$Collage.move,
+      {ctor: "_Tuple2"
+      ,_0: -108
+      ,_1: 260},
+      $Graphics$Collage.text($Text.bold($Text.fromString(A2($Basics._op["++"],
+      "Slow Motion Jump! (+",
+      A2($Basics._op["++"],
+      $Basics.toString(rabbit.slowDownNum - 2),
+      ")"))))))]));
+   };
+   var displayJumpBonus = function (rabbit) {
+      return $Graphics$Collage.group(_L.fromArray([A2($Graphics$Collage.move,
+      {ctor: "_Tuple2"
+      ,_0: -112
+      ,_1: 280},
+      $Graphics$Collage.text($Text.bold($Text.fromString(A2($Basics._op["++"],
+      "Jump Bonus! (+",
+      A2($Basics._op["++"],
+      $Basics.toString(2 * rabbit.carrotsNum + rabbit.slowDownNum),
+      ")"))))))]));
+   };
+   var numOfCarrots = function (rabbit) {
+      return $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.scale(2)(A2($Graphics$Collage.move,
+      {ctor: "_Tuple2"
+      ,_0: -222
+      ,_1: 265},
+      $Graphics$Collage.text($Text.fromString($Basics.toString(rabbit.carrotsNum)))))]));
+   };
+   var healthBackground = $Graphics$Collage.group(_L.fromArray([A2($Graphics$Collage.move,
+                                                               {ctor: "_Tuple2"
+                                                               ,_0: -142
+                                                               ,_1: 260},
+                                                               A2($Graphics$Collage.filled,
+                                                               $Color.black,
+                                                               A2($Graphics$Collage.rect,
+                                                               227,
+                                                               81)))
+                                                               ,A2($Graphics$Collage.move,
+                                                               {ctor: "_Tuple2"
+                                                               ,_0: -142
+                                                               ,_1: 260},
+                                                               A2($Graphics$Collage.filled,
+                                                               A3($Color.rgb,
+                                                               174,
+                                                               238,
+                                                               238),
+                                                               A2($Graphics$Collage.rect,
+                                                               225,
+                                                               79)))
+                                                               ,A2($Graphics$Collage.move,
+                                                               {ctor: "_Tuple2"
+                                                               ,_0: -222
+                                                               ,_1: 235},
+                                                               $Graphics$Collage.text($Text.bold($Text.fromString("Carrots"))))]));
+   var healthText = $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.text($Text.bold($Text.fromString("Health")))
+                                                         ,A2($Graphics$Collage.move,
+                                                         {ctor: "_Tuple2"
+                                                         ,_0: 0
+                                                         ,_1: -30},
+                                                         A2($Graphics$Collage.outlined,
+                                                         $Graphics$Collage.solid($Color.black),
+                                                         A2($Graphics$Collage.rect,
+                                                         80,
+                                                         80)))]));
+   var grassColor = A3($Color.rgb,
+   74,
+   163,
+   41);
+   var paperColor = A3($Color.hsl,
+   0.17,
+   1,
+   0.74);
+   var handOverlap = $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.rotate($Basics.degrees(40))(A2($Graphics$Collage.move,
+                                                          {ctor: "_Tuple2"
+                                                          ,_0: -7
+                                                          ,_1: 0},
+                                                          A2($Graphics$Collage.filled,
+                                                          $Color.black,
+                                                          A2($Graphics$Collage.oval,
+                                                          7,
+                                                          15))))
+                                                          ,$Graphics$Collage.rotate($Basics.degrees(40))(A2($Graphics$Collage.move,
+                                                          {ctor: "_Tuple2"
+                                                          ,_0: -7
+                                                          ,_1: 0},
+                                                          A2($Graphics$Collage.filled,
+                                                          $Color.white,
+                                                          A2($Graphics$Collage.oval,
+                                                          5,
+                                                          13))))
+                                                          ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                  ,_0: 0
+                                                                                  ,_1: 1})($Graphics$Collage.scale(0.5)($Graphics$Collage.rotate($Basics.degrees(0))(A2($Graphics$Collage.move,
+                                                          {ctor: "_Tuple2"
+                                                          ,_0: -12
+                                                          ,_1: 5},
+                                                          A2($Graphics$Collage.filled,
+                                                          $Color.white,
+                                                          A2($Graphics$Collage.ngon,
+                                                          4,
+                                                          6))))))]));
+   var envelope = $Graphics$Collage.group(_L.fromArray([$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                               ,_0: 0
+                                                                               ,_1: 1})(A2($Graphics$Collage.filled,
+                                                       $Color.black,
+                                                       A2($Graphics$Collage.rect,
+                                                       52,
+                                                       29)))
+                                                       ,A2($Graphics$Collage.filled,
+                                                       paperColor,
+                                                       A2($Graphics$Collage.rect,
+                                                       50,
+                                                       25))
+                                                       ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                               ,_0: 0
+                                                                               ,_1: -17})(A2($Graphics$Collage.filled,
+                                                       $Color.black,
+                                                       $Graphics$Collage.polygon(_L.fromArray([{ctor: "_Tuple2"
+                                                                                               ,_0: -26
+                                                                                               ,_1: 30}
+                                                                                              ,{ctor: "_Tuple2"
+                                                                                               ,_0: 0
+                                                                                               ,_1: 13}
+                                                                                              ,{ctor: "_Tuple2"
+                                                                                               ,_0: 26
+                                                                                               ,_1: 30}]))))
+                                                       ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                               ,_0: 0
+                                                                               ,_1: -16})(A2($Graphics$Collage.filled,
+                                                       paperColor,
+                                                       $Graphics$Collage.polygon(_L.fromArray([{ctor: "_Tuple2"
+                                                                                               ,_0: -26
+                                                                                               ,_1: 31}
+                                                                                              ,{ctor: "_Tuple2"
+                                                                                               ,_0: 0
+                                                                                               ,_1: 13}
+                                                                                              ,{ctor: "_Tuple2"
+                                                                                               ,_0: 26
+                                                                                               ,_1: 31}]))))
+                                                       ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                                               ,_0: -11
+                                                                               ,_1: -7})($Graphics$Collage.scale(0.4)($Graphics$Collage.text($Text.bold($Text.fromString("To: Birdy")))))]));
+   var rules = $Graphics$Collage.group(_L.fromArray([A2($Graphics$Collage.move,
+                                                    {ctor: "_Tuple2"
+                                                    ,_0: -142
+                                                    ,_1: 260},
+                                                    A2($Graphics$Collage.filled,
+                                                    $Color.black,
+                                                    A2($Graphics$Collage.rect,
+                                                    131,
+                                                    91)))
+                                                    ,A2($Graphics$Collage.move,
+                                                    {ctor: "_Tuple2"
+                                                    ,_0: -142
+                                                    ,_1: 260},
+                                                    A2($Graphics$Collage.filled,
+                                                    $Color.yellow,
+                                                    A2($Graphics$Collage.rect,
+                                                    129,
+                                                    89)))
+                                                    ,A2($Graphics$Collage.move,
+                                                    {ctor: "_Tuple2"
+                                                    ,_0: -144
+                                                    ,_1: 295},
+                                                    $Graphics$Collage.text($Text.bold($Text.fromString("How to Play:"))))
+                                                    ,$Graphics$Collage.scale(0.9)(A2($Graphics$Collage.move,
+                                                    {ctor: "_Tuple2"
+                                                    ,_0: -144
+                                                    ,_1: 275},
+                                                    $Graphics$Collage.text($Text.bold($Text.fromString("~ Arrow keys to move")))))
+                                                    ,$Graphics$Collage.scale(0.9)(A2($Graphics$Collage.move,
+                                                    {ctor: "_Tuple2"
+                                                    ,_0: -148
+                                                    ,_1: 260},
+                                                    $Graphics$Collage.text($Text.bold($Text.fromString("~ Don\'t step on mud ")))))
+                                                    ,$Graphics$Collage.scale(0.9)(A2($Graphics$Collage.move,
+                                                    {ctor: "_Tuple2"
+                                                    ,_0: -154
+                                                    ,_1: 245},
+                                                    $Graphics$Collage.text($Text.bold($Text.fromString("~ Give mail to bird")))))
+                                                    ,$Graphics$Collage.scale(0.9)(A2($Graphics$Collage.move,
+                                                    {ctor: "_Tuple2"
+                                                    ,_0: -148
+                                                    ,_1: 230},
+                                                    $Graphics$Collage.text($Text.bold($Text.fromString("~ Explore and enjoy!")))))]));
+   var thankYou = $Graphics$Collage.group(_L.fromArray([A2($Graphics$Collage.move,
+                                                       {ctor: "_Tuple2"
+                                                       ,_0: 30
+                                                       ,_1: 20},
+                                                       A2($Graphics$Collage.filled,
+                                                       $Color.white,
+                                                       A2($Graphics$Collage.oval,
+                                                       105,
+                                                       50)))
+                                                       ,A2($Graphics$Collage.move,
+                                                       {ctor: "_Tuple2"
+                                                       ,_0: -10
+                                                       ,_1: 0},
+                                                       A2($Graphics$Collage.filled,
+                                                       $Color.white,
+                                                       A2($Graphics$Collage.ngon,
+                                                       3,
+                                                       10)))
+                                                       ,A2($Graphics$Collage.move,
+                                                       {ctor: "_Tuple2"
+                                                       ,_0: 20
+                                                       ,_1: 20},
+                                                       $Graphics$Collage.toForm($Graphics$Element.centered(A2($Text.color,
+                                                       $Color.black,
+                                                       A2($Text.typeface,
+                                                       _L.fromArray(["sans-serif"]),
+                                                       $Text.italic($Text.bold($Text.fromString("   Thank you!"))))))))]));
+   var displayFun = $Graphics$Collage.group(_L.fromArray([A2($Graphics$Collage.move,
+                                                         {ctor: "_Tuple2"
+                                                         ,_0: 30
+                                                         ,_1: 20},
+                                                         A2($Graphics$Collage.filled,
+                                                         $Color.white,
+                                                         A2($Graphics$Collage.oval,
+                                                         105,
+                                                         50)))
+                                                         ,A2($Graphics$Collage.move,
+                                                         {ctor: "_Tuple2"
+                                                         ,_0: -10
+                                                         ,_1: 0},
+                                                         A2($Graphics$Collage.filled,
+                                                         $Color.white,
+                                                         A2($Graphics$Collage.ngon,
+                                                         3,
+                                                         10)))
+                                                         ,A2($Graphics$Collage.move,
+                                                         {ctor: "_Tuple2"
+                                                         ,_0: 20
+                                                         ,_1: 20},
+                                                         $Graphics$Collage.toForm($Graphics$Element.centered(A2($Text.color,
+                                                         $Color.black,
+                                                         A2($Text.typeface,
+                                                         _L.fromArray(["sans-serif"]),
+                                                         $Text.italic($Text.bold($Text.fromString("    Woohoo!"))))))))]));
+   var ouchText = $Graphics$Collage.group(_L.fromArray([A2($Graphics$Collage.move,
+                                                       {ctor: "_Tuple2"
+                                                       ,_0: 30
+                                                       ,_1: 20},
+                                                       A2($Graphics$Collage.filled,
+                                                       $Color.white,
+                                                       A2($Graphics$Collage.oval,
+                                                       105,
+                                                       50)))
+                                                       ,A2($Graphics$Collage.move,
+                                                       {ctor: "_Tuple2"
+                                                       ,_0: -10
+                                                       ,_1: 0},
+                                                       A2($Graphics$Collage.filled,
+                                                       $Color.white,
+                                                       A2($Graphics$Collage.ngon,
+                                                       3,
+                                                       10)))
+                                                       ,A2($Graphics$Collage.move,
+                                                       {ctor: "_Tuple2"
+                                                       ,_0: 20
+                                                       ,_1: 20},
+                                                       $Graphics$Collage.toForm($Graphics$Element.centered(A2($Text.color,
+                                                       $Color.black,
+                                                       A2($Text.typeface,
+                                                       _L.fromArray(["sans-serif"]),
+                                                       $Text.italic($Text.bold($Text.fromString("    Ewww!"))))))))]));
+   var playText = $Graphics$Collage.toForm($Graphics$Element.centered(A2($Text.color,
+   $Color.black,
+   A2($Text.typeface,
+   _L.fromArray(["sans-serif"]),
+   $Text.bold($Text.fromString("Click Compile to Play Again"))))));
+   var winGameText = $Graphics$Collage.toForm($Graphics$Element.centered(A2($Text.color,
+   $Color.black,
+   A2($Text.typeface,
+   _L.fromArray(["sans-serif"]),
+   $Text.bold($Text.fromString("Mail Delivered! You Won!"))))));
+   var render = F3(function (_v0,
+   rabbit,
+   t) {
+      return function () {
+         switch (_v0.ctor)
+         {case "_Tuple2":
+            return _U.eq(rabbit.isDead,
+              false) && _U.eq(rabbit.gameWin,
+              false) ? function () {
+                 var $ = {ctor: "_Tuple2"
+                         ,_0: $Basics.toFloat(_v0._0)
+                         ,_1: $Basics.toFloat(_v0._1)},
+                 w = $._0,
+                 h = $._1;
+                 return A3($Graphics$Collage.collage,
+                 _v0._0,
+                 _v0._1,
+                 _L.fromArray([$Graphics$Collage.filled($Color.lightBlue)(A2($Graphics$Collage.rect,
+                              w,
+                              h))
+                              ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                      ,_0: -200
+                                                      ,_1: -100})(mountain)
+                              ,$Graphics$Collage.scale(0.3)($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                   ,_0: 90
+                                                                                   ,_1: -180})(mountain))
+                              ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                      ,_0: -250
+                                                      ,_1: -300})(A2($Graphics$Collage.filled,
+                              grassColor,
+                              A2($Graphics$Collage.oval,
+                              600,
+                              200)))
+                              ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                      ,_0: 200
+                                                      ,_1: -280})(A2($Graphics$Collage.filled,
+                              grassColor,
+                              A2($Graphics$Collage.oval,
+                              500,
+                              100)))
+                              ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                      ,_0: -160
+                                                      ,_1: -170})($Graphics$Collage.scale(0.6)(tree))
+                              ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                      ,_0: -180
+                                                      ,_1: -180})($Graphics$Collage.scale(0.7)(homeText))
+                              ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                      ,_0: -150
+                                                      ,_1: -240})(hole)
+                              ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                      ,_0: 0
+                                                      ,_1: 24 - h / 2})($Graphics$Collage.filled(grassColor)(A2($Graphics$Collage.rect,
+                              w,
+                              50)))
+                              ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                      ,_0: 150
+                                                      ,_1: 120})(sun)
+                              ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                      ,_0: rabbit.birdx
+                                                      ,_1: 130})(bird(t))
+                              ,_U.eq(rabbit.giveBird,
+                              true) ? $Graphics$Collage.move({ctor: "_Tuple2"
+                                                             ,_0: rabbit.birdx - 42
+                                                             ,_1: 130})($Graphics$Collage.scale(0.7)(envelope)) : nothing
+                              ,_U.eq(rabbit.giveBird,
+                              true) ? $Graphics$Collage.move({ctor: "_Tuple2"
+                                                             ,_0: rabbit.birdx + 30
+                                                             ,_1: 150})(thankYou) : nothing
+                              ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                      ,_0: -400
+                                                      ,_1: 0})($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                      ,_0: 900 - $Basics.toFloat(A2($Basics._op["%"],
+                                                                                      $Basics.round(t / 4),
+                                                                                      900))
+                                                                                      ,_1: 0})(cloud1))
+                              ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                      ,_0: 1050 - $Basics.toFloat(A2($Basics._op["%"],
+                                                      $Basics.round(t / 7),
+                                                      1050))
+                                                      ,_1: 0})(A2($Graphics$Collage.move,
+                              {ctor: "_Tuple2"
+                              ,_0: -500
+                              ,_1: 30},
+                              cloud2))
+                              ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                      ,_0: 500 - $Basics.toFloat(A2($Basics._op["%"],
+                                                      $Basics.round(t / 6),
+                                                      800))
+                                                      ,_1: 0})(A2($Graphics$Collage.move,
+                              {ctor: "_Tuple2"
+                              ,_0: -200
+                              ,_1: -70},
+                              cloud3))
+                              ,_U.eq(rabbit.carrot1,
+                              true) ? $Graphics$Collage.scale(0.7)(A2($Graphics$Collage.move,
+                              {ctor: "_Tuple2"
+                              ,_0: -50
+                              ,_1: -305},
+                              carrot)) : nothing
+                              ,_U.eq(rabbit.carrot2,
+                              true) ? $Graphics$Collage.scale(0.7)(A2($Graphics$Collage.move,
+                              {ctor: "_Tuple2"
+                              ,_0: -240
+                              ,_1: -305},
+                              carrot)) : nothing
+                              ,_U.eq(rabbit.slowItem,
+                              true) ? $Graphics$Collage.scale(0.85)(A2($Graphics$Collage.move,
+                              {ctor: "_Tuple2"
+                              ,_0: 290
+                              ,_1: -120},
+                              clockShape)) : nothing
+                              ,mudDrawer(rabbit.mudList)
+                              ,_U.eq(rabbit.ouch,
+                              true) ? $Graphics$Collage.move({ctor: "_Tuple2"
+                                                             ,_0: 50
+                                                             ,_1: 100})($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                               ,_0: rabbit.x
+                                                                                               ,_1: rabbit.y + 62 - h / 2})(ouchText)) : nothing
+                              ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                      ,_0: -300
+                                                      ,_1: 250})($Graphics$Collage.scale(0.5)(heart))
+                              ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                      ,_0: -300
+                                                      ,_1: 250 + rabbit.heartCoverPos})(heartCover)
+                              ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                      ,_0: -300
+                                                      ,_1: 290})(healthText)
+                              ,healthBackground
+                              ,$Graphics$Collage.scale(0.8)($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                   ,_0: -190
+                                                                                   ,_1: 225})(carrot))
+                              ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                      ,_0: 185
+                                                      ,_1: 0})(rules)
+                              ,numOfCarrots(rabbit)
+                              ,_U.eq(rabbit.facingRight,
+                              true) && _U.eq(rabbit.gameWin,
+                              false) ? $Graphics$Collage.scale(0.7)($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                           ,_0: rabbit.x
+                                                                                           ,_1: rabbit.y + 62 - h / 2})(rabbitRight(rabbit))) : _U.eq(rabbit.facingRight,
+                              false) ? $Graphics$Collage.scale(0.7)($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                           ,_0: rabbit.x
+                                                                                           ,_1: rabbit.y + 62 - h / 2})(rabbitLeft(rabbit))) : nothing
+                              ,_U.eq(rabbit.giveBird,
+                              false) ? $Graphics$Collage.move({ctor: "_Tuple2"
+                                                              ,_0: -15
+                                                              ,_1: -5})($Graphics$Collage.scale(0.6)($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                            ,_0: rabbit.x
+                                                                                                                            ,_1: rabbit.y + 62 - h / 2})(envelope))) : nothing
+                              ,_U.eq(rabbit.giveBird,
+                              false) ? $Graphics$Collage.move({ctor: "_Tuple2"
+                                                              ,_0: -2
+                                                              ,_1: 2})($Graphics$Collage.scale(0.7)($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                                                           ,_0: rabbit.x
+                                                                                                                           ,_1: rabbit.y + 62 - h / 2})(handOverlap))) : nothing
+                              ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                      ,_0: 410
+                                                      ,_1: -210})(tree)
+                              ,$Graphics$Collage.scale(1.5)($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                   ,_0: 630
+                                                                                   ,_1: -175})(tree))
+                              ,!_U.eq(rabbit.y,
+                              0) ? $Graphics$Collage.move({ctor: "_Tuple2"
+                                                          ,_0: 50
+                                                          ,_1: 100})($Graphics$Collage.move({ctor: "_Tuple2"
+                                                                                            ,_0: rabbit.x
+                                                                                            ,_1: rabbit.y + 62 - h / 2})(displayFun)) : nothing
+                              ,_U.cmp(rabbit.jumpBonus,
+                              0) > 0 ? displayJumpBonus(rabbit) : nothing
+                              ,_U.cmp(rabbit.slowDownNum,
+                              0) > 0 ? displaySlowMo(rabbit) : nothing]));
+              }() : _U.eq(rabbit.isDead,
+              true) && _U.eq(rabbit.gameWin,
+              false) ? function () {
+                 var $ = {ctor: "_Tuple2"
+                         ,_0: $Basics.toFloat(_v0._0)
+                         ,_1: $Basics.toFloat(_v0._1)},
+                 w = $._0,
+                 h = $._1;
+                 return A3($Graphics$Collage.collage,
+                 _v0._0,
+                 _v0._1,
+                 _L.fromArray([$Graphics$Collage.filled($Color.white)(A2($Graphics$Collage.rect,
+                              w,
+                              h))
+                              ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                      ,_0: 0
+                                                      ,_1: 24 - h / 2})($Graphics$Collage.filled(A3($Color.rgb,
+                              74,
+                              163,
+                              41))(A2($Graphics$Collage.rect,
+                              w,
+                              50)))
+                              ,$Graphics$Collage.scale(3)($Graphics$Collage.text($Text.bold($Text.fromString("GAME OVER"))))]));
+              }() : _U.eq(rabbit.isDead,
+              false) && _U.eq(rabbit.gameWin,
+              true) ? function () {
+                 var $ = {ctor: "_Tuple2"
+                         ,_0: $Basics.toFloat(_v0._0)
+                         ,_1: $Basics.toFloat(_v0._1)},
+                 w = $._0,
+                 h = $._1;
+                 return A3($Graphics$Collage.collage,
+                 _v0._0,
+                 _v0._1,
+                 _L.fromArray([$Graphics$Collage.filled($Color.orange)(A2($Graphics$Collage.rect,
+                              w,
+                              h))
+                              ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                      ,_0: 0
+                                                      ,_1: 24 - h / 2})($Graphics$Collage.filled(A3($Color.rgb,
+                              74,
+                              163,
+                              41))(A2($Graphics$Collage.rect,
+                              w,
+                              50)))
+                              ,$Graphics$Collage.move({ctor: "_Tuple2"
+                                                      ,_0: 0
+                                                      ,_1: -90})(playText)
+                              ,_U.cmp(rabbit.health,
+                              50) > -1 && _U.cmp(rabbit.health,
+                              80) < 1 ? $Graphics$Collage.move({ctor: "_Tuple2"
+                                                               ,_0: -120
+                                                               ,_1: 80})(silverMedal(t)) : nothing
+                              ,_U.cmp(rabbit.health,
+                              81) > -1 && _U.cmp(rabbit.health,
+                              100) < 1 ? $Graphics$Collage.move({ctor: "_Tuple2"
+                                                                ,_0: -120
+                                                                ,_1: 80})(goldMedal(t)) : nothing
+                              ,$Graphics$Collage.scale(2)(winGameText)]));
+              }() : A3($Graphics$Collage.collage,
+              100,
+              100,
+              _L.fromArray([nothing]));}
+         _U.badCase($moduleName,
+         "between lines 81 and 178");
+      }();
+   });
+   var trueFalse = function (x) {
+      return _U.eq(x,
+      true) ? true : false;
+   };
+   var onSpike = function (m) {
+      return A2($List.any,
+      trueFalse,
+      A2($List.map,
+      F2(function (f,x) {
+         return _U.cmp($Basics.abs(x - m.x),
+         20) < 0 && _U.eq(m.y,
+         0) ? true : false;
+      })(m),
+      m.mudList));
+   };
+   var updateHealth = function (m) {
+      return _U.eq(onSpike(m),
+      true) && _U.eq(m.gameWin,
+      false) ? m.health - 0.5 : m.health;
+   };
+   var health = function (m) {
+      return _U.replace([["health"
+                         ,updateHealth(m)]],
+      m);
+   };
+   var ouchCheck = function (m) {
+      return _U.eq(onSpike(m),
+      true) ? _U.replace([["ouch"
+                          ,true]],
+      m) : _U.replace([["ouch"
+                       ,false]],
+      m);
+   };
+   var dropCover = function (m) {
+      return _U.eq(onSpike(m),
+      true) ? _U.replace([["heartCoverPos"
+                          ,m.heartCoverPos - 0.5]],
+      m) : m;
+   };
+   var checkDead = function (m) {
+      return _U.cmp(m.health,
+      40) < 0 ? true : false;
+   };
+   var deadCheck = function (m) {
+      return checkDead(m) ? _U.replace([["isDead"
+                                        ,true]],
+      m) : m;
+   };
+   var birdGrab = function (m) {
+      return _U.cmp($Basics.abs(m.x - m.birdx),
+      5) < 0 && _U.cmp(m.y,
+      270) > -1 ? _U.replace([["giveBird"
+                              ,true]],
+      m) : m;
+   };
+   var checkWin = function (m) {
+      return _U.eq(m.giveBird,
+      true) && _U.eq(m.birdx,
+      -400) ? _U.replace([["gameWin"
+                          ,true]],
+      m) : m;
+   };
+   var increaseJump = function (m) {
+      return _U.replace([["jumpBonus"
+                         ,1.5 * m.carrotsNum]],
+      m);
+   };
+   var increaseCarrots2 = function (m) {
+      return _U.eq(m.carrot2,
+      true) && (_U.cmp(m.x,
+      -250) > 0 && (_U.cmp(m.x,
+      -220) < 0 && _U.eq(m.y,
+      0))) ? _U.replace([["carrotsNum"
+                         ,m.carrotsNum + 1]],
+      m) : m;
+   };
+   var increaseCarrots1 = function (m) {
+      return _U.eq(m.carrot1,
+      true) && (_U.cmp(m.x,
+      -60) > 0 && (_U.cmp(m.x,
+      -30) < 0 && _U.eq(m.y,
+      0))) ? _U.replace([["carrotsNum"
+                         ,m.carrotsNum + 1]],
+      m) : m;
+   };
+   var slowSpeed = function (m) {
+      return _U.eq(m.slowItem,
+      true) && (_U.cmp(m.x,
+      265) > 0 && (_U.cmp(m.x,
+      315) < 0 && _U.cmp(m.y,
+      100) > -1)) ? _U.replace([["slowDownNum"
+                                ,10]],
+      m) : m;
+   };
+   var moveBird = function (m) {
+      return _U.cmp(m.birdx,
+      -400) < 0 ? _U.replace([["birdx"
+                              ,400]],
+      m) : _U.replace([["birdx"
+                       ,m.birdx - 1]],
+      m);
+   };
+   var walk = F2(function (_v4,m) {
+      return function () {
+         return _U.replace([["vx"
+                            ,$Basics.toFloat(_v4.x)]
+                           ,["carrot1"
+                            ,_U.cmp(m.x,
+                            -60) > 0 && (_U.cmp(m.x,
+                            -30) < 0 && _U.eq(m.y,
+                            0)) ? false : m.carrot1]
+                           ,["carrot2"
+                            ,_U.cmp(m.x,
+                            -250) > 0 && (_U.cmp(m.x,
+                            -220) < 0 && _U.eq(m.y,
+                            0)) ? false : m.carrot2]
+                           ,["slowItem"
+                            ,_U.cmp(m.x,
+                            265) > 0 && (_U.cmp(m.x,
+                            315) < 0 && _U.cmp(m.y,
+                            100) > -1) ? false : m.slowItem]
+                           ,["giveBird"
+                            ,_U.cmp($Basics.abs(m.x - m.birdx),
+                            5) < 0 && _U.cmp(m.y,
+                            270) > -1 ? true : m.giveBird]
+                           ,["facingRight"
+                            ,_U.cmp(_v4.x,
+                            0) < 0 ? false : _U.cmp(_v4.x,
+                            0) > 0 ? true : m.facingRight]],
+         m);
+      }();
+   });
+   var physics = F2(function (t,
+   m) {
+      return _U.replace([["x"
+                         ,m.x + t * m.vx + m.wind]
+                        ,["y"
+                         ,A2($Basics.max,
+                         0,
+                         m.y + t * m.vy)]],
+      m);
+   });
+   var gravity = F2(function (t,
+   m) {
+      return _U.cmp(m.y,
+      0) > 0 ? _U.replace([["vy"
+                           ,m.vy - t / (4 + m.slowDownNum)]],
+      m) : m;
+   });
+   var jumpUpdate = function (m) {
+      return _U.replace([["jumping"
+                         ,_U.cmp(m.y,
+                         0) > 0 ? true : false]],
+      m);
+   };
+   var jump = F2(function (_v6,m) {
+      return function () {
+         return _U.cmp(_v6.y,
+         0) > 0 && _U.eq(m.y,
+         0) ? _U.replace([["vy"
+                          ,4 + m.jumpBonus]],
+         m) : m;
+      }();
+   });
+   var step = function (_v8) {
+      return function () {
+         switch (_v8.ctor)
+         {case "_Tuple2":
+            return function ($) {
+                 return jumpUpdate(checkWin(birdGrab(moveBird(physics(_v8._0)(gravity(_v8._0)(walk(_v8._1)(jump(_v8._1)(health(dropCover(ouchCheck(deadCheck(increaseJump(increaseCarrots1(increaseCarrots2(slowSpeed($))))))))))))))));
+              };}
+         _U.badCase($moduleName,
+         "between lines 67 and 76");
+      }();
+   };
+   var rabbit = {_: {}
+                ,birdx: 500
+                ,carrot1: true
+                ,carrot2: true
+                ,carrotsNum: 0
+                ,facingRight: true
+                ,gameWin: false
+                ,giveBird: false
+                ,health: 100
+                ,heartCoverPos: 0
+                ,isDead: false
+                ,jumpBonus: 0
+                ,jumping: false
+                ,mudList: _L.fromArray([-110
+                                       ,-200
+                                       ,80
+                                       ,150])
+                ,ouch: false
+                ,slowDownNum: 0
+                ,slowItem: true
+                ,vx: 0
+                ,vy: 0
+                ,wind: 0
+                ,x: 0
+                ,y: 0};
+   var main = A4($Signal.map3,
+   render,
+   $Window.dimensions,
+   A3($Signal.foldp,
+   step,
+   rabbit,
+   input),
+   A3($Signal.foldp,
+   F2(function (add,total) {
+      return total + 1;
+   }),
+   0,
+   $Time.fps(200)));
+   _elm.Main.values = {_op: _op
+                      ,rabbit: rabbit
+                      ,jump: jump
+                      ,jumpUpdate: jumpUpdate
+                      ,gravity: gravity
+                      ,physics: physics
+                      ,walk: walk
+                      ,moveBird: moveBird
+                      ,slowSpeed: slowSpeed
+                      ,increaseCarrots1: increaseCarrots1
+                      ,increaseCarrots2: increaseCarrots2
+                      ,increaseJump: increaseJump
+                      ,checkWin: checkWin
+                      ,birdGrab: birdGrab
+                      ,deadCheck: deadCheck
+                      ,checkDead: checkDead
+                      ,dropCover: dropCover
+                      ,ouchCheck: ouchCheck
+                      ,health: health
+                      ,onSpike: onSpike
+                      ,updateHealth: updateHealth
+                      ,trueFalse: trueFalse
+                      ,step: step
+                      ,render: render
+                      ,winGameText: winGameText
+                      ,playText: playText
+                      ,ouchText: ouchText
+                      ,displayFun: displayFun
+                      ,thankYou: thankYou
+                      ,rules: rules
+                      ,envelope: envelope
+                      ,handOverlap: handOverlap
+                      ,paperColor: paperColor
+                      ,grassColor: grassColor
+                      ,healthText: healthText
+                      ,healthBackground: healthBackground
+                      ,numOfCarrots: numOfCarrots
+                      ,displayJumpBonus: displayJumpBonus
+                      ,displaySlowMo: displaySlowMo
+                      ,heart: heart
+                      ,heartCover: heartCover
+                      ,mudDrawer: mudDrawer
+                      ,drawMud: drawMud
+                      ,mud: mud
+                      ,tree: tree
+                      ,sun: sun
+                      ,carrot: carrot
+                      ,nothing: nothing
+                      ,rabbitLeft: rabbitLeft
+                      ,rabbitRight: rabbitRight
+                      ,feetJump: feetJump
+                      ,feetLeft: feetLeft
+                      ,feetRight: feetRight
+                      ,rabbitShapes: rabbitShapes
+                      ,ear1: ear1
+                      ,ear2: ear2
+                      ,bird: bird
+                      ,wing: wing
+                      ,silverOutside: silverOutside
+                      ,silver: silver
+                      ,silverInside: silverInside
+                      ,silverText: silverText
+                      ,silverMedal: silverMedal
+                      ,goldOutside: goldOutside
+                      ,gold: gold
+                      ,goldInside: goldInside
+                      ,goldText: goldText
+                      ,goldMedal: goldMedal
+                      ,clockShape: clockShape
+                      ,cloud1: cloud1
+                      ,cloud2: cloud2
+                      ,cloud3: cloud3
+                      ,cloud1Part1: cloud1Part1
+                      ,cloud1Part2: cloud1Part2
+                      ,cloud1Part3: cloud1Part3
+                      ,cloud2Part1: cloud2Part1
+                      ,cloud2Part2: cloud2Part2
+                      ,cloud2Part3: cloud2Part3
+                      ,cloud3Part1: cloud3Part1
+                      ,cloud3Part2: cloud3Part2
+                      ,cloud3Part3: cloud3Part3
+                      ,cloud3Color: cloud3Color
+                      ,house: house
+                      ,mountain: mountain
+                      ,homeText: homeText
+                      ,hole: hole
+                      ,peachColor: peachColor
+                      ,input: input
+                      ,main: main};
+   return _elm.Main.values;
+};
