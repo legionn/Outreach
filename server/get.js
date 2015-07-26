@@ -50,11 +50,9 @@ function moveDefaultFiles (tutorial, foldername, res) {
 	else {
 		defaultpath = '/compile/default'
 	}
-	////////////////////////////////// 	GOT ABOUT HERE
-	
-	ncp('/../' + defaultpath, '../compile/' + foldername, function (e) {
+
+	ncp(__dirname + '/..' + defaultpath, __dirname + '/../compile/' + foldername, function (e) {
 		if (e) {
-			console.log(defaultpath + '\n\n\n\n')
 			console.log(e)
 		}
 		console.log('Moved files to: ' + '../compile/' + foldername)
@@ -66,8 +64,7 @@ function moveDefaultFiles (tutorial, foldername, res) {
 
 function sendGetResponse (foldername, res) {
 	// Render compile/foldername/elmsim.html
-	console.log('\n' + foldername + '\n')
-	res.redirect('/../../compile/' + foldername + '/elmsim.html')
+	res.redirect('/compile/' + foldername + '/elmsim.html')
 }
 
 function Tutorial (enabled, name) {
