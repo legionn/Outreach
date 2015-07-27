@@ -21,7 +21,7 @@ module.exports = {
 }
 
 function writeToFile (data, foldername, res) {
-	var pathname = __dirname + '/../views/compile/' + foldername
+	var pathname = __dirname + '/../compile/' + foldername
 	// Decode input and write to file
 	var newdata = require('./helper.js').decodeWithPlus(data.substring(8))
 	fs.writeFile(pathname + '/input.elm', newdata, function (e){

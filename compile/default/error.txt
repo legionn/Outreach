@@ -1,2 +1,2 @@
 Compiled 1 file
-Successfully generated /Users/JB/Desktop/OutreachSite/views/compile/default/output.html
+Successfully generated output.html
