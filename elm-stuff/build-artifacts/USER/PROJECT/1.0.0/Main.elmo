@@ -9,184 +9,28 @@ Elm.Main.make = function (_elm) {
    _U = _N.Utils.make(_elm),
    _L = _N.List.make(_elm),
    $moduleName = "Main",
-   $Basics = Elm.Basics.make(_elm),
-   $Color = Elm.Color.make(_elm),
    $Graphics$Collage = Elm.Graphics.Collage.make(_elm),
-   $Graphics$Element = Elm.Graphics.Element.make(_elm);
-   var sponge = A4($Color.rgba,
-   163,
-   163,
-   0,
-   1);
-   var mouthred = A4($Color.rgba,
-   143,
-   0,
-   0,
-   1);
-   var clearGrey = A4($Color.rgba,
-   111,
-   111,
-   111,
-   0.6);
-   var lightblue = A4($Color.rgba,
-   0,
-   204,
-   255,
-   1);
-   var main = A3($Graphics$Collage.collage,
-   700,
-   700,
-   _L.fromArray([$Graphics$Collage.filled($Color.blue)($Graphics$Collage.circle(5000))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: 0
-                                        ,_1: 100})($Graphics$Collage.filled($Color.black)($Graphics$Collage.circle(160)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: 0
-                                        ,_1: 100})($Graphics$Collage.filled(mouthred)($Graphics$Collage.circle(152)))
-                ,$Graphics$Collage.rotate($Basics.degrees(10))($Graphics$Collage.move({ctor: "_Tuple2"
-                                                                                      ,_0: 40
-                                                                                      ,_1: 20})($Graphics$Collage.filled($Color.black)(A2($Graphics$Collage.rect,
-                70,
-                80))))
-                ,$Graphics$Collage.rotate($Basics.degrees(10))($Graphics$Collage.move({ctor: "_Tuple2"
-                                                                                      ,_0: 40
-                                                                                      ,_1: 20})($Graphics$Collage.filled($Color.white)(A2($Graphics$Collage.rect,
-                60,
-                70))))
-                ,$Graphics$Collage.rotate($Basics.degrees(-10))($Graphics$Collage.move({ctor: "_Tuple2"
-                                                                                       ,_0: -50
-                                                                                       ,_1: 20})($Graphics$Collage.filled($Color.black)(A2($Graphics$Collage.rect,
-                70,
-                80))))
-                ,$Graphics$Collage.rotate($Basics.degrees(-10))($Graphics$Collage.move({ctor: "_Tuple2"
-                                                                                       ,_0: -50
-                                                                                       ,_1: 20})($Graphics$Collage.filled($Color.white)(A2($Graphics$Collage.rect,
-                60,
-                70))))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: 0
-                                        ,_1: 90})($Graphics$Collage.filled($Color.black)(A2($Graphics$Collage.oval,
-                320,
-                100)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: 0
-                                        ,_1: 100})($Graphics$Collage.filled($Color.blue)(A2($Graphics$Collage.oval,
-                320,
-                100)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: 0
-                                        ,_1: 280})($Graphics$Collage.filled($Color.blue)(A2($Graphics$Collage.rect,
-                700,
-                400)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: 100
-                                        ,_1: 200})($Graphics$Collage.filled($Color.black)($Graphics$Collage.circle(100)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: 100
-                                        ,_1: 200})($Graphics$Collage.filled($Color.white)($Graphics$Collage.circle(95)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: 85
-                                        ,_1: 200})($Graphics$Collage.filled($Color.black)($Graphics$Collage.circle(53)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: 85
-                                        ,_1: 200})($Graphics$Collage.filled(lightblue)($Graphics$Collage.circle(50)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: 85
-                                        ,_1: 200})($Graphics$Collage.filled($Color.black)($Graphics$Collage.circle(35)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: -100
-                                        ,_1: 200})($Graphics$Collage.filled($Color.black)($Graphics$Collage.circle(100)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: -100
-                                        ,_1: 200})($Graphics$Collage.filled($Color.white)($Graphics$Collage.circle(95)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: -85
-                                        ,_1: 200})($Graphics$Collage.filled($Color.black)($Graphics$Collage.circle(53)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: -85
-                                        ,_1: 200})($Graphics$Collage.filled(lightblue)($Graphics$Collage.circle(50)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: -85
-                                        ,_1: 200})($Graphics$Collage.filled($Color.black)($Graphics$Collage.circle(35)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: 170
-                                        ,_1: 120})($Graphics$Collage.filled($Color.red)($Graphics$Collage.circle(40)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: 170
-                                        ,_1: 120})($Graphics$Collage.filled($Color.yellow)($Graphics$Collage.circle(35)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: 160
-                                        ,_1: 100})($Graphics$Collage.filled($Color.yellow)($Graphics$Collage.circle(25)))
-                ,$Graphics$Collage.rotate($Basics.degrees(45))($Graphics$Collage.move({ctor: "_Tuple2"
-                                                                                      ,_0: 160
-                                                                                      ,_1: 70})($Graphics$Collage.filled($Color.black)(A2($Graphics$Collage.rect,
-                7,
-                45))))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: 160
-                                        ,_1: 140})($Graphics$Collage.filled($Color.red)($Graphics$Collage.circle(5)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: 160
-                                        ,_1: 115})($Graphics$Collage.filled($Color.red)($Graphics$Collage.circle(5)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: 185
-                                        ,_1: 125})($Graphics$Collage.filled($Color.red)($Graphics$Collage.circle(5)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: -170
-                                        ,_1: 120})($Graphics$Collage.filled($Color.red)($Graphics$Collage.circle(40)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: -170
-                                        ,_1: 120})($Graphics$Collage.filled($Color.yellow)($Graphics$Collage.circle(35)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: -160
-                                        ,_1: 100})($Graphics$Collage.filled($Color.yellow)($Graphics$Collage.circle(25)))
-                ,$Graphics$Collage.rotate($Basics.degrees(-45))($Graphics$Collage.move({ctor: "_Tuple2"
-                                                                                       ,_0: -160
-                                                                                       ,_1: 70})($Graphics$Collage.filled($Color.black)(A2($Graphics$Collage.rect,
-                7,
-                45))))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: -160
-                                        ,_1: 140})($Graphics$Collage.filled($Color.red)($Graphics$Collage.circle(5)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: -160
-                                        ,_1: 115})($Graphics$Collage.filled($Color.red)($Graphics$Collage.circle(5)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: -185
-                                        ,_1: 125})($Graphics$Collage.filled($Color.red)($Graphics$Collage.circle(5)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: 0
-                                        ,_1: 120})($Graphics$Collage.filled($Color.black)(A2($Graphics$Collage.oval,
-                70,
-                100)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: 0
-                                        ,_1: 115})($Graphics$Collage.filled($Color.yellow)(A2($Graphics$Collage.oval,
-                60,
-                100)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: 300
-                                        ,_1: 360})($Graphics$Collage.filled(sponge)($Graphics$Collage.circle(50)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: -270
-                                        ,_1: 270})($Graphics$Collage.filled(sponge)($Graphics$Collage.circle(50)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: 280
-                                        ,_1: -30})($Graphics$Collage.filled(sponge)($Graphics$Collage.circle(80)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: -280
-                                        ,_1: 30})($Graphics$Collage.filled(sponge)($Graphics$Collage.circle(40)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: -150
-                                        ,_1: -200})($Graphics$Collage.filled(sponge)($Graphics$Collage.circle(50)))
-                ,$Graphics$Collage.move({ctor: "_Tuple2"
-                                        ,_0: 150
-                                        ,_1: -200})($Graphics$Collage.filled(sponge)($Graphics$Collage.circle(20)))]));
+   $Signal = Elm.Signal.make(_elm),
+   $Window = Elm.Window.make(_elm);
+   var forms = $Graphics$Collage.group(_L.fromArray([]));
+   var view = function (_v0) {
+      return function () {
+         switch (_v0.ctor)
+         {case "_Tuple2":
+            return A3($Graphics$Collage.collage,
+              _v0._0,
+              _v0._1,
+              _L.fromArray([forms]));}
+         _U.badCase($moduleName,
+         "on line 10, column 14 to 33");
+      }();
+   };
+   var main = A2($Signal.map,
+   view,
+   $Window.dimensions);
    _elm.Main.values = {_op: _op
                       ,main: main
-                      ,lightblue: lightblue
-                      ,clearGrey: clearGrey
-                      ,mouthred: mouthred
-                      ,sponge: sponge};
+                      ,view: view
+                      ,forms: forms};
    return _elm.Main.values;
 };
