@@ -13,20 +13,21 @@
 iframe {
     overflow:hidden;
     width: 50%;
-    height: 90%;
+    height: 85%;
 }
 
 #editor { 
 		position: fixed;
-		top: 6%;
+		top: 7%;
 		width: 50%;
 		bottom: 0%;
 		left: 0px;
+		height: 85%
 	
 		}
 #output { 
 		position: fixed;
-		top: 10%;
+		top: 5%;
 		right: 0px;
 		width:50%;
 		background-color: white;
@@ -34,7 +35,7 @@ iframe {
 #button {
 		position: fixed;
 		right: 30px;
-		bottom: 0px;
+		bottom: -15px;
 
 }
 		

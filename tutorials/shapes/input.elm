@@ -10,6 +10,8 @@ main = Signal.map view Window.dimensions
 view (w,h) = collage w h [forms]
 
 
--- ADD YOUR SHAPES IN THE GROUP BELOW
+
+
+-- ADD SHAPES BELOW
 
 forms = group []

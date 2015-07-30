@@ -24,9 +24,9 @@ require('./server/get.js').onGetRequest(app)
 
 	POST:
 	(compile/xxx/elmsim.html)
-										   	(good)	   ^ sendPostResponse
-		onPostRequest -> writeToFile -> compileFile -> | 
-											(error)	   v makeErrorHtml -> sendPostResponse
+										   			   (good)	      ^ sendPostResponse
+		onPostRequest -> writeToFile -> concatFiles -> compileFile -> | 
+													   (error)	      v makeErrorHtml -> sendPostResponse
 	
 	GET:
 	(compile/xxx/elmsim.html):

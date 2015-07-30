@@ -31,7 +31,48 @@ function writeToFile (data, foldername, res) {
 	    else {
 	    	console.log('Input data was written to: ' + pathname)
 			// Compile
-			compileFile(pathname, res)
+			concatFiles(pathname, res)
+		}
+	})
+}
+
+function concatFiles (pathname, res) {
+	// These are the two files to concat
+	var inputdir = pathname + '/input.elm'
+		concatdir = pathname + '/concat.elm'
+		concatcontent = ''
+		inputcontent = ''
+		outputdir = pathname + '/input1.elm'
+
+	// Read the content from input.elm
+	fs.readFile(concatdir, function (e, data) {
+		if (e) {
+			console.log(e)
+		}
+		else {
+			concatcontent = data
+
+			// Read the content from input.elm
+			fs.readFile(inputdir, function (e, data) {
+				if (e) {
+					console.log(e)
+				}
+				else {
+					inputcontent = data
+
+					// Concat the two strings and write to input1.elm
+					fs.writeFile(outputdir, concatcontent + inputcontent, function (e) {
+						if (e) {
+							console.log(e)
+						}
+						else {
+							console.log('Concat success!')
+							// Compile the file
+							compileFile(pathname, res)
+						}
+					})
+				}
+			})
 		}
 	})
 }
@@ -39,7 +80,7 @@ function writeToFile (data, foldername, res) {
 function compileFile (pathname, res) {
 	// Set up shell and create string with command
 	var exec = require('child_process').exec, child;
-	var inputdir = pathname + '/input.elm'
+	var inputdir = pathname + '/input1.elm'
 	var outputdir = pathname + '/output.html'
 	var errordir  = pathname + '/error.txt'
 
