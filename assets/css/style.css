@@ -11,6 +11,7 @@
 	}
 
 iframe {
+	position: fixed;
     overflow:hidden;
     width: 50%;
     height: 85%;
@@ -27,7 +28,7 @@ iframe {
 		}
 #output { 
 		position: fixed;
-		top: 5%;
+		top: 7%;
 		right: 0px;
 		width:50%;
 		background-color: white;
