@@ -1,0 +1,36 @@
+Elm.Main = Elm.Main || {};
+Elm.Main.make = function (_elm) {
+   "use strict";
+   _elm.Main = _elm.Main || {};
+   if (_elm.Main.values)
+   return _elm.Main.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "Main",
+   $Basics = Elm.Basics.make(_elm),
+   $Color = Elm.Color.make(_elm),
+   $Graphics$Collage = Elm.Graphics.Collage.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $Window = Elm.Window.make(_elm);
+   var view = function (_v0) {
+      return function () {
+         switch (_v0.ctor)
+         {case "_Tuple2":
+            return A3($Graphics$Collage.collage,
+              _v0._0,
+              _v0._1,
+              _L.fromArray([$Graphics$Collage.filled($Color.red)($Graphics$Collage.square(10))]));}
+         _U.badCase($moduleName,
+         "on line 9, column 14 to 51");
+      }();
+   };
+   var main = A2($Signal.map,
+   view,
+   $Window.dimensions);
+   _elm.Main.values = {_op: _op
+                      ,main: main
+                      ,view: view};
+   return _elm.Main.values;
+};
