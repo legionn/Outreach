@@ -27,19 +27,45 @@
 			// currentPage holds the current page
 			var currentPage
 
+		</script>
+	</head>
+	<body>
+		<div>
+
+			<div class="quiz_container">
+				<div>
+					<iframe id="content"></iframe>
+					<form>Type your code below:<br>
+						<input type="text" id="input" name="inputcode">
+						<input id="btncompare" type="button" value="Try!" onclick="compare();" />
+					</form>
+				</div>
+			</div>
+			
+			<div class="answer_container">
+				<div>
+					<h2 align="left">What you made:</h2>
+					<iframe id="element"></iframe>
+					<form>
+						<input id="btncompare" type="button" value="Next" onclick="updateNext();" />
+					</form>
+				</div>
+			</div>
+
+		</div>
+		<script>
 			function compare() {
 				if (document.getElementById("input").value === window.currentPage.answer) {
 					// Alert correct
-					alert('Good job!')
+					alert('Good job!');
 
-					
-					// Update content to the next page
-					updateNext()
+					// Switch to answers
+					$(".quiz_container").hide()
+					$(".answer_container").show()
 					
 				}
 				else {
-					alert('Try again!')
-					change_toAnswer();
+					alert('Try again!');
 				}
 			}
 
@@ -47,6 +73,9 @@
 				if (pages.length > 0) { // Pages in list
 					// Clear the textbox
 					document.getElementById("input").value=""
+					// Switch to questions
+					$(".quiz_container").show()
+					$(".answer_container").hide()
 					// Shift to the next page
 					currentPage = pages.shift()
 					// Change the sources based on the new current page
@@ -57,29 +86,13 @@
 					// Change the sources to the final content
 					document.getElementById("content").setAttribute("src", "tutorials/final.html")
 					document.getElementById("element").setAttribute("src", "")
+					// Hide the inputs
+					$(".quiz_container").show()
+					$(".answer_container").hide()
+					$("form").hide()
 				}
 			}
-
-			// These are jquery-based function to alternate the content of .container between questions and answers
-			function change_toAnswer () {
-				$(".container").replaceWith('<div><h2 align="left">What you made:</h2><iframe id="element"></iframe><form><input id="btncompare" type="button" value="Next" onclick="compare();" /></form></div>');
-			}
-
-
-			function change_toQuiz () {
-				$(".container").replaceWith('<div><iframe id="content"></iframe><form>Type your code below:<br><input type="text" id="input" name="inputcode"><input id="btncompare" type="button" value="Try!" onclick="compare();" /></form></div>');
-			}
-
-			function lastResort () {
-				$(".container").replaceWith( '<div><iframe id="content"></iframe><form>Type your code below:<br><input type="text" id="input" name="inputcode"><input id="btncompare" type="button" value="Try!" onclick="compare();" /></form></div>' + '<div><h2 align="left">What you made:</h2><iframe id="element"></iframe><form><input id="btncompare" type="button" value="Next" onclick="compare();" /></form></div>');
-			}
-
 		</script>
-	</head>
-	<body>
-		<div class="container"></div>
-		<!-- This is done at the bottom to prevent the src attributes of element and content from being overwritten -->
-		<script>lastResort()</script>
 		<script type="text/javascript">updateNext()</script>
 	</body>
 </html>
