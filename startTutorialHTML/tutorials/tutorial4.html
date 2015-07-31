@@ -10,6 +10,22 @@
 				That looked more like a filled circle! <br><br>
 				We call a <code class="inline">Shape</code> that has been filled with a <code class="inline">Color</code> a
 				<code class="inline">Form</code></pre><br>
+				Transformations can be applied to forms.<br><br>
+				We can transform a Form by typing:
+				<pre><code class="haskell">scale (Number) (Form)</code></pre>
+				<pre><code class="haskell">rotate (Number) (Form) </code></pre>
+				<pre><code class="haskell">move (Number, Number) (Form)</code></pre>
+				replacing 
+				<pre><code class="haskell">Number</code></pre>
+				with a valid Number, and<br>
+				<pre><code class="haskell">Form</code></pre>
+				with a valid Form<br><br>
+				The following examples are all valid Forms:
+				<pre><code class="haskell">scale (2) (filled orange (square 15))</code></pre>
+				<pre><code class="haskell">rotate (3) (filled blue (rect 20 10)) </code></pre>
+				<pre><code class="haskell">move (10, 10) (filled red (circle 20))</code></pre>
+				<h3>To-Do:</h4>Make a 15-unit wide square, fill it in red, then move it (20, 20)
+
 			</p>
 	</body>
 </html>
