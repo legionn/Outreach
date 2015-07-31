@@ -1903,33 +1903,31 @@ Elm.Main.make = function (_elm) {
    _U = _N.Utils.make(_elm),
    _L = _N.List.make(_elm),
    $moduleName = "Main",
-   $Basics = Elm.Basics.make(_elm),
+   $Color = Elm.Color.make(_elm),
    $Graphics$Collage = Elm.Graphics.Collage.make(_elm),
-   $Graphics$Element = Elm.Graphics.Element.make(_elm),
    $Signal = Elm.Signal.make(_elm),
    $Window = Elm.Window.make(_elm);
-   var view = function (_v0) {
+   var main = A2($Signal.map,
+   function (_v0) {
       return function () {
          switch (_v0.ctor)
          {case "_Tuple2":
-            return function ($) {
-                 return function (a) {
-                    return A3($Graphics$Collage.collage,
-                    _v0._0,
-                    _v0._1,
-                    _L.fromArray([a]));
-                 }($Graphics$Collage.toForm($Graphics$Element.show($)));
-              }($Graphics$Collage.circle(20));}
+            return A3($Graphics$Collage.collage,
+              _v0._0,
+              _v0._1,
+              _L.fromArray([A2($Graphics$Collage.filled,
+                           $Color.red,
+                           $Graphics$Collage.circle(15))
+                           ,A2($Graphics$Collage.filled,
+                           $Color.blue,
+                           $Graphics$Collage.square(20))]));}
          _U.badCase($moduleName,
-         "on line 8, column 15 to 75");
+         "on line 7, column 30 to 91");
       }();
-   };
-   var main = A2($Signal.map,
-   view,
+   },
    $Window.dimensions);
    _elm.Main.values = {_op: _op
-                      ,main: main
-                      ,view: view};
+                      ,main: main};
    return _elm.Main.values;
 };Elm.Maybe = Elm.Maybe || {};
 Elm.Maybe.make = function (_elm) {

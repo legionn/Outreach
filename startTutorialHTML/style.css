@@ -3,27 +3,26 @@ body {
 	background-color: rgb(195,255,255);
 }
 code {
-	width: 70%;
+	width: 100%;
 }
 input {
 	background-color: black;
 	outline-color: red; 
 	color: white; padding: 2%; 
 	font-size: 24px; 
-	width: 75%
+	width: 100%
 }
 div {
-	width: 49%; 
+	width: 100%; 
 	height: 100%
 }
 .parent {
-	float: left; 
-	width: 40%; 
+	width: 100%; 
 	height: 100%
 }
 iframe {
 	width : 100%; 
-	height: 100%; 
+	height: 400px; 
 	bottom: 10px
 }
 .inline {
