@@ -18,11 +18,36 @@
 
 			// This list holds all of the pages
 			var pages = [
-								  new Page('Start!', 'Good job! Click "Next" to move on', 'tutorials/tutorial1.html', '')
-								, new Page('circle 20', "Good job! That doesn't really look like a circle though", 'tutorials/tutorial2.html', 'elements/1.html')
-								, new Page('filled red (circle 20)', 'Good Job! That looks more like a circle!', 'tutorials/tutorial3.html', 'elements/2.html')
-								, new Page('move (20, 20) (filled red (square 15))', 'Good Job!', 'tutorials/tutorial4.html', 'elements/3.html')
-								, new Page('group [filled red (circle 15), filled blue (square 20)]', 'Good Job!', 'tutorials/tutorial5.html', 'elements/4.html')
+								  new Page(
+								  	['Start!']
+								  	, 'Good job! Click "Next" to move on'
+								  	, 'tutorials/tutorial1.html'
+								  	, ''
+								  	)
+								, new Page(
+									['circle 20']
+									, "Good job! That doesn't really look like a circle though"
+									, 'tutorials/tutorial2.html'
+									, 'elements/1.html'
+									)
+								, new Page(
+									['filled red (circle 20)']
+									, 'Good Job! That looks more like a circle!'
+									, 'tutorials/tutorial3.html'
+									, 'elements/2.html'
+									)
+								, new Page(
+									['move (20, 20) (filled red (square 15))', 'move (20,20) (filled red (square 15))']
+									, 'Good Job!'
+									, 'tutorials/tutorial4.html'
+									, 'elements/3.html'
+									)
+								, new Page(
+									['group [filled red (circle 15), filled blue (square 20)]']
+									, 'Good Job!'
+									, 'tutorials/tutorial5.html'
+									, 'elements/4.html'
+									)
 							  ]
 
 			// currentPage holds the current page
@@ -61,7 +86,7 @@
 				}
 			}
 			function compare() {
-				if (document.getElementById("input").value === window.currentPage.answer) {
+				if (window.currentPage.answer.indexOf(document.getElementById("input").value.trim()) >= 0) {
 					// Alert correct
 					alert('Good job!');
 
