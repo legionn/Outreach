@@ -30,6 +30,7 @@
 		<link rel="stylesheet" href="/../assets/css/style.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="../../assets/css/ie/v9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="../../assets/css/ie/v8.css" /><![endif]-->
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 	</head>
 	<body>
 
@@ -65,71 +66,56 @@
 					<article id="main">
 						
 						<section >
-							<div id="wrapper" class="inner">
-							
-							<body scrolling="no">
-							
-                            <div>
-                          
-                            
-                                 <div id="editor"></div>
-                                
-				
-								
-
-                                                       
-                              	<iframe id="output" src="output.html" scrolling="no" align="right|top">
-                 
-                              	</iframe>
-                                
-                                
-                                
-                               
-
-                                                        
-                            </div>
-                          	
-            
-
-                            
-                            <form id="button" method="post"><button type="submit" id="compile" value="" name="compile" align="right|bottom">Compile!</button>
+							<div id="wrapper" class="inner">			
+							<body scrolling="no">			
+	                            <div>
+	                                 <div id="editor"></div>                     
+	                              	<iframe id="output" src="output.html" scrolling="no" align="right|top"></iframe>                          
+	                            </div>                        	                       
+		                        <form id="button" method="post">
+		                            <button type="submit" id="compile" value="" name="compile" align="right|bottom">Compile!</button>
 								</form>
-                            </body>
-                            
+                            </body>             
 						</section>
                         <script src="../../TEXTEDIT/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-                                    <script>
-                                    	var reader = new XMLHttpRequest() || new ActiveXObject('MSXML2.XMLHTTP');
+	                    <script>
+	                    	var reader = new XMLHttpRequest() || new ActiveXObject('MSXML2.XMLHTTP');
 
-										function loadFile() {
-										    reader.open('get', 'input.elm', true); 
-										    reader.onreadystatechange = displayContents;
-										    reader.send(null);
-										}
+							function loadFile() {
+							    reader.open('get', 'input.elm', true); 
+							    reader.onreadystatechange = displayContents;
+							    reader.send(null);
+							}
 
-										function displayContents() {
-										    if(reader.readyState==4) {
-										        // var el = document.getElementById('editor');
-										        // el.innerHTML = reader.responseText;
-										        editor.setValue(reader.responseText)
-										    }
-										}
-                                        var editor = ace.edit("editor");
-                                        editor.setTheme("ace/theme/monokai");
-                                        editor.getSession().setMode("ace/mode/elm");                                    
-                                        // Initial load
-                                        document.getElementById("compile").value = editor.getValue();
-                                        // Set the name to make the new folder 
-                                        var folderName = Math.random().toString(36).substring(7);
-                                        loadFile();
-                                        // On change
-                                        editor.on('change', function() {
-                                        	// Set the compile's value to the inputted code
-                                        	document.getElementById("compile").value = editor.getValue()
-                                        })
+							function displayContents() {
+							    if(reader.readyState==4) {
+							        editor.setValue(reader.responseText, -1)
+							    }
+							}
+	                        var editor = ace.edit("editor");
+	                        editor.setTheme("ace/theme/monokai");
+	                        editor.getSession().setMode("ace/mode/elm");                                    
+	                        // Initial load
+	                        document.getElementById("compile").value = editor.getValue();
+	                        // Set the name to make the new folder 
+	                        var folderName = Math.random().toString(36).substring(7);
+	                        loadFile();
+	                        // On change
+	                        editor.on('change', function() {
+	                        	// Set the compile's value to the inputted code
+	                        	document.getElementById("compile").value = editor.getValue()
+	                        })
 
-                                        
-                                    </script>
+	                        
+	                    </script>
+	                    <script type="text/javascript">
+	                    	$("#button").submit(function() {
+	                    		$(this).submit(function () {
+	                    			return false;
+	                    		});
+	                    		return true;
+	                    	});
+	                    </script>
 					</article>
 			
 			</div>

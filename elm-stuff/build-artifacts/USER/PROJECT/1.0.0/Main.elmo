@@ -9,9 +9,28 @@ Elm.Main.make = function (_elm) {
    _U = _N.Utils.make(_elm),
    _L = _N.List.make(_elm),
    $moduleName = "Main",
-   $Graphics$Element = Elm.Graphics.Element.make(_elm);
-   var main = $Graphics$Element.show("this");
+   $Graphics$Collage = Elm.Graphics.Collage.make(_elm),
+   $Signal = Elm.Signal.make(_elm),
+   $Window = Elm.Window.make(_elm);
+   var forms = $Graphics$Collage.group(_L.fromArray([]));
+   var view = function (_v0) {
+      return function () {
+         switch (_v0.ctor)
+         {case "_Tuple2":
+            return A3($Graphics$Collage.collage,
+              _v0._0,
+              _v0._1,
+              _L.fromArray([forms]));}
+         _U.badCase($moduleName,
+         "on line 10, column 14 to 33");
+      }();
+   };
+   var main = A2($Signal.map,
+   view,
+   $Window.dimensions);
    _elm.Main.values = {_op: _op
-                      ,main: main};
+                      ,main: main
+                      ,view: view
+                      ,forms: forms};
    return _elm.Main.values;
 };
