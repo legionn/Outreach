@@ -9,19 +9,20 @@
 		<script type="text/javascript">
 
 			// Page type
-			var Page = function(answer, tutorial, element) {
+			var Page = function(answer, message, tutorial, element) {
 				this.answer = answer;
 				this.tutorial = tutorial;
 				this.element = element
+				this.message = message;
 			}
 
 			// This list holds all of the pages
 			var pages = [
-								  new Page('Start!', 'tutorials/tutorial1.html', '')
-								, new Page('circle 20', 'tutorials/tutorial2.html', 'elements/1.html')
-								, new Page('filled red (circle 20)', 'tutorials/tutorial3.html', 'elements/2.html')
-								, new Page('move (20, 20) (filled red (square 15))', 'tutorials/tutorial4.html', 'elements/3.html')
-								, new Page('group [filled red (circle 15), filled blue (square 20)]', 'tutorials/tutorial5.html', 'elements/4.html')
+								  new Page('Start!', 'Good job! Click "Next" to move on', 'tutorials/tutorial1.html', '')
+								, new Page('circle 20', "Good job! That doesn't really look like a circle though", 'tutorials/tutorial2.html', 'elements/1.html')
+								, new Page('filled red (circle 20)', 'Good Job! That looks more like a circle!', 'tutorials/tutorial3.html', 'elements/2.html')
+								, new Page('move (20, 20) (filled red (square 15))', 'Good Job!', 'tutorials/tutorial4.html', 'elements/3.html')
+								, new Page('group [filled red (circle 15), filled blue (square 20)]', 'Good Job!', 'tutorials/tutorial5.html', 'elements/4.html')
 							  ]
 
 			// currentPage holds the current page
@@ -44,7 +45,7 @@
 			
 			<div class="answer_container">
 				<div>
-					<h2 align="left">Good job! This is what you made:</h2>
+					<h2 id="answer_message" align="left">Good job! This is what you made:</h2>
 					<iframe id="element"></iframe>
 					<form>
 						<input id="btncompare" type="button" value="Next" onclick="updateNext();" />
@@ -67,6 +68,9 @@
 					// Switch to answers
 					$(".quiz_container").hide()
 					$(".answer_container").show()
+
+					// Assign answers_message
+					$("#answer_message").html(currentPage.message)
 				}
 				else {
 					alert('Try again!');
