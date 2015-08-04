@@ -35,8 +35,8 @@
 			<div class="quiz_container">
 				<div>
 					<iframe id="content"></iframe>
-					<form>Type your code below:<br>
-						<input type="text" id="input" name="inputcode">
+					<form onsubmit="return false">Type your code below:<br>
+						<input type="text" id="input" name="inputcode" onkeypress="enter_compare(event)">
 						<input id="btncompare" type="button" value="Try!" onclick="compare();" />
 					</form>
 				</div>
@@ -44,7 +44,7 @@
 			
 			<div class="answer_container">
 				<div>
-					<h2 align="left">What you made:</h2>
+					<h2 align="left">Good job! This is what you made:</h2>
 					<iframe id="element"></iframe>
 					<form>
 						<input id="btncompare" type="button" value="Next" onclick="updateNext();" />
@@ -54,6 +54,11 @@
 
 		</div>
 		<script>
+			function enter_compare (e) {
+				if (e.keyCode == 13 || e.which == 13) {
+					compare()
+				}
+			}
 			function compare() {
 				if (document.getElementById("input").value === window.currentPage.answer) {
 					// Alert correct
@@ -62,7 +67,6 @@
 					// Switch to answers
 					$(".quiz_container").hide()
 					$(".answer_container").show()
-					
 				}
 				else {
 					alert('Try again!');
