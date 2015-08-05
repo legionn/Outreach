@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Start Tutorial</title>
+		<link rel="stylesheet" href="highlight/styles/railscasts.css"><script src="highlight/highlight.pack.js"></script><script>hljs.initHighlightingOnLoad();</script>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script type="text/javascript" id="scrpt" src="tutorial1.js"></script>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script type="text/javascript">
+
+			// Page type
+			var Page = function(answer, message, tutorial, element) {
+				this.answer = answer;
+				this.tutorial = tutorial;
+				this.element = element
+				this.message = message;
+			}
+
+			// This list holds all of the pages
+			var pages = [
+								  new Page(
+									['circle 20']
+									, "Good job! That doesn't really look like a circle though"
+									, 'tutorials/tutorial2.html'
+									, 'elements/1.html'
+									)
+								, new Page(
+									['filled red (circle 20)']
+									, 'Good Job! That looks more like a circle!'
+									, 'tutorials/tutorial3.html'
+									, 'elements/2.html'
+									)
+								, new Page(
+									['move (20, 20) (filled red (square 15))', 'move (20,20) (filled red (square 15))']
+									, 'Good Job!'
+									, 'tutorials/tutorial4.html'
+									, 'elements/3.html'
+									)
+							  ]
+
+			// currentPage holds the current page
+			var currentPage
+
+		</script>
+	</head>
+	<body>
+		<div>
+
+			<div class="quiz_container">
+				<div>
+					<iframe id="content"></iframe>
+					<form onsubmit="return false">Type your code below:<br>
+						<input type="text" id="input" name="inputcode" onkeypress="enter_compare(event)">
+						<input id="btncompare" type="button" value="Try!" onclick="compare();" />
+					</form>
+				</div>
+			</div>
+			
+			<div class="answer_container">
+				<div>
+					<h2 id="answer_message" align="left">Good job! This is what you made:</h2>
+					<iframe id="element"></iframe>
+					<form>
+						<input id="btncompare" type="button" value="Next" onclick="updateNext();" />
+					</form>
+				</div>
+			</div>
+
+		</div>
+		<script>
+			function enter_compare (e) {
+				if (e.keyCode == 13 || e.which == 13) {
+					compare()
+				}
+			}
+			function compare() {
+				if (window.currentPage.answer.indexOf(document.getElementById("input").value.trim()) >= 0) {
+					// Alert correct
+					alert('Good job!');
+
+					// Switch to answers
+					$(".quiz_container").hide()
+					$(".answer_container").show()
+
+					// Assign answers_message
+					$("#answer_message").html(currentPage.message)
+				}
+				else {
+					alert('Try again!');
+				}
+			}
+
+			function updateNext() {
+				if (pages.length > 0) { // Pages in list
+					// Clear the textbox
+					document.getElementById("input").value=""
+					// Switch to questions
+					$(".quiz_container").show()
+					$(".answer_container").hide()
+					// Shift to the next page
+					currentPage = pages.shift()
+					// Change the sources based on the new current page
+					document.getElementById("content").setAttribute("src", window.currentPage.tutorial)
+					document.getElementById("element").setAttribute("src", window.currentPage.element)
+				}
+				else { // Final Page 
+					// Change the sources to the final content
+					document.getElementById("content").setAttribute("src", "tutorials/final.html")
+					document.getElementById("element").setAttribute("src", "")
+					// Hide the inputs
+					$(".quiz_container").show()
+					$(".answer_container").hide()
+					$("form").hide()
+				}
+			}
+		</script>
+		<script type="text/javascript">updateNext()</script>
+	</body>
+</html>
