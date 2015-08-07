@@ -1,0 +1,85 @@
+Elm.Model = Elm.Model || {};
+Elm.Model.make = function (_elm) {
+   "use strict";
+   _elm.Model = _elm.Model || {};
+   if (_elm.Model.values)
+   return _elm.Model.values;
+   var _op = {},
+   _N = Elm.Native,
+   _U = _N.Utils.make(_elm),
+   _L = _N.List.make(_elm),
+   $moduleName = "Model";
+   var MUSC = {ctor: "MUSC"};
+   var TSH = {ctor: "TSH"};
+   var ETB = {ctor: "ETB"};
+   var ITB = {ctor: "ITB"};
+   var BSB = {ctor: "BSB"};
+   var Siver = {ctor: "Siver"};
+   var Gold = {ctor: "Gold"};
+   var Diamond = {ctor: "Diamond"};
+   var Bone = {ctor: "Bone"};
+   var Wood = {ctor: "Wood"};
+   var NoImage = {ctor: "NoImage"};
+   var MyImage = function (a) {
+      return {ctor: "MyImage"
+             ,_0: a};
+   };
+   var NoMessage = {ctor: "NoMessage"};
+   var MyMessage = function (a) {
+      return {ctor: "MyMessage"
+             ,_0: a};
+   };
+   var NoKey = {ctor: "NoKey"};
+   var MyKey = function (a) {
+      return {ctor: "MyKey",_0: a};
+   };
+   var NoPlaceName = {ctor: "NoPlaceName"};
+   var MyPlaceName = function (a) {
+      return {ctor: "MyPlaceName"
+             ,_0: a};
+   };
+   var GameState = F3(function (a,
+   b,
+   c) {
+      return {_: {}
+             ,curPlace: b
+             ,keys: c
+             ,places: a};
+   });
+   var MyPlace = F6(function (a,
+   b,
+   c,
+   d,
+   e,
+   f) {
+      return {ctor: "MyPlace"
+             ,_0: a
+             ,_1: b
+             ,_2: c
+             ,_3: d
+             ,_4: e
+             ,_5: f};
+   });
+   _elm.Model.values = {_op: _op
+                       ,MyPlace: MyPlace
+                       ,GameState: GameState
+                       ,MyPlaceName: MyPlaceName
+                       ,NoPlaceName: NoPlaceName
+                       ,MyKey: MyKey
+                       ,NoKey: NoKey
+                       ,MyMessage: MyMessage
+                       ,NoMessage: NoMessage
+                       ,MyImage: MyImage
+                       ,NoImage: NoImage
+                       ,Wood: Wood
+                       ,Bone: Bone
+                       ,Diamond: Diamond
+                       ,Gold: Gold
+                       ,Siver: Siver
+                       ,BSB: BSB
+                       ,ITB: ITB
+                       ,ETB: ETB
+                       ,TSH: TSH
+                       ,MUSC: MUSC};
+   return _elm.Model.values;
+};
